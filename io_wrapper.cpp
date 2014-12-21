@@ -51,7 +51,12 @@ namespace str{
     std::string read(int fd, int count){
         char* buf = new char [count+1];
         int r_size = ::read(fd, buf, count);
-        std::string read_str(buf, r_size);
+
+        std::string read_str;
+        if( r_size ){
+            read_str = std::string(buf, r_size);
+        }
+
         delete [] buf;
         return read_str;
     }
