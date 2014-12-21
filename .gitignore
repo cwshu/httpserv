@@ -1,4 +1,6 @@
 # vim swap
 .*.sw*
-# object file
+
+# build things
 *.o
+build/

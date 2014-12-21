@@ -1,8 +1,18 @@
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include <map>
+
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+
+#include "socket.h"
+#include "io_wrapper.h"
 
 class request{
 public:
@@ -48,11 +58,56 @@ int main(int argc, char *argv[]){
         }
     }
 
+    /*
     for( const auto& req: all_requests ){
         std::cout << req.host << std::endl;   
         std::cout << req.port << std::endl;   
         std::cout << req.batch_file << std::endl;   
+    }*/
+    
+    /* part3 */
+    /* connect server */
+    auto req = all_requests[0];
+    socketfd_t request_socket = socket(AF_INET, SOCK_STREAM, 0);
+    if( request_socket < 0 )
+        perror_and_exit("create socket error");
+    if( socket_connect(request_socket, req.host.c_str(), req.port) < 0 )
+        perror_and_exit("connect error");
+
+    /* open batch_file */
+    std::fstream batch_file;
+    batch_file.open(req.batch_file, std::fstream::in | std::fstream::binary);
+    if( !batch_file ){
+        perror_and_exit("open batch_file error");
     }
+
+    /* read from batch file and write to request server */
+    batch_file.seekg(0, batch_file.end);
+    int file_size = batch_file.tellg();
+    batch_file.seekg(0, batch_file.beg);
+
+    while( file_size > 0 ){
+        char buf[1024];
+        int r_size;
+        r_size = (file_size > 1024) ? 1024 : file_size;
+        file_size -= r_size;
+        std::cout << "r_size: " << r_size << std::endl;
+
+        batch_file.read(buf, r_size);
+        int w_size = write_all(request_socket, buf, r_size);   
+        if( w_size < 0 ){
+            perror_and_exit("write error");
+        }
+    }
+
+    /* recieve msg from server and print out */
+    std::string msg;
+    while( 1 ){
+        msg = str::read(request_socket, 1024);
+        if( msg.empty() ) break;
+        std::cout << msg;
+    }
+    
     return 0;
 }
 
