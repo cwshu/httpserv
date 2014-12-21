@@ -5,7 +5,7 @@ CXXFLAGS = -std=c++11 -g
 
 PREFIX = ./build/
 EXE = request_server.cgi
-OBJS = request_server_cgi.o socket.o io_wrapper.o
+OBJS = request_server_cgi.o socket.o io_wrapper.o httplib.o
 
 EXE_PATH = $(addprefix $(PREFIX), $(EXE))
 OBJS_PATH = $(addprefix $(PREFIX), $(OBJS))

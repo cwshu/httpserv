@@ -13,6 +13,7 @@
 
 #include "socket.h"
 #include "io_wrapper.h"
+#include "httplib.h"
 
 class request{
 public:
@@ -29,6 +30,49 @@ public:
 
 namespace cgi{
     std::map<std::string, std::string> http_get_parameters();
+}
+
+void print_html_before_content(const std::vector<request>& all_requests){
+    int request_num = all_requests.size();
+
+    std::string output;
+    output += "<html>";
+    output += "<head>";
+    output += "    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=big5\" />";
+    output += "    <title>Network Programming Homework 3</title>";
+    output += "</head>";
+    output += "<body bgcolor=#336699>";
+    output += "    <font face=\"Courier New\" size=2 color=#FFFF99>";
+    output += "        <table width=\"800\" border=\"1\">";
+    output += "            <tr>";
+
+    for( int i = 0; i < request_num; i++ ){
+         output += "<td>" + all_requests[i].host + "</td>";
+    }
+
+    output += "            </tr>";
+    output += "            <tr>";
+
+    for( int i = 0; i < request_num; i++ ){
+         output += "<td valign=\"top\" id=\"m" + std::to_string(i) + "\"></td>";
+    }
+
+    output += "            </tr>";
+    output += "        </table>";
+    output += "    </font>";
+
+    std::cout << output;
+}
+
+void print_html_content(int id, std::string msg){
+    std::cout << "<script>document.all['m" + std::to_string(id) + "'].innerHTML += '" + msg + "';</script>";
+}
+
+void print_html_after_content(){
+    std::string output;
+    output += "</body>"; 
+    output += "</html>"; 
+    std::cout << output;
 }
 
 int main(int argc, char *argv[]){
@@ -91,7 +135,7 @@ int main(int argc, char *argv[]){
         int r_size;
         r_size = (file_size > 1024) ? 1024 : file_size;
         file_size -= r_size;
-        std::cout << "r_size: " << r_size << std::endl;
+        // std::cout << "r_size: " << r_size << std::endl;
 
         batch_file.read(buf, r_size);
         int w_size = write_all(request_socket, buf, r_size);   
@@ -101,12 +145,15 @@ int main(int argc, char *argv[]){
     }
 
     /* recieve msg from server and print out */
+    print_html_before_content(all_requests);
     std::string msg;
     while( 1 ){
         msg = str::read(request_socket, 1024);
         if( msg.empty() ) break;
-        std::cout << msg;
+        nl2br(msg);
+        print_html_content(0, msg);
     }
+    print_html_after_content();
     
     return 0;
 }
