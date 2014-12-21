@@ -1,0 +1,4 @@
+# vim swap
+.*.sw*
+# object file
+*.o
