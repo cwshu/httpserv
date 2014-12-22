@@ -51,6 +51,9 @@ namespace str{
     std::string read(int fd, int count){
         char* buf = new char [count+1];
         int r_size = ::read(fd, buf, count);
+        if( r_size < 0 ){
+            perror("read error");
+        }
 
         std::string read_str;
         if( r_size ){
