@@ -43,6 +43,7 @@ namespace cgi{
     std::map<std::string, std::string> http_get_parameters();
 }
 
+void print_http_header();
 void print_html_before_content(const std::vector<Request>& all_requests);
 void print_html_content(int id, std::string msg);
 void print_html_after_content();
@@ -138,6 +139,7 @@ int main(int argc, char *argv[]){
 
     err_log << "request_num start:" << request_num << std::endl;
 
+    print_http_header();
     print_html_before_content(all_requests);
 
     while( request_num > 0 ){
@@ -299,6 +301,11 @@ namespace cgi{
         return query_parameters;
     }
 
+}
+
+void print_http_header(){
+    std::cout << "Content-Type: text/html\r\n";
+    std::cout << "\r\n";
 }
 
 void print_html_before_content(const std::vector<Request>& all_requests){
