@@ -108,6 +108,8 @@ public:
             print_html_content(id, "<b>" + command + "</b>");
             return true;
         }
+        batch_file_stream.close();
+        is_batch_file_open = false;
         return false;
     }
 
@@ -215,30 +217,19 @@ int main(int argc, char *argv[]){
         }
     }
     max_fd += 1;
-    memcpy(&write_fds, &read_fds, sizeof(fd_set));
 
     print_html_before_content(all_requests);
 
     while( request_num > 0 ){
         // std::cerr << "\nSELECT return: " << s_ret << std::endl;
         fd_set select_read_fds = read_fds;
-        fd_set select_write_fds = write_fds;
 
         int s_ret = 0;
-        s_ret = select(max_fd, &select_read_fds, &select_write_fds, NULL, NULL);
+        s_ret = select(max_fd, &select_read_fds, NULL, NULL, NULL);
         if( s_ret < 0 )
             perror_and_exit("select error");
 
         for( auto& req: all_requests ){
-            if( FD_ISSET(req.server_fd, &select_write_fds) ){
-                // std::cerr << "fd " << req.server_fd << " can be written\n";
-
-                int success = req.send_batch_file_data_to_server_once();
-                if( !success ){
-                    FD_CLR(req.server_fd, &write_fds);
-                }
-            }
-
             if( FD_ISSET(req.server_fd, &select_read_fds) ){
                 // std::cerr << "fd " << req.server_fd << " can be read\n";
 
@@ -256,6 +247,9 @@ int main(int argc, char *argv[]){
                 // std::cerr << "msg: " << msg << std::endl;
                 nl2br(msg);
                 print_html_content(req.id, msg);
+
+                // write to socket.
+                req.send_batch_file_data_to_server_once();
             }
         }
     }
