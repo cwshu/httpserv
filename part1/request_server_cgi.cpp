@@ -19,9 +19,7 @@
 #include "io_wrapper.h"
 #include "httplib.h"
 
-void print_html_content(int id, std::string msg);
-
-class request{
+class Request{
 public:
     std::string host;
     int port;
@@ -33,100 +31,20 @@ public:
     bool is_batch_file_open;
     std::fstream batch_file_stream;
 
-    request(const std::string& host, int port, const std::string& batch_file, int id){
-        this->host = host;
-        this->port = port;
-        this->batch_file = batch_file;
-        this->id = id;
-        is_server_connect = false;
-        is_batch_file_open = false;
-    }
-
-    request(const request& copy){
-        host = copy.host;
-        port = copy.port;
-        batch_file = copy.batch_file;
-        id = copy.id;
-        is_server_connect = false;
-        is_batch_file_open = false;
-    }
-
-    void connect_server(bool is_nonblocking){
-        /* connect server */
-        server_fd = socket(AF_INET, SOCK_STREAM, 0);
-        if( server_fd < 0 )
-            perror_and_exit("create socket error");
-        if( socket_connect(server_fd, host.c_str(), port) < 0 )
-            perror_and_exit(("connect to " + host + ":" + std::to_string(port) + " error").c_str());
-        is_server_connect = true;
-
-        if( is_nonblocking ){
-            int flags = fcntl(server_fd, F_GETFL, 0);
-            fcntl(server_fd, F_SETFL, flags | O_NONBLOCK);
-        }
-    }
-
-    void open_batch_file(){
-        /* open batch_file */
-        batch_file_stream.open(batch_file, std::fstream::in);
-        if( !batch_file_stream ){
-            perror_and_exit(("open batch_file " + batch_file + " error").c_str());
-        }
-
-        is_batch_file_open = true;
-    }
-
-#if 0
-    void send_batch_file_data_to_server(){
-        if( !is_batch_file_open )
-            return;
-        if( !is_server_connect )
-            return;
-
-        /* read from batch file and write to request server */
-        while( send_batch_file_data_to_server_once() );
-
-        shutdown(server_fd, 1); // closing to write;
-        // close(server_fd);
-    }
-#endif
-
-    bool send_batch_file_data_to_server_once(){
-        if( !is_batch_file_open )
-            return false;
-        if( !is_server_connect )
-            return false;
-        
-        std::string command;
-        if( std::getline(batch_file_stream, command) ){
-            command += "\n";
-            int w_size = write_all(server_fd, command.c_str(), command.length());   
-            if( w_size < 0 ){
-                perror_and_exit("write error");
-            }
-            nl2br(command);
-            print_html_content(id, "<b>" + command + "</b>");
-            return true;
-        }
-        batch_file_stream.close();
-        is_batch_file_open = false;
-        return false;
-    }
-
-    std::string read_server_response(int count, bool is_nonblocking){
-        if( !is_server_connect )
-            return "";
-
-        std::string msg = str::read(server_fd, count, is_nonblocking);
-        return msg;
-    }
+    Request(const std::string& host, int port, const std::string& batch_file, int id);
+    Request(const Request& copy);
+    void connect_server(bool is_nonblocking);
+    void open_batch_file();
+    bool send_batch_file_data_to_server_once();
+    std::string read_server_response(int count, bool is_nonblocking);
 };
 
 namespace cgi{
     std::map<std::string, std::string> http_get_parameters();
 }
 
-void print_html_before_content(const std::vector<request>& all_requests);
+void print_html_before_content(const std::vector<Request>& all_requests);
+void print_html_content(int id, std::string msg);
 void print_html_after_content();
 
 int main(int argc, char *argv[]){
@@ -142,7 +60,7 @@ int main(int argc, char *argv[]){
     std::map<std::string, std::string> query_parameters;
     query_parameters = cgi::http_get_parameters();
 
-    std::vector<request> all_requests;
+    std::vector<Request> all_requests;
     for( int i = 1; i <= 5; i++ ){
         std::string host_name = "h" + std::to_string(i);
         std::string port_name = "p" + std::to_string(i);
@@ -165,14 +83,14 @@ int main(int argc, char *argv[]){
     }
 
     /* part3 */
-    /* initialization of every request 
+    /* initialization of every Request 
      * 1. make an connection
      * 2. open batch_file
      */
 
 #if 0
     // single connection
-    request req = all_requests[0];
+    Request req = all_requests[0];
 
     req.connect_server(false);
     req.open_batch_file();
@@ -218,33 +136,42 @@ int main(int argc, char *argv[]){
     }
     max_fd += 1;
 
+    err_log << "request_num start:" << request_num << std::endl;
+
     print_html_before_content(all_requests);
 
     while( request_num > 0 ){
-        // std::cerr << "\nSELECT return: " << s_ret << std::endl;
         fd_set select_read_fds = read_fds;
-
         int s_ret = 0;
         s_ret = select(max_fd, &select_read_fds, NULL, NULL, NULL);
+
+        err_log << "\nSELECT return: " << s_ret << std::endl;
+        err_log << "request_num:" << request_num << std::endl;
+
         if( s_ret < 0 )
             perror_and_exit("select error");
 
         for( auto& req: all_requests ){
             if( FD_ISSET(req.server_fd, &select_read_fds) ){
-                // std::cerr << "fd " << req.server_fd << " can be read\n";
+
+                err_log << "fd " << req.server_fd << " can be read\n";
 
                 std::string msg;
                 msg = req.read_server_response(1024, true);
+
+                err_log << "msg: " << msg << "\n";
+
                 if( msg.empty() ){
                     /* this server has no response */
-                    // std::cerr << "\nFD_CLR: " << req.port << std::endl;
+                    err_log << "FD_CLR: " << req.port << std::endl;
                     FD_CLR(req.server_fd, &read_fds);
+                    err_log << "FD_CLR finish: " << req.port << std::endl;
                     close(req.server_fd);
                     req.is_server_connect = false;
                     request_num--;
+                    err_log << "request_num after clear:" << request_num << std::endl;
                     continue;
                 }
-                // std::cerr << "msg: " << msg << std::endl;
                 nl2br(msg);
                 print_html_content(req.id, msg);
 
@@ -253,16 +180,91 @@ int main(int argc, char *argv[]){
             }
         }
     }
-    // std::err << "\nSELECT return: " << s_ret << std::endl;
 
+    err_log << "end of requests\n";
     print_html_after_content();
+    err_log << "print_html_after_content() finish\n";
 
     err_log.close();
     return 0;
 }
 
+/* class Request */
+Request::Request(const std::string& host, int port, const std::string& batch_file, int id){
+    this->host = host;
+    this->port = port;
+    this->batch_file = batch_file;
+    this->id = id;
+    is_server_connect = false;
+    is_batch_file_open = false;
+}
+
+Request::Request(const Request& copy){
+    host = copy.host;
+    port = copy.port;
+    batch_file = copy.batch_file;
+    id = copy.id;
+    is_server_connect = false;
+    is_batch_file_open = false;
+}
+
+void Request::connect_server(bool is_nonblocking){
+    /* connect server */
+    server_fd = socket(AF_INET, SOCK_STREAM, 0);
+    if( server_fd < 0 )
+        perror_and_exit("create socket error");
+    if( socket_connect(server_fd, host.c_str(), port) < 0 )
+        perror_and_exit(("connect to " + host + ":" + std::to_string(port) + " error").c_str());
+    is_server_connect = true;
+
+    if( is_nonblocking ){
+        int flags = fcntl(server_fd, F_GETFL, 0);
+        fcntl(server_fd, F_SETFL, flags | O_NONBLOCK);
+    }
+}
+
+void Request::open_batch_file(){
+    /* open batch_file */
+    batch_file_stream.open(batch_file, std::fstream::in);
+    if( !batch_file_stream ){
+        perror_and_exit(("open batch_file " + batch_file + " error").c_str());
+    }
+
+    is_batch_file_open = true;
+}
+
+bool Request::send_batch_file_data_to_server_once(){
+    if( !is_batch_file_open )
+        return false;
+    if( !is_server_connect )
+        return false;
+    
+    std::string command;
+    if( std::getline(batch_file_stream, command) ){
+        command += "\n";
+        int w_size = write_all(server_fd, command.c_str(), command.length());   
+        if( w_size < 0 ){
+            perror_and_exit("write error");
+        }
+        nl2br(command);
+        print_html_content(id, "<b>" + command + "</b>");
+        return true;
+    }
+    batch_file_stream.close();
+    is_batch_file_open = false;
+    return false;
+}
+
+std::string Request::read_server_response(int count, bool is_nonblocking){
+    if( !is_server_connect )
+        return "";
+
+    std::string msg = str::read(server_fd, count, is_nonblocking);
+    return msg;
+}
+
 namespace cgi{
-    /* cgi */
+    /* cgi-related api */
     std::map<std::string, std::string> http_get_parameters(){
         std::string query_string = getenv("QUERY_STRING");
         std::vector<std::string> parameter_vector;
@@ -299,7 +301,7 @@ namespace cgi{
 
 }
 
-void print_html_before_content(const std::vector<request>& all_requests){
+void print_html_before_content(const std::vector<Request>& all_requests){
     int request_num = all_requests.size();
 
     std::string output;
