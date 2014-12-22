@@ -20,8 +20,9 @@ cgi_env = {
 
 for k, v in cgi_env.items():
     os.environ[k] = v
+# os.environ['QUERY_STRING'] = '127.0.0.1&52000'
 
 # pprint(dict(os.environ))
 
-sp.call(['./cgi_test.py'])
+sp.call(['newclient.cgi'])
 

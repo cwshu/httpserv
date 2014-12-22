@@ -18,8 +18,6 @@ exit 1 if($ENV{QUERY_STRING} eq "");
 $host =~ s/^host=//;
 $port =~ s/^port=//;
 
-print $host
-print $port
 my $sock = IO::Socket::INET->new("$host:$port");
 
 print "\n\nls:\n";
