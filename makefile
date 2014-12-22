@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -std=c99 -g
-CXX = clang++
+CXX = g++
 CXXFLAGS = -std=c++11 -g
 
 PREFIX = ./build/

@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 
+#include <cerrno>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netinet/in.h>
@@ -34,6 +35,16 @@ public:
         this->port = port;
         this->batch_file = batch_file;
         this->id = id;
+        is_server_connect = false;
+        is_batch_file_open = false;
+        rest_file_size = -1;
+    }
+
+    request(const request& copy){
+        host = copy.host;
+        port = copy.port;
+        batch_file = copy.batch_file;
+        id = copy.id;
         is_server_connect = false;
         is_batch_file_open = false;
         rest_file_size = -1;
@@ -72,6 +83,9 @@ public:
         while( rest_file_size > 0 ){
             send_batch_file_data_to_server_once();
         }
+
+        shutdown(server_fd, 1); // closing to write;
+        // close(server_fd);
     }
 
     void send_batch_file_data_to_server_once(){
@@ -144,8 +158,9 @@ int main(int argc, char *argv[]){
         std::cout << req.host << std::endl;   
         std::cout << req.port << std::endl;   
         std::cout << req.batch_file << std::endl;   
-    }*/
-    
+    }
+    */
+
     /* part3 */
     /* initialization of every request 
      * 1. make an connection
@@ -158,6 +173,8 @@ int main(int argc, char *argv[]){
     for( auto& req: all_requests ){
         req.send_batch_file_data_to_server();
     }
+
+    // std::cout << "send out\n";
 
     /* recieve msg from server and print out */
     fd_set read_fds;
@@ -175,22 +192,29 @@ int main(int argc, char *argv[]){
 
     print_html_before_content(all_requests);
 
-    while( select(max_fd, &read_fds, NULL, NULL, NULL) > 0 ){
+    int s_ret = 0;
+    while( (s_ret = select(max_fd, &read_fds, NULL, NULL, NULL)) > 0 ){
+        // std::cout << "\nSELECT return: " << s_ret << std::endl;
+
         for( auto& req: all_requests ){
             if( FD_ISSET(req.server_fd, &read_fds) ){
                 std::string msg;
                 msg = req.read_server_response(1024);
                 if( msg.empty() ){
                     /* this server has no response */
+                    // std::cout << "\nFD_CLR: " << req.port << std::endl;
                     FD_CLR(req.server_fd, &read_fds);
+                    close(req.server_fd);
                     req.is_server_connect = false;
                     continue;
                 }
+                // std::cout << "msg: " << msg << std::endl;
                 nl2br(msg);
                 print_html_content(req.id, msg);
             }
         }
     }
+    // std::cout << "\nSELECT return: " << s_ret << std::endl;
 
     print_html_after_content();
     
