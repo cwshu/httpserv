@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <string>
 
+#include <errno.h>
 #include <unistd.h>
 
 #include "io_wrapper.h"
@@ -48,11 +49,25 @@ int write_all(int fd, const void* buf, size_t count){
 
 namespace str{
     /* str */ 
-    std::string read(int fd, int count){
+    std::string read(int fd, int count, bool is_nonblocking){
+
         char* buf = new char [count+1];
-        int r_size = ::read(fd, buf, count);
-        if( r_size < 0 ){
-            perror("read error");
+        int r_size;
+        while( 1 ){
+            r_size = ::read(fd, buf, count);
+            if( r_size < 0 ){
+                if( is_nonblocking )
+                    if( errno == EAGAIN || errno == EWOULDBLOCK )
+                        continue;
+
+                if( errno == ECONNRESET ){
+                    perror("read error");
+                    return "";
+                }
+
+                perror_and_exit("read error");
+            }
+            break;
         }
 
         std::string read_str;

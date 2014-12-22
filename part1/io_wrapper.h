@@ -8,7 +8,7 @@ void error_print_and_exit(const char* format ... );
 int write_all(int fd, const void* buf, size_t count);
 
 namespace str{
-    std::string read(int fd, int count);
+    std::string read(int fd, int count, bool is_nonblocking);
 }
 
 #endif

@@ -6,7 +6,7 @@
 #include <map>
 #include <cstring>
 
-#include <cerrno>
+#include <errno.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netinet/in.h>
@@ -113,11 +113,11 @@ public:
         return false;
     }
 
-    std::string read_server_response(int count){
+    std::string read_server_response(int count, bool is_nonblocking){
         if( !is_server_connect )
             return "";
 
-        std::string msg = str::read(server_fd, count);
+        std::string msg = str::read(server_fd, count, is_nonblocking);
         return msg;
     }
 };
@@ -183,7 +183,7 @@ int main(int argc, char *argv[]){
     while( 1 ){
         // req.send_batch_file_data_to_server_once();
         std::string msg;
-        msg = req.read_server_response(1024);
+        msg = req.read_server_response(1024, false);
         if( msg.empty() ){
             close(req.server_fd);
             break;
@@ -234,7 +234,7 @@ int main(int argc, char *argv[]){
                 // std::cerr << "fd " << req.server_fd << " can be read\n";
 
                 std::string msg;
-                msg = req.read_server_response(1024);
+                msg = req.read_server_response(1024, true);
                 if( msg.empty() ){
                     /* this server has no response */
                     // std::cerr << "\nFD_CLR: " << req.port << std::endl;
