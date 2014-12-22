@@ -23,9 +23,9 @@ for k, v in cgi_env.items():
 # os.environ['QUERY_STRING'] = '127.0.0.1&52000'
 os.environ['QUERY_STRING'] = 'h1=127.0.0.1&p1=52000&f1=t1.txt'
 os.environ['QUERY_STRING'] += '&h2=127.0.0.1&p2=52001&f2=t2.txt'
-os.environ['QUERY_STRING'] += '&h3=&p3=&f3='
-os.environ['QUERY_STRING'] += '&h4=&p4=&f4='
-os.environ['QUERY_STRING'] += '&h5=&p5=&f5='
+os.environ['QUERY_STRING'] += '&h3=127.0.0.1&p3=52002&f3=t3.txt'
+os.environ['QUERY_STRING'] += '&h4=127.0.0.1&p4=52003&f4=t3.txt'
+# os.environ['QUERY_STRING'] += '&h5=127.0.0.1&p5=52004&f5=t5.txt'
 
 # pprint(dict(os.environ))
 
