@@ -50,13 +50,15 @@ namespace http{
         this->status_code = status_code;
     }
 
-    std::string HTTPResponse::render_response_metadata(){
+    std::string HTTPResponse::render_response_metadata(bool is_end_of_header){
         std::string response;
         response = version + std::string(" ");
         response += std::to_string(status_code) + std::string(" ") + status_code_to_msg[status_code];
         response += HTTP_NEWLINE;
         response += render_response_header();
-        response += HTTP_NEWLINE;
+        if( is_end_of_header ){
+            response += HTTP_NEWLINE;
+        }
         return response;
     }
 

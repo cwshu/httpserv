@@ -47,7 +47,7 @@ namespace http{
 
         HTTPResponse();
         HTTPResponse(std::string version, int status_code);
-        std::string render_response_metadata();
+        std::string render_response_metadata(bool is_end_of_header);
         std::string render_response_header();
     };
 }
