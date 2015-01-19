@@ -71,7 +71,7 @@ void httpd_service(socketfd_t client_socket, SocketAddr& client_addr){
     // check file exist
     if( access(client_request.path.c_str(), F_OK) == -1 ){
         error_log << client_addr.to_str() << " => " << client_request.path << " not found" << std::endl;
-        std::string response = http::HTTPResponse(client_request.version, 404).render_response_metadata();
+        std::string response = http::HTTPResponse(client_request.version, 404).render_response_metadata(true);
         write_all(client_socket, response.c_str(), response.length());
         return;
     }
@@ -166,13 +166,13 @@ void static_content_handler(http::HTTPRequest& client_request, socketfd_t client
     if( access(client_request.path.c_str(), R_OK) == -1 ){
         // can't read html file
         error_log << client_addr.to_str() << " => can't read " << client_request.path << std::endl;
-        std::string response = http::HTTPResponse(client_request.version, 500).render_response_metadata();
+        std::string response = http::HTTPResponse(client_request.version, 500).render_response_metadata(true);
         write_all(client_socket, response.c_str(), response.length());
         return;
     }
 
     // write response metadata
-    std::string response = http::HTTPResponse(client_request.version, 200).render_response_metadata();
+    std::string response = http::HTTPResponse(client_request.version, 200).render_response_metadata(true);
     write_all(client_socket, response.c_str(), response.length());
     // write data (html.file)
     int html_fd = open(client_request.path.c_str(), O_RDONLY);
@@ -191,14 +191,14 @@ void cgi_handler(http::HTTPRequest& client_request, socketfd_t client_socket, So
     if( access(client_request.path.c_str(), X_OK) == -1 ){
         // can't read html file
         error_log << client_addr.to_str() << "=> can't execute " << client_request.path << std::endl;
-        std::string response = http::HTTPResponse(client_request.version, 500).render_response_metadata();
+        std::string response = http::HTTPResponse(client_request.version, 500).render_response_metadata(true);
         write_all(client_socket, response.c_str(), response.length());
         return;
     }
 
     // write response metadata
     http::HTTPResponse response = http::HTTPResponse(client_request.version, 200);
-    std::string response_str = response.render_response_metadata();
+    std::string response_str = response.render_response_metadata(false);
     write_all(client_socket, response_str.c_str(), response_str.length());
 
     // run cgi and write response data
@@ -207,8 +207,17 @@ void cgi_handler(http::HTTPRequest& client_request, socketfd_t client_socket, So
         // redirect
         dup2(client_socket, 1);
         // env
+        clearenv();
         setenv("QUERY_STRING", client_request.get_parameter_unparse.c_str(), 1);
+        setenv("REQUEST_METHOD", http_request_method_to_str(client_request.method).c_str(), 1);
+        setenv("SCRIPT_NAME", client_request.path.c_str(), 1);
+        setenv("REMOTE_HOST", client_addr.ipv4_addr_str.c_str(), 1);
         setenv("REMOTE_ADDR", client_addr.ipv4_addr_str.c_str(), 1);
+        // who cares
+        setenv("CONTENT_LENGTH", "1024", 1);
+        setenv("AUTH_TYPE", "1024", 1);
+        setenv("REMOTE_USER", "1024", 1);
+        setenv("REMOTE_IDENT", "1024", 1);
         // exec
         std::size_t found = client_request.path.find_last_of("/");
         std::string filename;
