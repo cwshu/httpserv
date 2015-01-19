@@ -21,8 +21,7 @@
 
 class Request{
 public:
-    std::string host;
-    int port;
+    SocketAddr addr;
     std::string batch_file;
     int id;
 
@@ -70,7 +69,7 @@ int main(int argc, char *argv[]){
             std::string host = query_parameters[host_name];
             int port = std::stoi(query_parameters[port_name]);
             std::string batch_file = query_parameters[batch_file_name];
-            
+
             all_requests.emplace_back(host, port, batch_file, all_requests.size());
         }
     }
@@ -78,13 +77,13 @@ int main(int argc, char *argv[]){
     std::fstream err_log;
     err_log.open("cgi_error.log", std::fstream::out);
     for( const auto& req: all_requests ){
-        err_log << req.host << std::endl;   
-        err_log << req.port << std::endl;   
-        err_log << req.batch_file << std::endl;   
+        err_log << req.addr.ipv4_addr_str << std::endl;
+        err_log << req.addr.port_hbytes << std::endl;
+        err_log << req.batch_file << std::endl;
     }
 
     /* part3 */
-    /* initialization of every Request 
+    /* initialization of every Request
      * 1. make an connection
      * 2. open batch_file
      */
@@ -113,7 +112,7 @@ int main(int argc, char *argv[]){
 
     print_html_after_content();
 #endif
-    
+
     int request_num = all_requests.size();
 
     for( auto& req: all_requests ){
@@ -165,9 +164,9 @@ int main(int argc, char *argv[]){
 
                 if( msg.empty() ){
                     /* this server has no response */
-                    err_log << "FD_CLR: " << req.port << std::endl;
+                    err_log << "FD_CLR: " << req.addr.ipv4_addr_str << std::endl;
                     FD_CLR(req.server_fd, &read_fds);
-                    err_log << "FD_CLR finish: " << req.port << std::endl;
+                    err_log << "FD_CLR finish: " << req.addr.port_hbytes << std::endl;
                     close(req.server_fd);
                     req.is_server_connect = false;
                     request_num--;
@@ -193,8 +192,7 @@ int main(int argc, char *argv[]){
 
 /* class Request */
 Request::Request(const std::string& host, int port, const std::string& batch_file, int id){
-    this->host = host;
-    this->port = port;
+    this->addr = SocketAddr(host, port);
     this->batch_file = batch_file;
     this->id = id;
     is_server_connect = false;
@@ -202,8 +200,7 @@ Request::Request(const std::string& host, int port, const std::string& batch_fil
 }
 
 Request::Request(const Request& copy){
-    host = copy.host;
-    port = copy.port;
+    this->addr = copy.addr;
     batch_file = copy.batch_file;
     id = copy.id;
     is_server_connect = false;
@@ -215,8 +212,8 @@ void Request::connect_server(bool is_nonblocking){
     server_fd = socket(AF_INET, SOCK_STREAM, 0);
     if( server_fd < 0 )
         perror_and_exit("create socket error");
-    if( socket_connect(server_fd, host.c_str(), port) < 0 )
-        perror_and_exit(("connect to " + host + ":" + std::to_string(port) + " error").c_str());
+    if( socket_connect(server_fd, addr) < 0 )
+        perror_and_exit(("connect to " + addr.ipv4_addr_str + ":" + std::to_string(addr.port_hbytes) + " error").c_str());
     is_server_connect = true;
 
     if( is_nonblocking ){
@@ -240,11 +237,11 @@ bool Request::send_batch_file_data_to_server_once(){
         return false;
     if( !is_server_connect )
         return false;
-    
+
     std::string command;
     if( std::getline(batch_file_stream, command) ){
         command += "\n";
-        int w_size = write_all(server_fd, command.c_str(), command.length());   
+        int w_size = write_all(server_fd, command.c_str(), command.length());
         if( w_size < 0 ){
             perror_and_exit("write error");
         }
@@ -297,7 +294,7 @@ namespace cgi{
 
             query_parameters[key] = value;
         }
-        
+
         return query_parameters;
     }
 
@@ -323,7 +320,7 @@ void print_html_before_content(const std::vector<Request>& all_requests){
     output += "            <tr>";
 
     for( int i = 0; i < request_num; i++ ){
-         output += "<td>" + all_requests[i].host + "</td>";
+         output += "<td>" + all_requests[i].addr.ipv4_addr_str + "</td>";
     }
 
     output += "            </tr>";
@@ -346,8 +343,8 @@ void print_html_content(int id, std::string msg){
 
 void print_html_after_content(){
     std::string output;
-    output += "</body>"; 
-    output += "</html>"; 
+    output += "</body>";
+    output += "</html>";
     std::cout << output;
 }
 

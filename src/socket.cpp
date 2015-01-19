@@ -21,6 +21,11 @@ SocketAddr::SocketAddr(const char *ipv4_addr_str, uint16_t port_hbytes){
     this->port_hbytes = port_hbytes;
 }
 
+SocketAddr::SocketAddr(std::string ipv4_addr_str, uint16_t port_hbytes){
+    this->ipv4_addr_str = std::string(ipv4_addr_str);
+    this->port_hbytes = port_hbytes;
+}
+
 void SocketAddr::set_sockaddr(uint32_t ipv4_nbytes, uint16_t port_nbytes){
     struct sockaddr_in sock_addr;
     memset(&sock_addr, 0, sizeof(struct sockaddr_in));
