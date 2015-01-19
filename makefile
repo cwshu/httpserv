@@ -15,7 +15,7 @@ PART2_SRC_DIR = ./part2
 PART1_EXE = request_server.cgi
 PART2_EXE = httpd
 PART1_OBJS = request_server_cgi.o socket.o io_wrapper.o httplib.o
-PART2_OBJS = httpd.o io_wrapper.o server_arch.o socket.o
+PART2_OBJS = httpd.o io_wrapper.o server_arch.o socket.o string_more.o
 
 # exe, objs with path
 PART1_EXE_PATH_TEST = $(addprefix $(TEST_PREFIX)/, $(PART1_EXE))

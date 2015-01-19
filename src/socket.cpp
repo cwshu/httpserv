@@ -44,6 +44,10 @@ void SocketAddr::get_sockaddr(uint32_t* ipv4_nbytes, uint16_t* port_nbytes){
     *port_nbytes = sock_addr.sin_port;
 }
 
+std::string SocketAddr::to_str(){
+    return ipv4_addr_str + string(":") + std::to_string(port_hbytes);
+}
+
 void SocketAddr::to_sockaddr_in(struct sockaddr_in& ret_addr){
     memset(&ret_addr, 0, sizeof(struct sockaddr_in));
     ret_addr.sin_family = AF_INET;
