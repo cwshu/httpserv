@@ -1,68 +1,27 @@
 #include <iostream>
 #include <fstream>
-
 #include <string>
 #include <vector>
 #include <map>
+
+#include <unistd.h>
 
 #include "socket.h"
 #include "io_wrapper.h"
 #include "server_arch.h"
 #include "string_more.h"
-
-namespace http{
-    enum HTTPRequestMethod{
-        ERROR,
-        GET,
-        POST,
-    };
-
-    HTTPRequestMethod str_to_http_request_method(std::string http_method){
-        if( http_method == "GET" ) return http::GET;
-        if( http_method == "POST" ) return http::POST;
-        return http::ERROR;
-    }
-
-    std::string http_request_method_to_str(HTTPRequestMethod http_method){
-        if( http_method == http::GET ) return "GET";
-        if( http_method == http::POST ) return "POST";
-        if( http_method == http::ERROR ) return "ERROR";
-        return "ERROR";
-    }
-
-    struct HTTPRequest{
-        http::HTTPRequestMethod method;
-        std::string path;
-        std::string version;
-        std::map<std::string, std::string> header;
-        std::string get_parameter_unparse;
-        std::string post_parameter_unparse;
-
-        HTTPRequest(){
-            method = http::ERROR;
-        }
-
-        void print(){
-            std::cout << "HTTP method: " << http_request_method_to_str(method) << std::endl;
-            std::cout << "path = " << path << std::endl;
-            std::cout << "version = " << version << std::endl;
-            std::cout << "get_parameters: " << get_parameter_unparse << std::endl;
-            print_header();
-            std::cout << std::endl;
-        }
-        void print_header(){
-            for (const auto& kv_pair : header) {
-                std::cout << kv_pair.first << " => " << kv_pair.second << std::endl;
-            }
-        }
-    };
-}
+#include "httplib.h"
 
 const char HTTPD_IP[] = "0.0.0.0";
 const uint16_t HTTPD_DEFAULT_PORT = 80;
 
 void httpd_service(socketfd_t client_socket, SocketAddr& client_addr);
 void read_and_parse_http_request(http::HTTPRequest& client_request, socketfd_t client_socket);
+void http_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr);
+void cgi_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr);
+
+std::string file_extension_to_type(std::string file_extension);
+
 
 int main(int argc, char *argv[]){
     SocketAddr httpd_addr(HTTPD_IP, HTTPD_DEFAULT_PORT);
@@ -76,13 +35,6 @@ int main(int argc, char *argv[]){
     return 0;
 }
 
-/*
- * require: 
- * 1. GET parameters
- * 2. http and cgi handler
- *    2.1. cgi handler: 9 env vars
- *
- */
 std::fstream access_log, error_log;
 void httpd_service(socketfd_t client_socket, SocketAddr& client_addr){
     /* 
@@ -90,16 +42,10 @@ void httpd_service(socketfd_t client_socket, SocketAddr& client_addr){
      * 2. recieve and parsing http request. 
      *    2.1. http method, path, version.
      *    2.2. header into map.
-     *    2.3. content will be processed by file handler.
+     *    2.3. content will be processed by file handler. XXX: not implement now.
      * 3. process path, find a file existence and choose file handler.
      * 4. cgi and http file handler.
      * 5. http response (status code) ... etc.
-     */
-    /* http request
-     * GET dir/subdir/test.cgi?k1=v1&k2=v2&k3=v3#fragment HTTP/1.1
-     * Host: localhost
-     * \r\n
-     * \r\n
      */
 
     access_log.open("httpd-access.log", std::fstream::app);
@@ -107,8 +53,37 @@ void httpd_service(socketfd_t client_socket, SocketAddr& client_addr){
 
     access_log << "access from: " << client_addr.to_str() << std::endl;
 
+    // part 2
     http::HTTPRequest client_request;
     read_and_parse_http_request(client_request, client_socket);
+
+    if( client_request.method != http::GET ){
+         error_log << client_addr.to_str() << "=> only support HTTP GET method now" << std::endl;
+         return;
+    }
+
+    // part 3
+    // check file exist
+    if( access(client_request.path.c_str(), F_OK) == -1 ){
+        error_log << client_addr.to_str() << "=> " << client_request.path << " not found" << std::endl;
+        std::string response = http::HTTPResponse(client_request.version, 404).render_response_metadata();
+        write_all(client_socket, response.c_str(), response.length());
+        return;
+    }
+
+    std::size_t found = client_request.path.find_last_of(".");
+    std::string file_ext;
+    if( found != std::string::npos ){
+        file_ext = client_request.path.substr(found+1, std::string::npos);
+    }
+    std::string file_type = file_extension_to_type(file_ext);
+
+    if( file_type == "http" ){
+        http_handler(client_request, client_socket, client_addr);
+    }
+    else if( file_type == "cgi" ){
+        cgi_handler(client_request, client_socket, client_addr);
+    }
 }
 
 std::string NEWLINE = "\r\n";
@@ -116,6 +91,14 @@ std::string DOUBLE_NEWLINE = NEWLINE + NEWLINE;
 const int MAX_BYTE_PER_LINE = 65536;
 
 void read_and_parse_http_request(http::HTTPRequest& client_request, socketfd_t client_socket){
+    /*
+     * XXX: not parsing http request data section.
+     *
+     * HTTP request
+     * GET dir/subdir/test.cgi?k1=v1&k2=v2&k3=v3#fragment HTTP/1.1
+     * Host: localhost
+     * \r\n
+     */
     std::string request_msg;
     int msg_size = 0;
     while( 1 ){
@@ -134,6 +117,9 @@ void read_and_parse_http_request(http::HTTPRequest& client_request, socketfd_t c
     
     std::vector<std::string> request_msg_per_line;
     while( 1 ){
+        /* transform http_request msg to vector of msg per line 
+         * request_msg => request_msg_per_line.
+         */
         /* bad smell string split, but it works */
         std::size_t spliter = request_msg.find(NEWLINE);
         if( spliter == std::string::npos ){
@@ -167,4 +153,24 @@ void read_and_parse_http_request(http::HTTPRequest& client_request, socketfd_t c
     }
 
     client_request.print();
+}
+
+void http_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr){
+
+}
+
+void cgi_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr){
+    // 2.1. cgi handler: 9 env vars
+}
+
+std::string file_extension_to_type(std::string file_extension){
+    /*
+     * FileType: support now
+     * 1. html (default)
+     * 2. cgi
+     */
+    if( file_extension == "cgi" ){
+        return "cgi";
+    }
+    return "html";
 }
