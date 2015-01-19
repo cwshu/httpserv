@@ -13,12 +13,11 @@ void start_multiprocess_server(socketfd_t listen_socket, OneConnectionService se
     signal(SIGCHLD, sigchid_waitfor_child);
 
     while(1){
-        socketfd_t connection_socket;
-        char client_ip[IP_MAX_LEN] = {'\0'};
-        int client_port;
+        socketfd_t client_socket;
+        SocketAddr client_addr;
 
-        connection_socket = socket_accept(listen_socket, client_ip, &client_port);
-        if( connection_socket < 0 ){
+        client_socket = socket_accept(listen_socket, client_addr);
+        if( client_socket < 0 ){
             perror("accept error");
             continue;
         }
@@ -28,14 +27,14 @@ void start_multiprocess_server(socketfd_t listen_socket, OneConnectionService se
             int ret = close(listen_socket);
             if( ret < 0 ) perror("close listen_socket error");
 
-            service_function(connection_socket);
+            service_function(client_socket, client_addr);
 
-            ret = close(connection_socket);
-            if( ret < 0 ) perror("close connection_socket error");
+            ret = close(client_socket);
+            if( ret < 0 ) perror("close client_socket error");
             exit(EXIT_SUCCESS);
         }
         else if( child_pid > 0 ){
-            close(connection_socket);
+            close(client_socket);
         }
         else {
             perror("fork error");
