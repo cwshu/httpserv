@@ -53,16 +53,17 @@ namespace http{
     std::string HTTPResponse::render_response_metadata(){
         std::string response;
         response = version + std::string(" ");
-        response += std::to_string(status_code) + status_code_to_msg[status_code];
+        response += std::to_string(status_code) + std::string(" ") + status_code_to_msg[status_code];
         response += HTTP_NEWLINE;
         response += render_response_header();
+        response += HTTP_NEWLINE;
         return response;
     }
 
     std::string HTTPResponse::render_response_header(){
         std::string response_header;
         for (const auto& kv_pair : header) {
-            response_header += kv_pair.first + std::string(": ") + kv_pair.second;
+            response_header += kv_pair.first + std::string(": ") + kv_pair.second + HTTP_NEWLINE;
         }
         return response_header;
     }

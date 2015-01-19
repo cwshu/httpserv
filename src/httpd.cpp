@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -5,6 +6,10 @@
 #include <map>
 
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include <fcntl.h>
 
 #include "socket.h"
 #include "io_wrapper.h"
@@ -17,7 +22,7 @@ const uint16_t HTTPD_DEFAULT_PORT = 80;
 
 void httpd_service(socketfd_t client_socket, SocketAddr& client_addr);
 void read_and_parse_http_request(http::HTTPRequest& client_request, socketfd_t client_socket);
-void http_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr);
+void static_content_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr);
 void cgi_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr);
 
 std::string file_extension_to_type(std::string file_extension);
@@ -58,14 +63,14 @@ void httpd_service(socketfd_t client_socket, SocketAddr& client_addr){
     read_and_parse_http_request(client_request, client_socket);
 
     if( client_request.method != http::GET ){
-         error_log << client_addr.to_str() << "=> only support HTTP GET method now" << std::endl;
+         error_log << client_addr.to_str() << " => only support HTTP GET method now" << std::endl;
          return;
     }
 
     // part 3
     // check file exist
     if( access(client_request.path.c_str(), F_OK) == -1 ){
-        error_log << client_addr.to_str() << "=> " << client_request.path << " not found" << std::endl;
+        error_log << client_addr.to_str() << " => " << client_request.path << " not found" << std::endl;
         std::string response = http::HTTPResponse(client_request.version, 404).render_response_metadata();
         write_all(client_socket, response.c_str(), response.length());
         return;
@@ -78,11 +83,11 @@ void httpd_service(socketfd_t client_socket, SocketAddr& client_addr){
     }
     std::string file_type = file_extension_to_type(file_ext);
 
-    if( file_type == "http" ){
-        http_handler(client_request, client_socket, client_addr);
-    }
-    else if( file_type == "cgi" ){
+    if( file_type == "cgi" ){
         cgi_handler(client_request, client_socket, client_addr);
+    }
+    else{
+        static_content_handler(client_request, client_socket, client_addr);
     }
 }
 
@@ -138,7 +143,7 @@ void read_and_parse_http_request(http::HTTPRequest& client_request, socketfd_t c
     // parse request_line
     std::string http_method = strip(fetch_word(request_line, WHITESPACE)) ;
     client_request.method = http::str_to_http_request_method(http_method);
-    std::string path_get_frag = strip(fetch_word(request_line, WHITESPACE));
+    std::string path_get_frag = std::string(".") + strip(fetch_word(request_line, WHITESPACE));
     client_request.path = strip(fetch_word(path_get_frag, "?"));
     client_request.get_parameter_unparse = strip(fetch_word(path_get_frag, "#"));
     client_request.version = strip(request_line);
@@ -155,22 +160,86 @@ void read_and_parse_http_request(http::HTTPRequest& client_request, socketfd_t c
     client_request.print();
 }
 
-void http_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr){
+void static_content_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr){
+    access_log << client_addr.to_str() << " => static content handler " << std::endl;
 
+    if( access(client_request.path.c_str(), R_OK) == -1 ){
+        // can't read html file
+        error_log << client_addr.to_str() << " => can't read " << client_request.path << std::endl;
+        std::string response = http::HTTPResponse(client_request.version, 500).render_response_metadata();
+        write_all(client_socket, response.c_str(), response.length());
+        return;
+    }
+
+    // write response metadata
+    std::string response = http::HTTPResponse(client_request.version, 200).render_response_metadata();
+    write_all(client_socket, response.c_str(), response.length());
+    // write data (html.file)
+    int html_fd = open(client_request.path.c_str(), O_RDONLY);
+    std::string html_data = str::read(html_fd, 1024, false);
+    if( html_data.empty() ){
+        return;
+    }
+
+    write_all(client_socket, html_data.c_str(), html_data.length());
 }
 
 void cgi_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr){
     // 2.1. cgi handler: 9 env vars
+    access_log << client_addr.to_str() << " => CGI handler " << std::endl;
+
+    if( access(client_request.path.c_str(), X_OK) == -1 ){
+        // can't read html file
+        error_log << client_addr.to_str() << "=> can't execute " << client_request.path << std::endl;
+        std::string response = http::HTTPResponse(client_request.version, 500).render_response_metadata();
+        write_all(client_socket, response.c_str(), response.length());
+        return;
+    }
+
+    // write response metadata
+    http::HTTPResponse response = http::HTTPResponse(client_request.version, 200);
+    std::string response_str = response.render_response_metadata();
+    write_all(client_socket, response_str.c_str(), response_str.length());
+
+    // run cgi and write response data
+    int pid = fork();
+    if( pid == 0 ){
+        // redirect
+        dup2(client_socket, 1);
+        // env
+        setenv("QUERY_STRING", client_request.get_parameter_unparse.c_str(), 1);
+        setenv("REMOTE_ADDR", client_addr.ipv4_addr_str.c_str(), 1);
+        // exec
+        std::size_t found = client_request.path.find_last_of("/");
+        std::string filename;
+        if( found == std::string::npos ){
+            filename = client_request.path;
+        }
+        else{
+            filename = client_request.path.substr(found+1, std::string::npos);
+        }
+        execl(client_request.path.c_str(), filename.c_str(), NULL);
+        perror("exec error");
+        return;
+    }
+    else if( pid > 0 ){
+        wait(NULL);
+        return;
+    }
+    else{
+        perror("fork error");
+        return;
+    }
 }
 
 std::string file_extension_to_type(std::string file_extension){
     /*
      * FileType: support now
-     * 1. html (default)
-     * 2. cgi
+     * 1. cgi
+     * 2. default
      */
     if( file_extension == "cgi" ){
         return "cgi";
     }
-    return "html";
+    return "default";
 }
