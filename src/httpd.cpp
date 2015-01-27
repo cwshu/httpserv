@@ -20,10 +20,34 @@
 const char HTTPD_IP[] = "0.0.0.0";
 const uint16_t HTTPD_DEFAULT_PORT = 80;
 
+std::string DOCUMENT_ROOT;
+
 void httpd_service(socketfd_t client_socket, SocketAddr& client_addr);
 void read_and_parse_http_request(http::HTTPRequest& client_request, socketfd_t client_socket);
 void static_content_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr);
 void cgi_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr);
+
+void initial_document_root(){
+    /*
+    char* home_dir = getenv("HOME");
+    if(!home_dir)
+        error_print_and_exit("Error: No HOME enviroment variable\n");
+
+    snprintf(document_root, 1024, "%s/ras/", home_dir);*/
+    int ret = chdir(DOCUMENT_ROOT.c_str());
+    if(ret == -1)
+        perror_and_exit("chdir error");
+}
+
+/*
+const std::string CONFIG_FILE_NAME("httpd.conf");
+std::string read_config_file_doc_root(){
+    fstream config_file;
+    config_file.open(CONFIG_FILE_NAME, std::ios::in);
+    std::string config_record;
+    std::getline(config_file, config_record);   
+}
+*/
 
 std::string file_extension_to_type(std::string file_extension);
 
@@ -52,6 +76,9 @@ void httpd_service(socketfd_t client_socket, SocketAddr& client_addr){
      * 4. cgi and http file handler.
      * 5. http response (status code) ... etc.
      */
+
+    DOCUMENT_ROOT = getenv("HOME") + std::string("/workspace/NP_hw4_socks/test_build");
+    initial_document_root();
 
     access_log.open("httpd-access.log", std::fstream::app);
     error_log.open("httpd-error.log", std::fstream::app);
@@ -176,12 +203,13 @@ void static_content_handler(http::HTTPRequest& client_request, socketfd_t client
     write_all(client_socket, response.c_str(), response.length());
     // write data (html.file)
     int html_fd = open(client_request.path.c_str(), O_RDONLY);
-    std::string html_data = str::read(html_fd, 1024, false);
-    if( html_data.empty() ){
-        return;
+    while( 1 ){
+        std::string html_data = str::read(html_fd, 1024, false);
+        if( html_data.empty() ){
+            break;
+        }
+        write_all(client_socket, html_data.c_str(), html_data.length());
     }
-
-    write_all(client_socket, html_data.c_str(), html_data.length());
 }
 
 void cgi_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr){
