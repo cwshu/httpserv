@@ -12,13 +12,12 @@
 #include <fcntl.h>
 
 #include "socket.h"
-#include "io_wrapper.h"
 #include "server_arch.h"
-#include "string_more.h"
 #include "httplib.h"
+#include "utils.h"
 
 const char HTTPD_IP[] = "0.0.0.0";
-const uint16_t HTTPD_DEFAULT_PORT = 80;
+const uint16_t HTTPD_DEFAULT_PORT = 8100;
 
 std::string DOCUMENT_ROOT;
 
@@ -31,7 +30,7 @@ void initial_document_root(){
     /*
     char* home_dir = getenv("HOME");
     if(!home_dir)
-        error_print_and_exit("Error: No HOME enviroment variable\n");
+        error_printf_and_exit("Error: No HOME enviroment variable\n");
 
     snprintf(document_root, 1024, "%s/ras/", home_dir);*/
     int ret = chdir(DOCUMENT_ROOT.c_str());

@@ -12,7 +12,7 @@ SRC_DIR = ./src
 
 # exe, objs without path
 EXE = httpd
-OBJS = httpd.o io_wrapper.o server_arch.o socket.o string_more.o httplib.o
+OBJS = httpd.o httplib.o server_arch.o socket.o utils.o
 
 # exe, objs with path
 EXE_PATH = $(addprefix $(PREFIX)/, $(EXE))
