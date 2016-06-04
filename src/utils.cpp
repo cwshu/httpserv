@@ -1,3 +1,10 @@
+/** 
+ * @file utils.cpp
+ * @brief helper functions and wrappers of standard library, POSIX api, and POSIX system call.
+ *
+ * Give some helper functions of low level api for easily usage, like POSIX system call write().
+ */
+
 #include <cstdio>
 #include <cstdarg>
 #include <cstdlib>
@@ -8,7 +15,9 @@
 
 #include "utils.h"
 
-/* string helper functions */
+/* 
+ * string helper functions 
+ */
 
 std::string fetch_word(std::string& parsed_str, const char* split_chars){
     /*
@@ -73,7 +82,9 @@ std::string strip(const std::string& str){
     return str.substr(start, end + 1 - start);
 }
 
-/* IO wrapper functions */
+/* 
+ * IO wrapper functions 
+ */
 
 void perror_and_exit(const char* str){
     perror(str);
@@ -106,7 +117,8 @@ int write_all(int fd, const void* buf, size_t count){
 }
 
 namespace str{
-    /* str */ 
+
+    /* wrapper of POSIX syscall read, return C++ std::string instead of memory buffer */
     std::string read(int fd, int count, bool is_nonblocking){
 
         char* buf = new char [count+1];

@@ -1,3 +1,8 @@
+/** 
+ * @file socket.cpp
+ * @brief some wrappers of POSIX socket api.
+ */
+
 // #include <iostream>
 #include <cstring>
 #include <cstdint>

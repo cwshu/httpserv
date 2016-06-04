@@ -1,3 +1,8 @@
+/** 
+ * @file socket.h
+ * @brief some wrappers of POSIX socket api.
+ */
+
 #ifndef __SOCKET_H__
 #define __SOCKET_H__
 
@@ -22,6 +27,7 @@ struct SocketAddr{
     SocketAddr();
     SocketAddr(const char *ipv4_addr_str, uint16_t port_hbytes);
     SocketAddr(std::string ipv4_addr_str, uint16_t port_hbytes);
+
     void set_sockaddr(uint32_t ipv4_nbytes, uint16_t port_nbytes);
     void get_sockaddr(uint32_t* ipv4_nbytes, uint16_t* port_nbytes);
     std::string to_str();

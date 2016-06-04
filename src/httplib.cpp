@@ -1,3 +1,8 @@
+/** 
+ * @file httplib.cpp
+ * @brief HTTP protocol related library, like HTTP request, response.
+ */
+
 #include <iostream>
 
 #include "httplib.h"

@@ -1,0 +1,19 @@
+# Doxyfile 1.8.11
+
+# This first one is optional
+PROJECT_NAME           = "httpserv"
+OPTIMIZE_OUTPUT_FOR_C  = NO
+EXTRACT_ALL            = YES
+EXTRACT_STATIC         = YES
+# Set only the dirs you want
+INPUT                  = src/
+RECURSIVE              = YES
+SOURCE_BROWSER         = YES
+HAVE_DOT               = YES
+# output
+OUTPUT_DIRECTORY       = doc/
+# Set according to your system
+DOT_NUM_THREADS        = 3
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+

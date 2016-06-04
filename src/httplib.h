@@ -1,3 +1,8 @@
+/** 
+ * @file httplib.h
+ * @brief HTTP protocol related library, like HTTP request, response.
+ */
+
 #ifndef __HTTPLIB_H__
 #define __HTTPLIB_H__
 

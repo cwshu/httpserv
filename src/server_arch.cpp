@@ -1,3 +1,8 @@
+/** 
+ * @file server_arch.cpp
+ * @brief very basic server architecture framework, like fork-based multiprocess server.
+ */
+
 #include <cstdio>
 #include <cstdlib>
 

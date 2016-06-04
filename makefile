@@ -6,6 +6,8 @@ CFLAGS = -std=c99 -g
 CXX = clang++
 CXXFLAGS = -std=c++11 -g
 
+DOXYGEN = doxygen
+
 # prefix, src Directory
 PREFIX = ./build
 SRC_DIR = ./src
@@ -47,4 +49,7 @@ $(OBJS_PATH): $(PREFIX)/%.o: $(SRC_DIR)/%.cpp | $(PREFIX)
 $(PREFIX):
 	mkdir -p $@
 
-.PHONY: all clean 
+doc:
+	$(DOXYGEN) Doxyfile
+
+.PHONY: all clean doc
