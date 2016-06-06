@@ -31,7 +31,7 @@ socketfd_t bind_and_listen_tcp_socket(SocketAddr& listen_addr){
     return listen_socket;
 }
 
-void start_multiprocess_server(socketfd_t listen_socket, OneConnectionService service_function){
+void start_multiprocess_server(socketfd_t listen_socket, SingleListenPortDaemon service_function, void* args){
     /* wait at receive SIGCHLD, release child resource for multiprocess && concurrent server */
     signal(SIGCHLD, sigchid_waitfor_child);
 
@@ -50,7 +50,7 @@ void start_multiprocess_server(socketfd_t listen_socket, OneConnectionService se
             int ret = close(listen_socket);
             if( ret < 0 ) perror("close listen_socket error");
 
-            service_function(client_socket, client_addr);
+            service_function(client_socket, client_addr, args);
 
             ret = close(client_socket);
             if( ret < 0 ) perror("close client_socket error");

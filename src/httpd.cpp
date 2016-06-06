@@ -1,3 +1,8 @@
+/** 
+ * @file httpd.cpp
+ * @brief basic http server implementation
+ */
+
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
@@ -21,19 +26,14 @@ const uint16_t HTTPD_DEFAULT_PORT = 8100;
 
 std::string DOCUMENT_ROOT;
 
-void httpd_service(socketfd_t client_socket, SocketAddr& client_addr);
+/* void* args -> std::string* document_root_ptr */
+void httpd_service(socketfd_t client_socket, SocketAddr& client_addr, void* args);
 void read_and_parse_http_request(http::HTTPRequest& client_request, socketfd_t client_socket);
 void static_content_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr);
 void cgi_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr);
 
-void initial_document_root(){
-    /*
-    char* home_dir = getenv("HOME");
-    if(!home_dir)
-        error_printf_and_exit("Error: No HOME enviroment variable\n");
-
-    snprintf(document_root, 1024, "%s/ras/", home_dir);*/
-    int ret = chdir(DOCUMENT_ROOT.c_str());
+void initial_document_root(const std::string& document_root){
+    int ret = chdir(document_root.c_str());
     if(ret == -1)
         perror_and_exit("chdir error");
 }
@@ -50,21 +50,22 @@ std::string read_config_file_doc_root(){
 
 std::string file_extension_to_type(std::string file_extension);
 
-
 int main(int argc, char *argv[]){
     SocketAddr httpd_addr(HTTPD_IP, HTTPD_DEFAULT_PORT);
-    if(argc == 2){
+    std::string document_root;
+    if(argc == 3){
         httpd_addr.port_hbytes = strtol(argv[1], NULL, 0);
+        document_root = argv[2];
     }
 
     socketfd_t httpd_listen_socket = bind_and_listen_tcp_socket(httpd_addr);
-    start_multiprocess_server(httpd_listen_socket, httpd_service);
+    start_multiprocess_server(httpd_listen_socket, httpd_service, (void*) &document_root);
 
     return 0;
 }
 
 std::fstream access_log, error_log;
-void httpd_service(socketfd_t client_socket, SocketAddr& client_addr){
+void httpd_service(socketfd_t client_socket, SocketAddr& client_addr, void* args){
     /* 
      * 1. start fork-based http server.
      * 2. recieve and parsing http request. 
@@ -75,9 +76,12 @@ void httpd_service(socketfd_t client_socket, SocketAddr& client_addr){
      * 4. cgi and http file handler.
      * 5. http response (status code) ... etc.
      */
+    // void* args -> std::string* document_root_ptr
+    
+    std::string document_root = *(std::string*)args;
 
-    DOCUMENT_ROOT = getenv("HOME") + std::string("/workspace/NP_hw4_socks/test_build");
-    initial_document_root();
+    // DOCUMENT_ROOT = getenv("HOME");
+    initial_document_root(document_root);
 
     access_log.open("httpd-access.log", std::fstream::app);
     error_log.open("httpd-error.log", std::fstream::app);
