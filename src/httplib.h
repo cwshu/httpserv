@@ -40,9 +40,11 @@ namespace http{
     //     200 OK
     // 3xx Redirection
     // 4xx Client Error
+    //     403 Forbidden
     //     404 Not Found
     // 5xx Server Error
     //     500 Internal Server Error
+    //     501 Not Implemented
     extern std::map<int, std::string> status_code_to_msg;
 
     struct HTTPResponse{
@@ -52,6 +54,7 @@ namespace http{
 
         HTTPResponse();
         HTTPResponse(std::string version, int status_code);
+        std::string render_error_response_quick();
         std::string render_response_metadata(bool is_end_of_header);
         std::string render_response_header();
     };

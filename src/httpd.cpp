@@ -93,15 +93,17 @@ void httpd_service(socketfd_t client_socket, SocketAddr& client_addr, void* args
     read_and_parse_http_request(client_request, client_socket);
 
     if( client_request.method != http::GET ){
-         error_log << client_addr.to_str() << " => only support HTTP GET method now" << std::endl;
-         return;
+        error_log << client_addr.to_str() << " => only support HTTP GET method now" << std::endl;
+        std::string response = http::HTTPResponse(client_request.version, 501).render_error_response_quick();
+        write_all(client_socket, response.c_str(), response.length());
+        return;
     }
 
     // part 3
     // check file exist
     if( access(client_request.path.c_str(), F_OK) == -1 ){
         error_log << client_addr.to_str() << " => " << client_request.path << " not found" << std::endl;
-        std::string response = http::HTTPResponse(client_request.version, 404).render_response_metadata(true);
+        std::string response = http::HTTPResponse(client_request.version, 404).render_error_response_quick();
         write_all(client_socket, response.c_str(), response.length());
         return;
     }
@@ -194,9 +196,9 @@ void static_content_handler(http::HTTPRequest& client_request, socketfd_t client
     access_log << client_addr.to_str() << " => static content handler " << std::endl;
 
     if( access(client_request.path.c_str(), R_OK) == -1 ){
-        // can't read html file
+        // can't read file
         error_log << client_addr.to_str() << " => can't read " << client_request.path << std::endl;
-        std::string response = http::HTTPResponse(client_request.version, 500).render_response_metadata(true);
+        std::string response = http::HTTPResponse(client_request.version, 403).render_error_response_quick();
         write_all(client_socket, response.c_str(), response.length());
         return;
     }
@@ -220,9 +222,9 @@ void cgi_handler(http::HTTPRequest& client_request, socketfd_t client_socket, So
     access_log << client_addr.to_str() << " => CGI handler " << std::endl;
 
     if( access(client_request.path.c_str(), X_OK) == -1 ){
-        // can't read html file
+        // can't read cgi file
         error_log << client_addr.to_str() << "=> can't execute " << client_request.path << std::endl;
-        std::string response = http::HTTPResponse(client_request.version, 500).render_response_metadata(true);
+        std::string response = http::HTTPResponse(client_request.version, 500).render_error_response_quick();
         write_all(client_socket, response.c_str(), response.length());
         return;
     }

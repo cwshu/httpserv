@@ -10,8 +10,10 @@
 namespace http{
     std::map<int, std::string> status_code_to_msg = {
         {200, "OK"},
+        {403, "FORBIDDEN"},
         {404, "NOT FOUND"},
         {500, "INTERNAL SERVER ERROR"},
+        {501, "NOT INPLEMENTED"},
     };
 
     HTTPRequestMethod str_to_http_request_method(std::string http_method){
@@ -27,6 +29,7 @@ namespace http{
         return "ERROR";
     }
 
+    // HTTPRequest
     HTTPRequest::HTTPRequest(){
         method = http::ERROR;
     }
@@ -46,8 +49,29 @@ namespace http{
         }
     }
 
+    // HTTPResponse
     HTTPResponse::HTTPResponse(){
         status_code = 500;
+    }
+
+    std::string HTTPResponse::render_error_response_quick(){
+        /*
+        "HTTP/1.1 404 Not Found\n"
+        "Content-Type: text/plain;\n"
+        "Content-Length: 13\n"
+        "\n"
+        "404 Not Found"
+        */
+
+        std::string status_line = version + std::string(" ") + std::to_string(status_code) + std::string(" ") + status_code_to_msg[status_code] + HTTP_NEWLINE;
+        std::string content = std::to_string(status_code) + std::string(" ") + status_code_to_msg[status_code];
+
+        std::string header = "Content-Type: text/plain" + HTTP_NEWLINE;
+        header += "Content-Length: " + std::to_string(content.length()) + HTTP_NEWLINE;
+        header += HTTP_NEWLINE;
+
+        std::string response = status_line + header + content;
+        return response;
     }
 
     HTTPResponse::HTTPResponse(std::string version, int status_code){
@@ -57,9 +81,11 @@ namespace http{
 
     std::string HTTPResponse::render_response_metadata(bool is_end_of_header){
         std::string response;
+
         response = version + std::string(" ");
         response += std::to_string(status_code) + std::string(" ") + status_code_to_msg[status_code];
         response += HTTP_NEWLINE;
+
         response += render_response_header();
         if( is_end_of_header ){
             response += HTTP_NEWLINE;
