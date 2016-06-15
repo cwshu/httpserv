@@ -1,4 +1,4 @@
-GET /asdfghjk HTTP/1.1
+GET /no_permission HTTP/1.1
 Host: localhost
 User-Agent: netcat/1.105 (OpenBSD Netcat)
 

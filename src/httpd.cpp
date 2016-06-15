@@ -160,7 +160,7 @@ void httpd_service(socketfd_t client_socket, SocketAddr& client_addr, void* args
     // check path(file or directory) exist
     if( access(client_request.path.c_str(), F_OK) == -1 ){
         error_log << client_addr.to_str() << " => " << client_request.path << " not found" << std::endl;
-        std::string response = http::HTTPResponse(client_request.version, 404).render_error_response_quick();
+        std::string response = http::HTTPResponse(client_request.version, 403).render_error_response_quick();
         write_all(client_socket, response.c_str(), response.length());
         return;
     }
@@ -221,6 +221,13 @@ void httpd_service(socketfd_t client_socket, SocketAddr& client_addr, void* args
         cgi_handler(client_request, client_socket, client_addr);
     }
     else{
+        if( access(client_request.path.c_str(), R_OK) == -1 ){
+            error_log << client_addr.to_str() << " => " << client_request.path << " not found" << std::endl;
+            std::string response = http::HTTPResponse(client_request.version, 404).render_error_response_quick();
+            write_all(client_socket, response.c_str(), response.length());
+            return;
+        }
+
         static_content_handler(client_request, client_socket, client_addr, file_type);
     }
 
