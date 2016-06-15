@@ -8,10 +8,13 @@
 #include <cstdio>
 #include <cstdarg>
 #include <cstdlib>
-#include <string>
+#include <algorithm>
 
 #include <errno.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <dirent.h>
 
 #include "utils.h"
 
@@ -150,3 +153,42 @@ namespace str{
     }
 }
     
+/* 
+ * OS(e.g. POSIX api) wrapper functions 
+ */
+
+namespace os{
+    
+    std::vector<std::string> list_dir(std::string directory_path){
+        /* return the list of name of files in directory. sorted. error if return empty vector */
+        std::vector<std::string> file_list;
+        DIR* dir_stream;
+
+        dir_stream = opendir(directory_path.c_str());
+        if( dir_stream == NULL ){
+            perror("opendir error");
+            return std::vector<std::string>();
+        }
+
+        while( 1 ){
+            struct dirent* dir_entry = readdir(dir_stream);
+            if( dir_entry == NULL ){
+                break;
+            }
+
+            file_list.push_back(dir_entry->d_name);
+        }
+
+        std::sort(file_list.begin(), file_list.end());
+
+        closedir(dir_stream);
+
+        return file_list;
+    }
+
+    bool is_dir(std::string path){
+        struct stat path_stat;
+        stat(path.c_str(), &path_stat);
+        return S_ISDIR(path_stat.st_mode);
+    }
+} /* os */ 

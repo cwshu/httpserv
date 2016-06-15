@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <unordered_map>
 
 #include <unistd.h>
 #include <sys/types.h>
@@ -24,12 +25,71 @@
 const char HTTPD_IP[] = "0.0.0.0";
 const uint16_t HTTPD_DEFAULT_PORT = 8100;
 
-std::string DOCUMENT_ROOT;
+enum class FileType{
+    NONE,
+    CGI,
+    TXT,
+    HTML, CSS,
+    GIF, JPG, PNG, BMP,
+    DOC, PDF,
+    MP4, SWF, OGG,
+    BZ2, GZ
+};
+
+std::string mine_type(FileType type){
+    switch( type ){
+        // no FileType::CGI
+        case FileType::TXT  : return std::string("text/plain");
+        case FileType::HTML : return std::string("text/html");
+        case FileType::CSS  : return std::string("text/css");
+
+        case FileType::GIF  : return std::string("image/gif");
+        case FileType::JPG  : return std::string("image/jpg");
+        case FileType::PNG  : return std::string("image/png");
+        case FileType::BMP  : return std::string("image/x-ms-bmp");
+
+        case FileType::DOC  : return std::string("application/msword");
+        case FileType::PDF  : return std::string("application/pdf");
+
+        case FileType::MP4  : return std::string("video/mp4");
+        case FileType::SWF  : return std::string("application/x-shockwave-flash");
+        case FileType::OGG  : return std::string("audio/ogg");
+
+        case FileType::BZ2  : return std::string("application/x-bzip2");
+        case FileType::GZ   : return std::string("application/x-gzip");
+
+        default             : return std::string();
+    }
+}
+
+std::unordered_map<std::string, FileType> file_extension_to_type = {
+    {"cgi" , FileType::CGI},
+    {"txt" , FileType::TXT},
+    {"html", FileType::HTML},
+    {"htm" , FileType::HTML},
+    {"css" , FileType::CSS},
+
+    {"gif" , FileType::GIF},
+    {"jpg" , FileType::JPG},
+    {"png" , FileType::PNG},
+    {"bmp" , FileType::BMP},
+
+    {"doc" , FileType::DOC},
+    {"pdf" , FileType::PDF},
+    
+    {"mp4" , FileType::MP4},
+    {"swf" , FileType::SWF},
+    {"swfl", FileType::SWF},
+    {"ogg" , FileType::OGG},
+
+    {"bz2" , FileType::BZ2},
+    {"gz"  , FileType::GZ},
+};
 
 /* void* args -> std::string* document_root_ptr */
 void httpd_service(socketfd_t client_socket, SocketAddr& client_addr, void* args);
 void read_and_parse_http_request(http::HTTPRequest& client_request, socketfd_t client_socket);
-void static_content_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr);
+void static_content_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr, FileType file_type);
 void cgi_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr);
 
 void initial_document_root(const std::string& document_root){
@@ -47,8 +107,6 @@ std::string read_config_file_doc_root(){
     std::getline(config_file, config_record);   
 }
 */
-
-std::string file_extension_to_type(std::string file_extension);
 
 int main(int argc, char *argv[]){
     SocketAddr httpd_addr(HTTPD_IP, HTTPD_DEFAULT_PORT);
@@ -80,7 +138,6 @@ void httpd_service(socketfd_t client_socket, SocketAddr& client_addr, void* args
     
     std::string document_root = *(std::string*)args;
 
-    // DOCUMENT_ROOT = getenv("HOME");
     initial_document_root(document_root);
 
     access_log.open("httpd-access.log", std::fstream::app);
@@ -100,7 +157,7 @@ void httpd_service(socketfd_t client_socket, SocketAddr& client_addr, void* args
     }
 
     // part 3
-    // check file exist
+    // check path(file or directory) exist
     if( access(client_request.path.c_str(), F_OK) == -1 ){
         error_log << client_addr.to_str() << " => " << client_request.path << " not found" << std::endl;
         std::string response = http::HTTPResponse(client_request.version, 404).render_error_response_quick();
@@ -108,19 +165,66 @@ void httpd_service(socketfd_t client_socket, SocketAddr& client_addr, void* args
         return;
     }
 
+    // check path is file or directory
+    if( os::is_dir(client_request.path) ){
+        // path is directory
+
+        if( client_request.path.back() != '/' ){
+            // directory without / at end;
+            access_log << client_addr.to_str() << " => directory without /, move permanently " << std::endl;
+            http::HTTPResponse response = http::HTTPResponse(client_request.version, 301);
+            response.header["Location"] = client_request.path + "/";
+            std::string response_str = response.render_response_metadata(true);
+            write_all(client_socket, response_str.c_str(), response_str.length());
+            return;
+        }
+
+        std::string index_path = client_request.path + "index.html";
+        if( access(index_path.c_str(), F_OK) != -1 ){
+            // index_path is exist
+            // process index_path as general static html file.
+            client_request.path = index_path;
+            static_content_handler(client_request, client_socket, client_addr, FileType::HTML);
+            return;
+        }
+
+        if( access(client_request.path.c_str(), R_OK) != -1 ){
+            // client_request.path (directory) is readable
+            // generate index.html
+            std::string response = http::HTTPResponse(client_request.version, 200).render_response_metadata(true);
+            std::vector<std::string> file_list = os::list_dir(client_request.path);
+            for( const auto& file : file_list ){
+                response += file + HTTP_NEWLINE;
+            }
+            write_all(client_socket, response.c_str(), response.length());
+            return;
+        }
+
+        error_log << client_addr.to_str() << " => " << "can't read " << client_request.path << std::endl;
+        std::string response = http::HTTPResponse(client_request.version, 404).render_error_response_quick();
+        write_all(client_socket, response.c_str(), response.length());
+        return;
+    }
+
+    // path is file
     std::size_t found = client_request.path.find_last_of(".");
     std::string file_ext;
     if( found != std::string::npos ){
         file_ext = client_request.path.substr(found+1, std::string::npos);
     }
-    std::string file_type = file_extension_to_type(file_ext);
 
-    if( file_type == "cgi" ){
+    FileType file_type = FileType::NONE;
+    if( file_extension_to_type.count(file_ext) > 0 )
+        file_type = file_extension_to_type[file_ext];
+
+    if( file_type == FileType::CGI ){
         cgi_handler(client_request, client_socket, client_addr);
     }
     else{
-        static_content_handler(client_request, client_socket, client_addr);
+        static_content_handler(client_request, client_socket, client_addr, file_type);
     }
+
+    return;
 }
 
 std::string NEWLINE = "\r\n";
@@ -192,7 +296,7 @@ void read_and_parse_http_request(http::HTTPRequest& client_request, socketfd_t c
     client_request.print();
 }
 
-void static_content_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr){
+void static_content_handler(http::HTTPRequest& client_request, socketfd_t client_socket, SocketAddr& client_addr, FileType file_type){
     access_log << client_addr.to_str() << " => static content handler " << std::endl;
 
     if( access(client_request.path.c_str(), R_OK) == -1 ){
@@ -204,8 +308,12 @@ void static_content_handler(http::HTTPRequest& client_request, socketfd_t client
     }
 
     // write response metadata
-    std::string response = http::HTTPResponse(client_request.version, 200).render_response_metadata(true);
-    write_all(client_socket, response.c_str(), response.length());
+    http::HTTPResponse response = http::HTTPResponse(client_request.version, 200);
+    if( mine_type(file_type) != std::string() ){
+        response.header["Content-Type"] = mine_type(file_type);
+    }
+    std::string response_str = response.render_response_metadata(true);
+    write_all(client_socket, response_str.c_str(), response_str.length());
     // write data (html.file)
     int html_fd = open(client_request.path.c_str(), O_RDONLY);
     while( 1 ){
@@ -272,16 +380,4 @@ void cgi_handler(http::HTTPRequest& client_request, socketfd_t client_socket, So
         perror("fork error");
         return;
     }
-}
-
-std::string file_extension_to_type(std::string file_extension){
-    /*
-     * FileType: support now
-     * 1. cgi
-     * 2. default
-     */
-    if( file_extension == "cgi" ){
-        return "cgi";
-    }
-    return "default";
 }

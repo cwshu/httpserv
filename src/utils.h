@@ -6,6 +6,7 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
+#include <vector>
 #include <string>
 
 /* string helper functions */
@@ -35,5 +36,15 @@ namespace str{
     /** @brief wrapper of POSIX syscall read, return C++ std::string instead of memory buffer */
     std::string read(int fd, int count, bool is_nonblocking);
 }
+
+/* OS(e.g. POSIX api) wrapper functions */
+
+/** @brief OS(e.g. POSIX api) wrapper functions */
+namespace os{
+    /** @brief return the list of name of files in directory. sorted. error if return empty vector */
+    std::vector<std::string> list_dir(std::string directory_path);
+    /** @brief return true if path is a directory */
+    bool is_dir(std::string path);
+} /* os */ 
 
 #endif /* end of include guard: __UTILS_H__ */
