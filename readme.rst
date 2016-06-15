@@ -19,7 +19,7 @@ tests
 
     ./build/httpd 8000 testing/docroot1/
 
-    # if we have installed netcat (nc), only tests in OpenBSD version netcat currently.
+    # if we have installed netcat (nc), we can use script. only tests in OpenBSD version netcat currently.
     ./testing/script1/run.sh 8000
 
 2. static object, mine type, directory
@@ -47,3 +47,11 @@ tests
     GET /no_perm_index?t=1465979599
     GET /no_perm_dir?t=1465979599
 
+features
+~~~~~~~~
+from hw site: http://people.cs.nctu.edu.tw/~chuang/courses/unixprog/resources/hw4_web/
+
+all:
+
+- GET a static object
+- GET a directory
