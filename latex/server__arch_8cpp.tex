@@ -1,0 +1,128 @@
+\hypertarget{server__arch_8cpp}{}\section{src/server\+\_\+arch.cpp File Reference}
+\label{server__arch_8cpp}\index{src/server\+\_\+arch.\+cpp@{src/server\+\_\+arch.\+cpp}}
+
+
+very basic server architecture framework, like fork-\/based multiprocess server.  
+
+
+{\ttfamily \#include $<$cstdio$>$}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$sys/wait.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}server\+\_\+arch.\+h\char`\"{}}\\*
+Include dependency graph for server\+\_\+arch.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{server__arch_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{socket_8h_a90fd9161765f253a1459ebfe715adee1}{socketfd\+\_\+t} \hyperlink{server__arch_8cpp_af8f8c84dbc3d661af40d62d4365ac322}{bind\+\_\+and\+\_\+listen\+\_\+tcp\+\_\+socket} (\hyperlink{structSocketAddr}{Socket\+Addr} \&listen\+\_\+addr)
+\item 
+void \hyperlink{server__arch_8cpp_a3b3be3d34c550a7cbcded14c704fc5cb}{start\+\_\+multiprocess\+\_\+server} (\hyperlink{socket_8h_a90fd9161765f253a1459ebfe715adee1}{socketfd\+\_\+t} listen\+\_\+socket, \hyperlink{server__arch_8h_a8717e9af8d2ffc0329a2b19fef7ceecf}{Single\+Listen\+Port\+Daemon} service\+\_\+function, void $\ast$args)
+\item 
+void \hyperlink{server__arch_8cpp_a73a299bc774f72083cad442daa13bb98}{sigchid\+\_\+waitfor\+\_\+child} (int sig)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+very basic server architecture framework, like fork-\/based multiprocess server. 
+
+
+
+\subsection{Function Documentation}
+\index{server\+\_\+arch.\+cpp@{server\+\_\+arch.\+cpp}!bind\+\_\+and\+\_\+listen\+\_\+tcp\+\_\+socket@{bind\+\_\+and\+\_\+listen\+\_\+tcp\+\_\+socket}}
+\index{bind\+\_\+and\+\_\+listen\+\_\+tcp\+\_\+socket@{bind\+\_\+and\+\_\+listen\+\_\+tcp\+\_\+socket}!server\+\_\+arch.\+cpp@{server\+\_\+arch.\+cpp}}
+\subsubsection[{\texorpdfstring{bind\+\_\+and\+\_\+listen\+\_\+tcp\+\_\+socket(\+Socket\+Addr \&listen\+\_\+addr)}{bind_and_listen_tcp_socket(SocketAddr &listen_addr)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf socketfd\+\_\+t} bind\+\_\+and\+\_\+listen\+\_\+tcp\+\_\+socket (
+\begin{DoxyParamCaption}
+\item[{{\bf Socket\+Addr} \&}]{listen\+\_\+addr}
+\end{DoxyParamCaption}
+)}\hypertarget{server__arch_8cpp_af8f8c84dbc3d661af40d62d4365ac322}{}\label{server__arch_8cpp_af8f8c84dbc3d661af40d62d4365ac322}
+
+
+Definition at line 16 of file server\+\_\+arch.\+cpp.
+
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{server__arch_8cpp_af8f8c84dbc3d661af40d62d4365ac322_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=257pt]{server__arch_8cpp_af8f8c84dbc3d661af40d62d4365ac322_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{server\+\_\+arch.\+cpp@{server\+\_\+arch.\+cpp}!sigchid\+\_\+waitfor\+\_\+child@{sigchid\+\_\+waitfor\+\_\+child}}
+\index{sigchid\+\_\+waitfor\+\_\+child@{sigchid\+\_\+waitfor\+\_\+child}!server\+\_\+arch.\+cpp@{server\+\_\+arch.\+cpp}}
+\subsubsection[{\texorpdfstring{sigchid\+\_\+waitfor\+\_\+child(int sig)}{sigchid_waitfor_child(int sig)}}]{\setlength{\rightskip}{0pt plus 5cm}void sigchid\+\_\+waitfor\+\_\+child (
+\begin{DoxyParamCaption}
+\item[{int}]{sig}
+\end{DoxyParamCaption}
+)}\hypertarget{server__arch_8cpp_a73a299bc774f72083cad442daa13bb98}{}\label{server__arch_8cpp_a73a299bc774f72083cad442daa13bb98}
+
+
+Definition at line 69 of file server\+\_\+arch.\+cpp.
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{server__arch_8cpp_a73a299bc774f72083cad442daa13bb98_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{server\+\_\+arch.\+cpp@{server\+\_\+arch.\+cpp}!start\+\_\+multiprocess\+\_\+server@{start\+\_\+multiprocess\+\_\+server}}
+\index{start\+\_\+multiprocess\+\_\+server@{start\+\_\+multiprocess\+\_\+server}!server\+\_\+arch.\+cpp@{server\+\_\+arch.\+cpp}}
+\subsubsection[{\texorpdfstring{start\+\_\+multiprocess\+\_\+server(socketfd\+\_\+t listen\+\_\+socket, Single\+Listen\+Port\+Daemon service\+\_\+function, void $\ast$args)}{start_multiprocess_server(socketfd_t listen_socket, SingleListenPortDaemon service_function, void *args)}}]{\setlength{\rightskip}{0pt plus 5cm}void start\+\_\+multiprocess\+\_\+server (
+\begin{DoxyParamCaption}
+\item[{{\bf socketfd\+\_\+t}}]{listen\+\_\+socket, }
+\item[{{\bf Single\+Listen\+Port\+Daemon}}]{service\+\_\+function, }
+\item[{void $\ast$}]{args}
+\end{DoxyParamCaption}
+)}\hypertarget{server__arch_8cpp_a3b3be3d34c550a7cbcded14c704fc5cb}{}\label{server__arch_8cpp_a3b3be3d34c550a7cbcded14c704fc5cb}
+helping closing client\+\_\+socket, so service\+\_\+function doesn\textquotesingle{}t need close it. wait at receive S\+I\+G\+C\+H\+LD, release child resource for multiprocess \&\& concurrent server 
+
+Definition at line 34 of file server\+\_\+arch.\+cpp.
+
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{server__arch_8cpp_a3b3be3d34c550a7cbcded14c704fc5cb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{server__arch_8cpp_a3b3be3d34c550a7cbcded14c704fc5cb_icgraph}
+\end{center}
+\end{figure}
+
+

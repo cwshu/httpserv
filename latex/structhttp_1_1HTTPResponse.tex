@@ -1,0 +1,151 @@
+\hypertarget{structhttp_1_1HTTPResponse}{}\section{http\+:\+:H\+T\+T\+P\+Response Struct Reference}
+\label{structhttp_1_1HTTPResponse}\index{http\+::\+H\+T\+T\+P\+Response@{http\+::\+H\+T\+T\+P\+Response}}
+
+
+{\ttfamily \#include $<$httplib.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structhttp_1_1HTTPResponse_a3efdc24565a5c18b88ac6b64b1706c35}{H\+T\+T\+P\+Response} ()
+\item 
+\hyperlink{structhttp_1_1HTTPResponse_adf8fc64bf83e9ec40468d9a522ee6043}{H\+T\+T\+P\+Response} (std\+::string \hyperlink{structhttp_1_1HTTPResponse_a777b248557b9b4d7ea708903d32a6f65}{version}, int \hyperlink{structhttp_1_1HTTPResponse_a5857363345f576492ec4d7d1cd581433}{status\+\_\+code})
+\item 
+std\+::string \hyperlink{structhttp_1_1HTTPResponse_a16bac881dfef67c0b687c1d8f87aa03c}{render\+\_\+error\+\_\+response\+\_\+quick} ()
+\item 
+std\+::string \hyperlink{structhttp_1_1HTTPResponse_a23c39df4ae7668b776d562107684f0a6}{render\+\_\+response\+\_\+metadata} (bool is\+\_\+end\+\_\+of\+\_\+header)
+\item 
+std\+::string \hyperlink{structhttp_1_1HTTPResponse_a7295bb0911519867fd26b8bc7a481978}{render\+\_\+response\+\_\+header} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{structhttp_1_1HTTPResponse_a777b248557b9b4d7ea708903d32a6f65}{version}
+\item 
+int \hyperlink{structhttp_1_1HTTPResponse_a5857363345f576492ec4d7d1cd581433}{status\+\_\+code}
+\item 
+std\+::map$<$ std\+::string, std\+::string $>$ \hyperlink{structhttp_1_1HTTPResponse_a76f5d56ced92e1152ca471dabb68d79f}{header}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 50 of file httplib.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{http\+::\+H\+T\+T\+P\+Response@{http\+::\+H\+T\+T\+P\+Response}!H\+T\+T\+P\+Response@{H\+T\+T\+P\+Response}}
+\index{H\+T\+T\+P\+Response@{H\+T\+T\+P\+Response}!http\+::\+H\+T\+T\+P\+Response@{http\+::\+H\+T\+T\+P\+Response}}
+\subsubsection[{\texorpdfstring{H\+T\+T\+P\+Response()}{HTTPResponse()}}]{\setlength{\rightskip}{0pt plus 5cm}http\+::\+H\+T\+T\+P\+Response\+::\+H\+T\+T\+P\+Response (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{structhttp_1_1HTTPResponse_a3efdc24565a5c18b88ac6b64b1706c35}{}\label{structhttp_1_1HTTPResponse_a3efdc24565a5c18b88ac6b64b1706c35}
+
+
+Definition at line 53 of file httplib.\+cpp.
+
+\index{http\+::\+H\+T\+T\+P\+Response@{http\+::\+H\+T\+T\+P\+Response}!H\+T\+T\+P\+Response@{H\+T\+T\+P\+Response}}
+\index{H\+T\+T\+P\+Response@{H\+T\+T\+P\+Response}!http\+::\+H\+T\+T\+P\+Response@{http\+::\+H\+T\+T\+P\+Response}}
+\subsubsection[{\texorpdfstring{H\+T\+T\+P\+Response(std\+::string version, int status\+\_\+code)}{HTTPResponse(std::string version, int status_code)}}]{\setlength{\rightskip}{0pt plus 5cm}http\+::\+H\+T\+T\+P\+Response\+::\+H\+T\+T\+P\+Response (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{version, }
+\item[{int}]{status\+\_\+code}
+\end{DoxyParamCaption}
+)}\hypertarget{structhttp_1_1HTTPResponse_adf8fc64bf83e9ec40468d9a522ee6043}{}\label{structhttp_1_1HTTPResponse_adf8fc64bf83e9ec40468d9a522ee6043}
+
+
+Definition at line 77 of file httplib.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\index{http\+::\+H\+T\+T\+P\+Response@{http\+::\+H\+T\+T\+P\+Response}!render\+\_\+error\+\_\+response\+\_\+quick@{render\+\_\+error\+\_\+response\+\_\+quick}}
+\index{render\+\_\+error\+\_\+response\+\_\+quick@{render\+\_\+error\+\_\+response\+\_\+quick}!http\+::\+H\+T\+T\+P\+Response@{http\+::\+H\+T\+T\+P\+Response}}
+\subsubsection[{\texorpdfstring{render\+\_\+error\+\_\+response\+\_\+quick()}{render_error_response_quick()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string http\+::\+H\+T\+T\+P\+Response\+::render\+\_\+error\+\_\+response\+\_\+quick (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{structhttp_1_1HTTPResponse_a16bac881dfef67c0b687c1d8f87aa03c}{}\label{structhttp_1_1HTTPResponse_a16bac881dfef67c0b687c1d8f87aa03c}
+
+
+Definition at line 57 of file httplib.\+cpp.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structhttp_1_1HTTPResponse_a16bac881dfef67c0b687c1d8f87aa03c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{http\+::\+H\+T\+T\+P\+Response@{http\+::\+H\+T\+T\+P\+Response}!render\+\_\+response\+\_\+header@{render\+\_\+response\+\_\+header}}
+\index{render\+\_\+response\+\_\+header@{render\+\_\+response\+\_\+header}!http\+::\+H\+T\+T\+P\+Response@{http\+::\+H\+T\+T\+P\+Response}}
+\subsubsection[{\texorpdfstring{render\+\_\+response\+\_\+header()}{render_response_header()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string http\+::\+H\+T\+T\+P\+Response\+::render\+\_\+response\+\_\+header (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{structhttp_1_1HTTPResponse_a7295bb0911519867fd26b8bc7a481978}{}\label{structhttp_1_1HTTPResponse_a7295bb0911519867fd26b8bc7a481978}
+
+
+Definition at line 96 of file httplib.\+cpp.
+
+\index{http\+::\+H\+T\+T\+P\+Response@{http\+::\+H\+T\+T\+P\+Response}!render\+\_\+response\+\_\+metadata@{render\+\_\+response\+\_\+metadata}}
+\index{render\+\_\+response\+\_\+metadata@{render\+\_\+response\+\_\+metadata}!http\+::\+H\+T\+T\+P\+Response@{http\+::\+H\+T\+T\+P\+Response}}
+\subsubsection[{\texorpdfstring{render\+\_\+response\+\_\+metadata(bool is\+\_\+end\+\_\+of\+\_\+header)}{render_response_metadata(bool is_end_of_header)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string http\+::\+H\+T\+T\+P\+Response\+::render\+\_\+response\+\_\+metadata (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\+\_\+end\+\_\+of\+\_\+header}
+\end{DoxyParamCaption}
+)}\hypertarget{structhttp_1_1HTTPResponse_a23c39df4ae7668b776d562107684f0a6}{}\label{structhttp_1_1HTTPResponse_a23c39df4ae7668b776d562107684f0a6}
+
+
+Definition at line 82 of file httplib.\+cpp.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structhttp_1_1HTTPResponse_a23c39df4ae7668b776d562107684f0a6_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Member Data Documentation}
+\index{http\+::\+H\+T\+T\+P\+Response@{http\+::\+H\+T\+T\+P\+Response}!header@{header}}
+\index{header@{header}!http\+::\+H\+T\+T\+P\+Response@{http\+::\+H\+T\+T\+P\+Response}}
+\subsubsection[{\texorpdfstring{header}{header}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::map$<$std\+::string, std\+::string$>$ http\+::\+H\+T\+T\+P\+Response\+::header}\hypertarget{structhttp_1_1HTTPResponse_a76f5d56ced92e1152ca471dabb68d79f}{}\label{structhttp_1_1HTTPResponse_a76f5d56ced92e1152ca471dabb68d79f}
+
+
+Definition at line 53 of file httplib.\+h.
+
+\index{http\+::\+H\+T\+T\+P\+Response@{http\+::\+H\+T\+T\+P\+Response}!status\+\_\+code@{status\+\_\+code}}
+\index{status\+\_\+code@{status\+\_\+code}!http\+::\+H\+T\+T\+P\+Response@{http\+::\+H\+T\+T\+P\+Response}}
+\subsubsection[{\texorpdfstring{status\+\_\+code}{status_code}}]{\setlength{\rightskip}{0pt plus 5cm}int http\+::\+H\+T\+T\+P\+Response\+::status\+\_\+code}\hypertarget{structhttp_1_1HTTPResponse_a5857363345f576492ec4d7d1cd581433}{}\label{structhttp_1_1HTTPResponse_a5857363345f576492ec4d7d1cd581433}
+
+
+Definition at line 52 of file httplib.\+h.
+
+\index{http\+::\+H\+T\+T\+P\+Response@{http\+::\+H\+T\+T\+P\+Response}!version@{version}}
+\index{version@{version}!http\+::\+H\+T\+T\+P\+Response@{http\+::\+H\+T\+T\+P\+Response}}
+\subsubsection[{\texorpdfstring{version}{version}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string http\+::\+H\+T\+T\+P\+Response\+::version}\hypertarget{structhttp_1_1HTTPResponse_a777b248557b9b4d7ea708903d32a6f65}{}\label{structhttp_1_1HTTPResponse_a777b248557b9b4d7ea708903d32a6f65}
+
+
+Definition at line 51 of file httplib.\+h.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{httplib_8h}{httplib.\+h}\item 
+src/\hyperlink{httplib_8cpp}{httplib.\+cpp}\end{DoxyCompactItemize}

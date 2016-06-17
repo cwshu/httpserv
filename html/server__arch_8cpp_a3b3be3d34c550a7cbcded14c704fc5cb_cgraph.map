@@ -1,0 +1,5 @@
+<map id="start_multiprocess_server" name="start_multiprocess_server">
+<area shape="rect" id="node2" href="$server__arch_8cpp.html#a73a299bc774f72083cad442daa13bb98" title="sigchid_waitfor_child" alt="" coords="183,5,325,32"/>
+<area shape="rect" id="node3" href="$socket_8cpp.html#a8ba059312a3660fff44d2186fbccb189" title="socket_accept" alt="" coords="201,56,307,83"/>
+<area shape="rect" id="node4" href="$structSocketAddr.html#a8ebe782431afe45d88532c153d13192f" title="SocketAddr::from_sockaddr_in" alt="" coords="373,56,575,83"/>
+</map>

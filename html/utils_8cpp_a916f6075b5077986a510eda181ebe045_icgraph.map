@@ -1,0 +1,9 @@
+<map id="perror_and_exit" name="perror_and_exit">
+<area shape="rect" id="node2" href="$httpd_8cpp.html#acd47800581c1e847cfe2e8ac4162b2dd" title="initial_document_root" alt="" coords="287,53,432,79"/>
+<area shape="rect" id="node5" href="$server__arch_8h.html#af8f8c84dbc3d661af40d62d4365ac322" title="bind_and_listen_tcp\l_socket" alt="" coords="484,5,621,47"/>
+<area shape="rect" id="node6" href="$namespacestr.html#a857ddd7aa296fcf860401e713155cece" title="wrapper of POSIX syscall read, return C++ std::string instead of memory buffer " alt="" coords="164,103,235,130"/>
+<area shape="rect" id="node3" href="$httpd_8cpp.html#a31c2301e3f4f24a7d91e96120a2c8d12" title="httpd_service" alt="" coords="503,82,603,109"/>
+<area shape="rect" id="node4" href="$httpd_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main" alt="" coords="669,47,720,74"/>
+<area shape="rect" id="node7" href="$httpd_8cpp.html#a4900784e728df4d8b02a2a9236dab777" title="read_and_parse_http\l_request" alt="" coords="288,155,431,196"/>
+<area shape="rect" id="node8" href="$httpd_8cpp.html#a4bc0987661f3430ddc8ce292aba1dde2" title="static_content_handler" alt="" coords="283,103,436,130"/>
+</map>

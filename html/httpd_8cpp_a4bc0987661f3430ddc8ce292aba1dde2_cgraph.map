@@ -1,0 +1,9 @@
+<map id="static_content_handler" name="static_content_handler">
+<area shape="rect" id="node2" href="$structSocketAddr.html#ad3130ceab48fa13e6891b4ee757f80a3" title="SocketAddr::to_str" alt="" coords="240,5,371,32"/>
+<area shape="rect" id="node3" href="$structhttp_1_1HTTPResponse.html#a16bac881dfef67c0b687c1d8f87aa03c" title="http::HTTPResponse\l::render_error_response_quick" alt="" coords="207,57,404,98"/>
+<area shape="rect" id="node4" href="$utils_8cpp.html#a5c0690733638b027403d563c31f6cf1c" title="write system call wrapper, it must write all data in buf to fd " alt="" coords="270,123,341,149"/>
+<area shape="rect" id="node5" href="$httpd_8cpp.html#addccb263e6d96f23dec09ee2ccbe51bb" title="mine_type" alt="" coords="264,173,347,200"/>
+<area shape="rect" id="node6" href="$structhttp_1_1HTTPResponse.html#a23c39df4ae7668b776d562107684f0a6" title="http::HTTPResponse\l::render_response_metadata" alt="" coords="212,225,399,266"/>
+<area shape="rect" id="node7" href="$namespacestr.html#a857ddd7aa296fcf860401e713155cece" title="wrapper of POSIX syscall read, return C++ std::string instead of memory buffer " alt="" coords="270,291,341,317"/>
+<area shape="rect" id="node8" href="$utils_8cpp.html#a916f6075b5077986a510eda181ebe045" title="perror_and_exit" alt="" coords="452,291,563,317"/>
+</map>

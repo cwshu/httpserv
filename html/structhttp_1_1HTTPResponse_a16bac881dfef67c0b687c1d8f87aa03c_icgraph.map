@@ -1,0 +1,6 @@
+<map id="http::HTTPResponse::render_error_response_quick" name="http::HTTPResponse::render_error_response_quick">
+<area shape="rect" id="node2" href="$httpd_8cpp.html#a31c2301e3f4f24a7d91e96120a2c8d12" title="httpd_service" alt="" coords="452,23,552,50"/>
+<area shape="rect" id="node4" href="$httpd_8cpp.html#a4bc0987661f3430ddc8ce292aba1dde2" title="static_content_handler" alt="" coords="251,23,404,50"/>
+<area shape="rect" id="node5" href="$httpd_8cpp.html#a06d3502045d43a9ca9e3bafacc148fdb" title="cgi_handler" alt="" coords="283,74,371,100"/>
+<area shape="rect" id="node3" href="$httpd_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main" alt="" coords="600,23,651,50"/>
+</map>

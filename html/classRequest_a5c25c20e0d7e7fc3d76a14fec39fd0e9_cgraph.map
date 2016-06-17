@@ -1,0 +1,5 @@
+<map id="Request::connect_server" name="Request::connect_server">
+<area shape="rect" id="node2" href="$utils_8cpp.html#a916f6075b5077986a510eda181ebe045" title="perror_and_exit" alt="" coords="223,5,334,32"/>
+<area shape="rect" id="node3" href="$socket_8cpp.html#a0bf6e5d001e1422c673594e110880cf4" title="socket_connect" alt="" coords="221,56,336,83"/>
+<area shape="rect" id="node4" href="$structSocketAddr.html#a3f9dfb07ec251c054b63d8f006400b09" title="SocketAddr::to_sockaddr_in" alt="" coords="384,56,571,83"/>
+</map>

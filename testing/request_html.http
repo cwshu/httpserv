@@ -1,5 +1,0 @@
-GET /t1.txt?k1=v1&k2=v2#frag HTTP/1.1
-Host: localhost
-User-Agent: netcat/0.7.1 (The GNU Netcat)
-
-

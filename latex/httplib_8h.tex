@@ -1,0 +1,86 @@
+\hypertarget{httplib_8h}{}\section{src/httplib.h File Reference}
+\label{httplib_8h}\index{src/httplib.\+h@{src/httplib.\+h}}
+
+
+H\+T\+TP protocol related library, like H\+T\+TP request, response.  
+
+
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+Include dependency graph for httplib.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=174pt]{httplib_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{httplib_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structhttp_1_1HTTPRequest}{http\+::\+H\+T\+T\+P\+Request}
+\item 
+struct \hyperlink{structhttp_1_1HTTPResponse}{http\+::\+H\+T\+T\+P\+Response}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacehttp}{http}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976f}{http\+::\+H\+T\+T\+P\+Request\+Method} \{ \hyperlink{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976fa35031fab2b9c91fef7f51b151d845612}{http\+::\+E\+R\+R\+OR}, 
+\hyperlink{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976faad87349b6ec813144e72c316f0ed45e0}{http\+::\+G\+ET}, 
+\hyperlink{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976fa451d3d8d46675b86802c405f179e92ab}{http\+::\+P\+O\+ST}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+H\+T\+T\+P\+Request\+Method \hyperlink{namespacehttp_a5ba1900a0d4aac4aef53ca5a7bcdd025}{http\+::str\+\_\+to\+\_\+http\+\_\+request\+\_\+method} (std\+::string http\+\_\+method)
+\item 
+std\+::string \hyperlink{namespacehttp_a17b47b6de921aecb55eb122231c314a3}{http\+::http\+\_\+request\+\_\+method\+\_\+to\+\_\+str} (H\+T\+T\+P\+Request\+Method http\+\_\+method)
+\item 
+void \hyperlink{httplib_8h_a01ed5b8eb2cc016b4357f2788c1bf098}{nl2br} (std\+::string \&str)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const std\+::string \hyperlink{httplib_8h_a1f6ae2f0ab9b5bbf146c9f4b3c42e374}{H\+T\+T\+P\+\_\+\+N\+E\+W\+L\+I\+NE} = \char`\"{}\textbackslash{}r\textbackslash{}n\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+H\+T\+TP protocol related library, like H\+T\+TP request, response. 
+
+
+
+\subsection{Function Documentation}
+\index{httplib.\+h@{httplib.\+h}!nl2br@{nl2br}}
+\index{nl2br@{nl2br}!httplib.\+h@{httplib.\+h}}
+\subsubsection[{\texorpdfstring{nl2br(std\+::string \&str)}{nl2br(std::string &str)}}]{\setlength{\rightskip}{0pt plus 5cm}void nl2br (
+\begin{DoxyParamCaption}
+\item[{std\+::string \&}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{httplib_8h_a01ed5b8eb2cc016b4357f2788c1bf098}{}\label{httplib_8h_a01ed5b8eb2cc016b4357f2788c1bf098}
+
+
+Definition at line 105 of file httplib.\+cpp.
+
+
+
+\subsection{Variable Documentation}
+\index{httplib.\+h@{httplib.\+h}!H\+T\+T\+P\+\_\+\+N\+E\+W\+L\+I\+NE@{H\+T\+T\+P\+\_\+\+N\+E\+W\+L\+I\+NE}}
+\index{H\+T\+T\+P\+\_\+\+N\+E\+W\+L\+I\+NE@{H\+T\+T\+P\+\_\+\+N\+E\+W\+L\+I\+NE}!httplib.\+h@{httplib.\+h}}
+\subsubsection[{\texorpdfstring{H\+T\+T\+P\+\_\+\+N\+E\+W\+L\+I\+NE}{HTTP_NEWLINE}}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::string H\+T\+T\+P\+\_\+\+N\+E\+W\+L\+I\+NE = \char`\"{}\textbackslash{}r\textbackslash{}n\char`\"{}}\hypertarget{httplib_8h_a1f6ae2f0ab9b5bbf146c9f4b3c42e374}{}\label{httplib_8h_a1f6ae2f0ab9b5bbf146c9f4b3c42e374}
+
+
+Definition at line 12 of file httplib.\+h.
+

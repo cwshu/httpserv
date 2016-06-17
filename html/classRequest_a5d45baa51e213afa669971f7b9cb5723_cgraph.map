@@ -1,0 +1,4 @@
+<map id="Request::read_server_response" name="Request::read_server_response">
+<area shape="rect" id="node2" href="$namespacestr.html#a857ddd7aa296fcf860401e713155cece" title="wrapper of POSIX syscall read, return C++ std::string instead of memory buffer " alt="" coords="200,13,271,39"/>
+<area shape="rect" id="node3" href="$utils_8cpp.html#a916f6075b5077986a510eda181ebe045" title="perror_and_exit" alt="" coords="319,13,429,39"/>
+</map>

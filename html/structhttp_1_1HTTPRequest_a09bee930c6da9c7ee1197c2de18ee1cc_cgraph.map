@@ -1,0 +1,4 @@
+<map id="http::HTTPRequest::print" name="http::HTTPRequest::print">
+<area shape="rect" id="node2" href="$namespacehttp.html#a17b47b6de921aecb55eb122231c314a3" title="http::http_request\l_method_to_str" alt="" coords="207,5,331,47"/>
+<area shape="rect" id="node3" href="$structhttp_1_1HTTPRequest.html#a4d18577ce9b622e694af75ca311b4a6e" title="http::HTTPRequest::\lprint_header" alt="" coords="197,71,341,112"/>
+</map>

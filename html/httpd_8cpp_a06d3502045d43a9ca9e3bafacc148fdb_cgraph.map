@@ -1,0 +1,7 @@
+<map id="cgi_handler" name="cgi_handler">
+<area shape="rect" id="node2" href="$structSocketAddr.html#ad3130ceab48fa13e6891b4ee757f80a3" title="SocketAddr::to_str" alt="" coords="175,5,305,32"/>
+<area shape="rect" id="node3" href="$structhttp_1_1HTTPResponse.html#a16bac881dfef67c0b687c1d8f87aa03c" title="http::HTTPResponse\l::render_error_response_quick" alt="" coords="141,57,339,98"/>
+<area shape="rect" id="node4" href="$utils_8cpp.html#a5c0690733638b027403d563c31f6cf1c" title="write system call wrapper, it must write all data in buf to fd " alt="" coords="205,123,275,149"/>
+<area shape="rect" id="node5" href="$structhttp_1_1HTTPResponse.html#a23c39df4ae7668b776d562107684f0a6" title="http::HTTPResponse\l::render_response_metadata" alt="" coords="147,174,333,215"/>
+<area shape="rect" id="node6" href="$namespacehttp.html#a17b47b6de921aecb55eb122231c314a3" title="http::http_request\l_method_to_str" alt="" coords="178,239,302,281"/>
+</map>

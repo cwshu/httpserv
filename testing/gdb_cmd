@@ -1,6 +1,0 @@
-file python3
-set args ./run_cgi.py
-set follow-fork-mode child
-br main
-r
-c

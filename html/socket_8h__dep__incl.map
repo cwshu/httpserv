@@ -1,0 +1,6 @@
+<map id="src/socket.h" name="src/socket.h">
+<area shape="rect" id="node2" href="$httpd_8cpp.html" title="basic http server implementation " alt="" coords="5,155,104,181"/>
+<area shape="rect" id="node3" href="$server__arch_8h.html" title="very basic server architecture framework, like fork&#45;based multiprocess server. " alt="" coords="92,80,215,107"/>
+<area shape="rect" id="node5" href="$socket_8cpp.html" title="some wrappers of POSIX socket api. " alt="" coords="239,80,347,107"/>
+<area shape="rect" id="node4" href="$server__arch_8cpp.html" title="very basic server architecture framework, like fork&#45;based multiprocess server. " alt="" coords="129,155,266,181"/>
+</map>

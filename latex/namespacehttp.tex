@@ -1,0 +1,117 @@
+\hypertarget{namespacehttp}{}\section{http Namespace Reference}
+\label{namespacehttp}\index{http@{http}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structhttp_1_1HTTPRequest}{H\+T\+T\+P\+Request}
+\item 
+struct \hyperlink{structhttp_1_1HTTPResponse}{H\+T\+T\+P\+Response}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976f}{H\+T\+T\+P\+Request\+Method} \{ \hyperlink{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976fa35031fab2b9c91fef7f51b151d845612}{E\+R\+R\+OR}, 
+\hyperlink{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976faad87349b6ec813144e72c316f0ed45e0}{G\+ET}, 
+\hyperlink{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976fa451d3d8d46675b86802c405f179e92ab}{P\+O\+ST}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976f}{H\+T\+T\+P\+Request\+Method} \hyperlink{namespacehttp_a5ba1900a0d4aac4aef53ca5a7bcdd025}{str\+\_\+to\+\_\+http\+\_\+request\+\_\+method} (std\+::string http\+\_\+method)
+\item 
+std\+::string \hyperlink{namespacehttp_a17b47b6de921aecb55eb122231c314a3}{http\+\_\+request\+\_\+method\+\_\+to\+\_\+str} (\hyperlink{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976f}{H\+T\+T\+P\+Request\+Method} http\+\_\+method)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::map$<$ int, std\+::string $>$ \hyperlink{namespacehttp_a732419ee002952aab275c7f35b7387ff}{status\+\_\+code\+\_\+to\+\_\+msg}
+\end{DoxyCompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\index{http@{http}!H\+T\+T\+P\+Request\+Method@{H\+T\+T\+P\+Request\+Method}}
+\index{H\+T\+T\+P\+Request\+Method@{H\+T\+T\+P\+Request\+Method}!http@{http}}
+\subsubsection[{\texorpdfstring{H\+T\+T\+P\+Request\+Method}{HTTPRequestMethod}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf http\+::\+H\+T\+T\+P\+Request\+Method}}\hypertarget{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976f}{}\label{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976f}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{E\+R\+R\+OR@{E\+R\+R\+OR}!http@{http}}\index{http@{http}!E\+R\+R\+OR@{E\+R\+R\+OR}}\item[{\em 
+E\+R\+R\+OR\hypertarget{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976fa35031fab2b9c91fef7f51b151d845612}{}\label{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976fa35031fab2b9c91fef7f51b151d845612}
+}]\index{G\+ET@{G\+ET}!http@{http}}\index{http@{http}!G\+ET@{G\+ET}}\item[{\em 
+G\+ET\hypertarget{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976faad87349b6ec813144e72c316f0ed45e0}{}\label{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976faad87349b6ec813144e72c316f0ed45e0}
+}]\index{P\+O\+ST@{P\+O\+ST}!http@{http}}\index{http@{http}!P\+O\+ST@{P\+O\+ST}}\item[{\em 
+P\+O\+ST\hypertarget{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976fa451d3d8d46675b86802c405f179e92ab}{}\label{namespacehttp_a46f9089c75601ed6b7e6a542cdd9976fa451d3d8d46675b86802c405f179e92ab}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 15 of file httplib.\+h.
+
+
+
+\subsection{Function Documentation}
+\index{http@{http}!http\+\_\+request\+\_\+method\+\_\+to\+\_\+str@{http\+\_\+request\+\_\+method\+\_\+to\+\_\+str}}
+\index{http\+\_\+request\+\_\+method\+\_\+to\+\_\+str@{http\+\_\+request\+\_\+method\+\_\+to\+\_\+str}!http@{http}}
+\subsubsection[{\texorpdfstring{http\+\_\+request\+\_\+method\+\_\+to\+\_\+str(\+H\+T\+T\+P\+Request\+Method http\+\_\+method)}{http_request_method_to_str(HTTPRequestMethod http_method)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string http\+::http\+\_\+request\+\_\+method\+\_\+to\+\_\+str (
+\begin{DoxyParamCaption}
+\item[{{\bf H\+T\+T\+P\+Request\+Method}}]{http\+\_\+method}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacehttp_a17b47b6de921aecb55eb122231c314a3}{}\label{namespacehttp_a17b47b6de921aecb55eb122231c314a3}
+
+
+Definition at line 25 of file httplib.\+cpp.
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacehttp_a17b47b6de921aecb55eb122231c314a3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{http@{http}!str\+\_\+to\+\_\+http\+\_\+request\+\_\+method@{str\+\_\+to\+\_\+http\+\_\+request\+\_\+method}}
+\index{str\+\_\+to\+\_\+http\+\_\+request\+\_\+method@{str\+\_\+to\+\_\+http\+\_\+request\+\_\+method}!http@{http}}
+\subsubsection[{\texorpdfstring{str\+\_\+to\+\_\+http\+\_\+request\+\_\+method(std\+::string http\+\_\+method)}{str_to_http_request_method(std::string http_method)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf H\+T\+T\+P\+Request\+Method} http\+::str\+\_\+to\+\_\+http\+\_\+request\+\_\+method (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{http\+\_\+method}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacehttp_a5ba1900a0d4aac4aef53ca5a7bcdd025}{}\label{namespacehttp_a5ba1900a0d4aac4aef53ca5a7bcdd025}
+
+
+Definition at line 19 of file httplib.\+cpp.
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacehttp_a5ba1900a0d4aac4aef53ca5a7bcdd025_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Variable Documentation}
+\index{http@{http}!status\+\_\+code\+\_\+to\+\_\+msg@{status\+\_\+code\+\_\+to\+\_\+msg}}
+\index{status\+\_\+code\+\_\+to\+\_\+msg@{status\+\_\+code\+\_\+to\+\_\+msg}!http@{http}}
+\subsubsection[{\texorpdfstring{status\+\_\+code\+\_\+to\+\_\+msg}{status_code_to_msg}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::map$<$ int, std\+::string $>$ http\+::status\+\_\+code\+\_\+to\+\_\+msg}\hypertarget{namespacehttp_a732419ee002952aab275c7f35b7387ff}{}\label{namespacehttp_a732419ee002952aab275c7f35b7387ff}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+        \{200, \textcolor{stringliteral}{"OK"}\},
+        \{403, \textcolor{stringliteral}{"FORBIDDEN"}\},
+        \{404, \textcolor{stringliteral}{"NOT FOUND"}\},
+        \{500, \textcolor{stringliteral}{"INTERNAL SERVER ERROR"}\},
+        \{501, \textcolor{stringliteral}{"NOT INPLEMENTED"}\},
+    \}
+\end{DoxyCode}
+
+
+Definition at line 11 of file httplib.\+cpp.
+

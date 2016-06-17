@@ -1,0 +1,5 @@
+<map id="bind_and_listen_tcp_socket" name="bind_and_listen_tcp_socket">
+<area shape="rect" id="node2" href="$utils_8cpp.html#a916f6075b5077986a510eda181ebe045" title="perror_and_exit" alt="" coords="191,5,301,32"/>
+<area shape="rect" id="node3" href="$socket_8cpp.html#a64814aef02edaeb12398d7d165aae177" title="socket_bind" alt="" coords="200,56,292,83"/>
+<area shape="rect" id="node4" href="$structSocketAddr.html#a3f9dfb07ec251c054b63d8f006400b09" title="SocketAddr::to_sockaddr_in" alt="" coords="349,56,536,83"/>
+</map>

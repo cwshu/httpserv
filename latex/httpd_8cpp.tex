@@ -1,0 +1,456 @@
+\hypertarget{httpd_8cpp}{}\section{src/httpd.cpp File Reference}
+\label{httpd_8cpp}\index{src/httpd.\+cpp@{src/httpd.\+cpp}}
+
+
+basic http server implementation  
+
+
+{\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$sys/stat.\+h$>$}\\*
+{\ttfamily \#include $<$sys/wait.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}socket.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}server\+\_\+arch.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}httplib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}utils.\+h\char`\"{}}\\*
+Include dependency graph for httpd.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{httpd_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3}{File\+Type} \{ \\*
+\hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3ab50339a10e1de285ac99d4c3990b8693}{File\+Type\+::\+N\+O\+NE}, 
+\hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a7d73ee8b4d3207119d519adb7a91cb3b}{File\+Type\+::\+C\+GI}, 
+\hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a5956a437e724cdfc8b1c70dc7bdeebcb}{File\+Type\+::\+T\+XT}, 
+\hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a4c4ad5fca2e7a3f74dbb1ced00381aa4}{File\+Type\+::\+H\+T\+ML}, 
+\\*
+\hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a2c56c360580420d293172f42d85dfbed}{File\+Type\+::\+C\+SS}, 
+\hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a95a66bab4c0c0fd8387e680daeff99a8}{File\+Type\+::\+G\+IF}, 
+\hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a92769fe7c40229f4301d6125e0a9e928}{File\+Type\+::\+J\+PG}, 
+\hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a55505ba281b015ec31f03ccb151b2a34}{File\+Type\+::\+P\+NG}, 
+\\*
+\hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3aa5d5ca1447586e23dc011f8c0cc0a6db}{File\+Type\+::\+B\+MP}, 
+\hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a2e09a5b01eac28408404f266726d465c}{File\+Type\+::\+D\+OC}, 
+\hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3abcd1b68617759b1dfcff0403a6b5a8d1}{File\+Type\+::\+P\+DF}, 
+\hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a96e814dc4f7f2fa179d6d8f82d3b7e2f}{File\+Type\+::\+M\+P4}, 
+\\*
+\hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3af62772d94b939126ee608465cf5e0881}{File\+Type\+::\+S\+WF}, 
+\hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3ae94afc367f47e1aaf16533e4ecbc8716}{File\+Type\+::\+O\+GG}, 
+\hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a028a0a3e4a9446bbe6561c8dbb2f1e71}{File\+Type\+::\+B\+Z2}, 
+\hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a45b66afd324eb127f0ca36379d04ef3c}{File\+Type\+::\+GZ}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{httpd_8cpp_addccb263e6d96f23dec09ee2ccbe51bb}{mine\+\_\+type} (\hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3}{File\+Type} type)
+\item 
+void \hyperlink{httpd_8cpp_a31c2301e3f4f24a7d91e96120a2c8d12}{httpd\+\_\+service} (\hyperlink{socket_8h_a90fd9161765f253a1459ebfe715adee1}{socketfd\+\_\+t} client\+\_\+socket, \hyperlink{structSocketAddr}{Socket\+Addr} \&client\+\_\+addr, void $\ast$args)
+\item 
+void \hyperlink{httpd_8cpp_a4900784e728df4d8b02a2a9236dab777}{read\+\_\+and\+\_\+parse\+\_\+http\+\_\+request} (\hyperlink{structhttp_1_1HTTPRequest}{http\+::\+H\+T\+T\+P\+Request} \&client\+\_\+request, \hyperlink{socket_8h_a90fd9161765f253a1459ebfe715adee1}{socketfd\+\_\+t} client\+\_\+socket)
+\item 
+void \hyperlink{httpd_8cpp_a4bc0987661f3430ddc8ce292aba1dde2}{static\+\_\+content\+\_\+handler} (\hyperlink{structhttp_1_1HTTPRequest}{http\+::\+H\+T\+T\+P\+Request} \&client\+\_\+request, \hyperlink{socket_8h_a90fd9161765f253a1459ebfe715adee1}{socketfd\+\_\+t} client\+\_\+socket, \hyperlink{structSocketAddr}{Socket\+Addr} \&client\+\_\+addr, \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3}{File\+Type} file\+\_\+type)
+\item 
+void \hyperlink{httpd_8cpp_a06d3502045d43a9ca9e3bafacc148fdb}{cgi\+\_\+handler} (\hyperlink{structhttp_1_1HTTPRequest}{http\+::\+H\+T\+T\+P\+Request} \&client\+\_\+request, \hyperlink{socket_8h_a90fd9161765f253a1459ebfe715adee1}{socketfd\+\_\+t} client\+\_\+socket, \hyperlink{structSocketAddr}{Socket\+Addr} \&client\+\_\+addr)
+\item 
+void \hyperlink{httpd_8cpp_acd47800581c1e847cfe2e8ac4162b2dd}{initial\+\_\+document\+\_\+root} (const std\+::string \&document\+\_\+root)
+\item 
+int \hyperlink{httpd_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char \hyperlink{httpd_8cpp_abf01e6833acdb78d0d8d5f41c2d21637}{H\+T\+T\+P\+D\+\_\+\+IP} \mbox{[}$\,$\mbox{]} = \char`\"{}0.\+0.\+0.\+0\char`\"{}
+\item 
+const uint16\+\_\+t \hyperlink{httpd_8cpp_a0319c7c1ed8f3ced80e04fabe28036fe}{H\+T\+T\+P\+D\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+RT} = 8100
+\item 
+std\+::unordered\+\_\+map$<$ std\+::string, \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3}{File\+Type} $>$ \hyperlink{httpd_8cpp_a0183162ad98bddda79e52bb1c5f5c921}{file\+\_\+extension\+\_\+to\+\_\+type}
+\item 
+std\+::fstream \hyperlink{httpd_8cpp_adc4e9c43aa3e5706842188c727d7d2b1}{access\+\_\+log}
+\item 
+std\+::fstream \hyperlink{httpd_8cpp_ac6ec20e6ec381ff728a13ce83c6328b6}{error\+\_\+log}
+\item 
+std\+::string \hyperlink{httpd_8cpp_a850397ecba018cd1ddf4a9ef95eb1119}{N\+E\+W\+L\+I\+NE} = \char`\"{}\textbackslash{}r\textbackslash{}n\char`\"{}
+\item 
+std\+::string \hyperlink{httpd_8cpp_ab88d408618418e071109419a92b722db}{D\+O\+U\+B\+L\+E\+\_\+\+N\+E\+W\+L\+I\+NE} = \hyperlink{httpd_8cpp_a850397ecba018cd1ddf4a9ef95eb1119}{N\+E\+W\+L\+I\+NE} + \hyperlink{httpd_8cpp_a850397ecba018cd1ddf4a9ef95eb1119}{N\+E\+W\+L\+I\+NE}
+\item 
+const int \hyperlink{httpd_8cpp_a660f8f4a00e9181bb676a8daa78ce4f9}{M\+A\+X\+\_\+\+B\+Y\+T\+E\+\_\+\+P\+E\+R\+\_\+\+L\+I\+NE} = 65536
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+basic http server implementation 
+
+
+
+\subsection{Enumeration Type Documentation}
+\index{httpd.\+cpp@{httpd.\+cpp}!File\+Type@{File\+Type}}
+\index{File\+Type@{File\+Type}!httpd.\+cpp@{httpd.\+cpp}}
+\subsubsection[{\texorpdfstring{File\+Type}{FileType}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf File\+Type}\hspace{0.3cm}{\ttfamily [strong]}}\hypertarget{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3}{}\label{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{N\+O\+NE@{N\+O\+NE}!httpd.\+cpp@{httpd.\+cpp}}\index{httpd.\+cpp@{httpd.\+cpp}!N\+O\+NE@{N\+O\+NE}}\item[{\em 
+N\+O\+NE\hypertarget{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3ab50339a10e1de285ac99d4c3990b8693}{}\label{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3ab50339a10e1de285ac99d4c3990b8693}
+}]\index{C\+GI@{C\+GI}!httpd.\+cpp@{httpd.\+cpp}}\index{httpd.\+cpp@{httpd.\+cpp}!C\+GI@{C\+GI}}\item[{\em 
+C\+GI\hypertarget{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a7d73ee8b4d3207119d519adb7a91cb3b}{}\label{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a7d73ee8b4d3207119d519adb7a91cb3b}
+}]\index{T\+XT@{T\+XT}!httpd.\+cpp@{httpd.\+cpp}}\index{httpd.\+cpp@{httpd.\+cpp}!T\+XT@{T\+XT}}\item[{\em 
+T\+XT\hypertarget{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a5956a437e724cdfc8b1c70dc7bdeebcb}{}\label{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a5956a437e724cdfc8b1c70dc7bdeebcb}
+}]\index{H\+T\+ML@{H\+T\+ML}!httpd.\+cpp@{httpd.\+cpp}}\index{httpd.\+cpp@{httpd.\+cpp}!H\+T\+ML@{H\+T\+ML}}\item[{\em 
+H\+T\+ML\hypertarget{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a4c4ad5fca2e7a3f74dbb1ced00381aa4}{}\label{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a4c4ad5fca2e7a3f74dbb1ced00381aa4}
+}]\index{C\+SS@{C\+SS}!httpd.\+cpp@{httpd.\+cpp}}\index{httpd.\+cpp@{httpd.\+cpp}!C\+SS@{C\+SS}}\item[{\em 
+C\+SS\hypertarget{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a2c56c360580420d293172f42d85dfbed}{}\label{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a2c56c360580420d293172f42d85dfbed}
+}]\index{G\+IF@{G\+IF}!httpd.\+cpp@{httpd.\+cpp}}\index{httpd.\+cpp@{httpd.\+cpp}!G\+IF@{G\+IF}}\item[{\em 
+G\+IF\hypertarget{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a95a66bab4c0c0fd8387e680daeff99a8}{}\label{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a95a66bab4c0c0fd8387e680daeff99a8}
+}]\index{J\+PG@{J\+PG}!httpd.\+cpp@{httpd.\+cpp}}\index{httpd.\+cpp@{httpd.\+cpp}!J\+PG@{J\+PG}}\item[{\em 
+J\+PG\hypertarget{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a92769fe7c40229f4301d6125e0a9e928}{}\label{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a92769fe7c40229f4301d6125e0a9e928}
+}]\index{P\+NG@{P\+NG}!httpd.\+cpp@{httpd.\+cpp}}\index{httpd.\+cpp@{httpd.\+cpp}!P\+NG@{P\+NG}}\item[{\em 
+P\+NG\hypertarget{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a55505ba281b015ec31f03ccb151b2a34}{}\label{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a55505ba281b015ec31f03ccb151b2a34}
+}]\index{B\+MP@{B\+MP}!httpd.\+cpp@{httpd.\+cpp}}\index{httpd.\+cpp@{httpd.\+cpp}!B\+MP@{B\+MP}}\item[{\em 
+B\+MP\hypertarget{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3aa5d5ca1447586e23dc011f8c0cc0a6db}{}\label{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3aa5d5ca1447586e23dc011f8c0cc0a6db}
+}]\index{D\+OC@{D\+OC}!httpd.\+cpp@{httpd.\+cpp}}\index{httpd.\+cpp@{httpd.\+cpp}!D\+OC@{D\+OC}}\item[{\em 
+D\+OC\hypertarget{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a2e09a5b01eac28408404f266726d465c}{}\label{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a2e09a5b01eac28408404f266726d465c}
+}]\index{P\+DF@{P\+DF}!httpd.\+cpp@{httpd.\+cpp}}\index{httpd.\+cpp@{httpd.\+cpp}!P\+DF@{P\+DF}}\item[{\em 
+P\+DF\hypertarget{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3abcd1b68617759b1dfcff0403a6b5a8d1}{}\label{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3abcd1b68617759b1dfcff0403a6b5a8d1}
+}]\index{M\+P4@{M\+P4}!httpd.\+cpp@{httpd.\+cpp}}\index{httpd.\+cpp@{httpd.\+cpp}!M\+P4@{M\+P4}}\item[{\em 
+M\+P4\hypertarget{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a96e814dc4f7f2fa179d6d8f82d3b7e2f}{}\label{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a96e814dc4f7f2fa179d6d8f82d3b7e2f}
+}]\index{S\+WF@{S\+WF}!httpd.\+cpp@{httpd.\+cpp}}\index{httpd.\+cpp@{httpd.\+cpp}!S\+WF@{S\+WF}}\item[{\em 
+S\+WF\hypertarget{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3af62772d94b939126ee608465cf5e0881}{}\label{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3af62772d94b939126ee608465cf5e0881}
+}]\index{O\+GG@{O\+GG}!httpd.\+cpp@{httpd.\+cpp}}\index{httpd.\+cpp@{httpd.\+cpp}!O\+GG@{O\+GG}}\item[{\em 
+O\+GG\hypertarget{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3ae94afc367f47e1aaf16533e4ecbc8716}{}\label{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3ae94afc367f47e1aaf16533e4ecbc8716}
+}]\index{B\+Z2@{B\+Z2}!httpd.\+cpp@{httpd.\+cpp}}\index{httpd.\+cpp@{httpd.\+cpp}!B\+Z2@{B\+Z2}}\item[{\em 
+B\+Z2\hypertarget{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a028a0a3e4a9446bbe6561c8dbb2f1e71}{}\label{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a028a0a3e4a9446bbe6561c8dbb2f1e71}
+}]\index{GZ@{GZ}!httpd.\+cpp@{httpd.\+cpp}}\index{httpd.\+cpp@{httpd.\+cpp}!GZ@{GZ}}\item[{\em 
+GZ\hypertarget{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a45b66afd324eb127f0ca36379d04ef3c}{}\label{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a45b66afd324eb127f0ca36379d04ef3c}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 28 of file httpd.\+cpp.
+
+
+
+\subsection{Function Documentation}
+\index{httpd.\+cpp@{httpd.\+cpp}!cgi\+\_\+handler@{cgi\+\_\+handler}}
+\index{cgi\+\_\+handler@{cgi\+\_\+handler}!httpd.\+cpp@{httpd.\+cpp}}
+\subsubsection[{\texorpdfstring{cgi\+\_\+handler(http\+::\+H\+T\+T\+P\+Request \&client\+\_\+request, socketfd\+\_\+t client\+\_\+socket, Socket\+Addr \&client\+\_\+addr)}{cgi_handler(http::HTTPRequest &client_request, socketfd_t client_socket, SocketAddr &client_addr)}}]{\setlength{\rightskip}{0pt plus 5cm}void cgi\+\_\+handler (
+\begin{DoxyParamCaption}
+\item[{{\bf http\+::\+H\+T\+T\+P\+Request} \&}]{client\+\_\+request, }
+\item[{{\bf socketfd\+\_\+t}}]{client\+\_\+socket, }
+\item[{{\bf Socket\+Addr} \&}]{client\+\_\+addr}
+\end{DoxyParamCaption}
+)}\hypertarget{httpd_8cpp_a06d3502045d43a9ca9e3bafacc148fdb}{}\label{httpd_8cpp_a06d3502045d43a9ca9e3bafacc148fdb}
+
+
+Definition at line 328 of file httpd.\+cpp.
+
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{httpd_8cpp_a06d3502045d43a9ca9e3bafacc148fdb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=331pt]{httpd_8cpp_a06d3502045d43a9ca9e3bafacc148fdb_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{httpd.\+cpp@{httpd.\+cpp}!httpd\+\_\+service@{httpd\+\_\+service}}
+\index{httpd\+\_\+service@{httpd\+\_\+service}!httpd.\+cpp@{httpd.\+cpp}}
+\subsubsection[{\texorpdfstring{httpd\+\_\+service(socketfd\+\_\+t client\+\_\+socket, Socket\+Addr \&client\+\_\+addr, void $\ast$args)}{httpd_service(socketfd_t client_socket, SocketAddr &client_addr, void *args)}}]{\setlength{\rightskip}{0pt plus 5cm}void httpd\+\_\+service (
+\begin{DoxyParamCaption}
+\item[{{\bf socketfd\+\_\+t}}]{client\+\_\+socket, }
+\item[{{\bf Socket\+Addr} \&}]{client\+\_\+addr, }
+\item[{void $\ast$}]{args}
+\end{DoxyParamCaption}
+)}\hypertarget{httpd_8cpp_a31c2301e3f4f24a7d91e96120a2c8d12}{}\label{httpd_8cpp_a31c2301e3f4f24a7d91e96120a2c8d12}
+
+
+Definition at line 126 of file httpd.\+cpp.
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{httpd_8cpp_a31c2301e3f4f24a7d91e96120a2c8d12_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{httpd_8cpp_a31c2301e3f4f24a7d91e96120a2c8d12_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{httpd.\+cpp@{httpd.\+cpp}!initial\+\_\+document\+\_\+root@{initial\+\_\+document\+\_\+root}}
+\index{initial\+\_\+document\+\_\+root@{initial\+\_\+document\+\_\+root}!httpd.\+cpp@{httpd.\+cpp}}
+\subsubsection[{\texorpdfstring{initial\+\_\+document\+\_\+root(const std\+::string \&document\+\_\+root)}{initial_document_root(const std::string &document_root)}}]{\setlength{\rightskip}{0pt plus 5cm}void initial\+\_\+document\+\_\+root (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{document\+\_\+root}
+\end{DoxyParamCaption}
+)}\hypertarget{httpd_8cpp_acd47800581c1e847cfe2e8ac4162b2dd}{}\label{httpd_8cpp_acd47800581c1e847cfe2e8ac4162b2dd}
+
+
+Definition at line 95 of file httpd.\+cpp.
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{httpd_8cpp_acd47800581c1e847cfe2e8ac4162b2dd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{httpd_8cpp_acd47800581c1e847cfe2e8ac4162b2dd_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{httpd.\+cpp@{httpd.\+cpp}!main@{main}}
+\index{main@{main}!httpd.\+cpp@{httpd.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{httpd_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{}\label{httpd_8cpp_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Definition at line 111 of file httpd.\+cpp.
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{httpd_8cpp_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{httpd.\+cpp@{httpd.\+cpp}!mine\+\_\+type@{mine\+\_\+type}}
+\index{mine\+\_\+type@{mine\+\_\+type}!httpd.\+cpp@{httpd.\+cpp}}
+\subsubsection[{\texorpdfstring{mine\+\_\+type(\+File\+Type type)}{mine_type(FileType type)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string mine\+\_\+type (
+\begin{DoxyParamCaption}
+\item[{{\bf File\+Type}}]{type}
+\end{DoxyParamCaption}
+)}\hypertarget{httpd_8cpp_addccb263e6d96f23dec09ee2ccbe51bb}{}\label{httpd_8cpp_addccb263e6d96f23dec09ee2ccbe51bb}
+
+
+Definition at line 39 of file httpd.\+cpp.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{httpd_8cpp_addccb263e6d96f23dec09ee2ccbe51bb_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{httpd.\+cpp@{httpd.\+cpp}!read\+\_\+and\+\_\+parse\+\_\+http\+\_\+request@{read\+\_\+and\+\_\+parse\+\_\+http\+\_\+request}}
+\index{read\+\_\+and\+\_\+parse\+\_\+http\+\_\+request@{read\+\_\+and\+\_\+parse\+\_\+http\+\_\+request}!httpd.\+cpp@{httpd.\+cpp}}
+\subsubsection[{\texorpdfstring{read\+\_\+and\+\_\+parse\+\_\+http\+\_\+request(http\+::\+H\+T\+T\+P\+Request \&client\+\_\+request, socketfd\+\_\+t client\+\_\+socket)}{read_and_parse_http_request(http::HTTPRequest &client_request, socketfd_t client_socket)}}]{\setlength{\rightskip}{0pt plus 5cm}void read\+\_\+and\+\_\+parse\+\_\+http\+\_\+request (
+\begin{DoxyParamCaption}
+\item[{{\bf http\+::\+H\+T\+T\+P\+Request} \&}]{client\+\_\+request, }
+\item[{{\bf socketfd\+\_\+t}}]{client\+\_\+socket}
+\end{DoxyParamCaption}
+)}\hypertarget{httpd_8cpp_a4900784e728df4d8b02a2a9236dab777}{}\label{httpd_8cpp_a4900784e728df4d8b02a2a9236dab777}
+
+
+Definition at line 234 of file httpd.\+cpp.
+
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{httpd_8cpp_a4900784e728df4d8b02a2a9236dab777_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{httpd_8cpp_a4900784e728df4d8b02a2a9236dab777_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{httpd.\+cpp@{httpd.\+cpp}!static\+\_\+content\+\_\+handler@{static\+\_\+content\+\_\+handler}}
+\index{static\+\_\+content\+\_\+handler@{static\+\_\+content\+\_\+handler}!httpd.\+cpp@{httpd.\+cpp}}
+\subsubsection[{\texorpdfstring{static\+\_\+content\+\_\+handler(http\+::\+H\+T\+T\+P\+Request \&client\+\_\+request, socketfd\+\_\+t client\+\_\+socket, Socket\+Addr \&client\+\_\+addr, File\+Type file\+\_\+type)}{static_content_handler(http::HTTPRequest &client_request, socketfd_t client_socket, SocketAddr &client_addr, FileType file_type)}}]{\setlength{\rightskip}{0pt plus 5cm}void static\+\_\+content\+\_\+handler (
+\begin{DoxyParamCaption}
+\item[{{\bf http\+::\+H\+T\+T\+P\+Request} \&}]{client\+\_\+request, }
+\item[{{\bf socketfd\+\_\+t}}]{client\+\_\+socket, }
+\item[{{\bf Socket\+Addr} \&}]{client\+\_\+addr, }
+\item[{{\bf File\+Type}}]{file\+\_\+type}
+\end{DoxyParamCaption}
+)}\hypertarget{httpd_8cpp_a4bc0987661f3430ddc8ce292aba1dde2}{}\label{httpd_8cpp_a4bc0987661f3430ddc8ce292aba1dde2}
+
+
+Definition at line 299 of file httpd.\+cpp.
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{httpd_8cpp_a4bc0987661f3430ddc8ce292aba1dde2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{httpd_8cpp_a4bc0987661f3430ddc8ce292aba1dde2_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Variable Documentation}
+\index{httpd.\+cpp@{httpd.\+cpp}!access\+\_\+log@{access\+\_\+log}}
+\index{access\+\_\+log@{access\+\_\+log}!httpd.\+cpp@{httpd.\+cpp}}
+\subsubsection[{\texorpdfstring{access\+\_\+log}{access_log}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::fstream access\+\_\+log}\hypertarget{httpd_8cpp_adc4e9c43aa3e5706842188c727d7d2b1}{}\label{httpd_8cpp_adc4e9c43aa3e5706842188c727d7d2b1}
+
+
+Definition at line 125 of file httpd.\+cpp.
+
+\index{httpd.\+cpp@{httpd.\+cpp}!D\+O\+U\+B\+L\+E\+\_\+\+N\+E\+W\+L\+I\+NE@{D\+O\+U\+B\+L\+E\+\_\+\+N\+E\+W\+L\+I\+NE}}
+\index{D\+O\+U\+B\+L\+E\+\_\+\+N\+E\+W\+L\+I\+NE@{D\+O\+U\+B\+L\+E\+\_\+\+N\+E\+W\+L\+I\+NE}!httpd.\+cpp@{httpd.\+cpp}}
+\subsubsection[{\texorpdfstring{D\+O\+U\+B\+L\+E\+\_\+\+N\+E\+W\+L\+I\+NE}{DOUBLE_NEWLINE}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string D\+O\+U\+B\+L\+E\+\_\+\+N\+E\+W\+L\+I\+NE = {\bf N\+E\+W\+L\+I\+NE} + {\bf N\+E\+W\+L\+I\+NE}}\hypertarget{httpd_8cpp_ab88d408618418e071109419a92b722db}{}\label{httpd_8cpp_ab88d408618418e071109419a92b722db}
+
+
+Definition at line 231 of file httpd.\+cpp.
+
+\index{httpd.\+cpp@{httpd.\+cpp}!error\+\_\+log@{error\+\_\+log}}
+\index{error\+\_\+log@{error\+\_\+log}!httpd.\+cpp@{httpd.\+cpp}}
+\subsubsection[{\texorpdfstring{error\+\_\+log}{error_log}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::fstream error\+\_\+log}\hypertarget{httpd_8cpp_ac6ec20e6ec381ff728a13ce83c6328b6}{}\label{httpd_8cpp_ac6ec20e6ec381ff728a13ce83c6328b6}
+
+
+Definition at line 125 of file httpd.\+cpp.
+
+\index{httpd.\+cpp@{httpd.\+cpp}!file\+\_\+extension\+\_\+to\+\_\+type@{file\+\_\+extension\+\_\+to\+\_\+type}}
+\index{file\+\_\+extension\+\_\+to\+\_\+type@{file\+\_\+extension\+\_\+to\+\_\+type}!httpd.\+cpp@{httpd.\+cpp}}
+\subsubsection[{\texorpdfstring{file\+\_\+extension\+\_\+to\+\_\+type}{file_extension_to_type}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::unordered\+\_\+map$<$std\+::string, {\bf File\+Type}$>$ file\+\_\+extension\+\_\+to\+\_\+type}\hypertarget{httpd_8cpp_a0183162ad98bddda79e52bb1c5f5c921}{}\label{httpd_8cpp_a0183162ad98bddda79e52bb1c5f5c921}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \{\textcolor{stringliteral}{"cgi"} , \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a7d73ee8b4d3207119d519adb7a91cb3b}{FileType::CGI}\},
+    \{\textcolor{stringliteral}{"txt"} , \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a5956a437e724cdfc8b1c70dc7bdeebcb}{FileType::TXT}\},
+    \{\textcolor{stringliteral}{"html"}, \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a4c4ad5fca2e7a3f74dbb1ced00381aa4}{FileType::HTML}\},
+    \{\textcolor{stringliteral}{"htm"} , \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a4c4ad5fca2e7a3f74dbb1ced00381aa4}{FileType::HTML}\},
+    \{\textcolor{stringliteral}{"css"} , \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a2c56c360580420d293172f42d85dfbed}{FileType::CSS}\},
+
+    \{\textcolor{stringliteral}{"gif"} , \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a95a66bab4c0c0fd8387e680daeff99a8}{FileType::GIF}\},
+    \{\textcolor{stringliteral}{"jpg"} , \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a92769fe7c40229f4301d6125e0a9e928}{FileType::JPG}\},
+    \{\textcolor{stringliteral}{"png"} , \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a55505ba281b015ec31f03ccb151b2a34}{FileType::PNG}\},
+    \{\textcolor{stringliteral}{"bmp"} , \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3aa5d5ca1447586e23dc011f8c0cc0a6db}{FileType::BMP}\},
+
+    \{\textcolor{stringliteral}{"doc"} , \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a2e09a5b01eac28408404f266726d465c}{FileType::DOC}\},
+    \{\textcolor{stringliteral}{"pdf"} , \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3abcd1b68617759b1dfcff0403a6b5a8d1}{FileType::PDF}\},
+    
+    \{\textcolor{stringliteral}{"mp4"} , \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a96e814dc4f7f2fa179d6d8f82d3b7e2f}{FileType::MP4}\},
+    \{\textcolor{stringliteral}{"swf"} , \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3af62772d94b939126ee608465cf5e0881}{FileType::SWF}\},
+    \{\textcolor{stringliteral}{"swfl"}, \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3af62772d94b939126ee608465cf5e0881}{FileType::SWF}\},
+    \{\textcolor{stringliteral}{"ogg"} , \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3ae94afc367f47e1aaf16533e4ecbc8716}{FileType::OGG}\},
+
+    \{\textcolor{stringliteral}{"bz2"} , \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a028a0a3e4a9446bbe6561c8dbb2f1e71}{FileType::BZ2}\},
+    \{\textcolor{stringliteral}{"gz"}  , \hyperlink{httpd_8cpp_a2c794c5c13ab4dd7e65bad031dbe41c3a45b66afd324eb127f0ca36379d04ef3c}{FileType::GZ}\},
+\}
+\end{DoxyCode}
+
+
+Definition at line 65 of file httpd.\+cpp.
+
+\index{httpd.\+cpp@{httpd.\+cpp}!H\+T\+T\+P\+D\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+RT@{H\+T\+T\+P\+D\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+RT}}
+\index{H\+T\+T\+P\+D\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+RT@{H\+T\+T\+P\+D\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+RT}!httpd.\+cpp@{httpd.\+cpp}}
+\subsubsection[{\texorpdfstring{H\+T\+T\+P\+D\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+RT}{HTTPD_DEFAULT_PORT}}]{\setlength{\rightskip}{0pt plus 5cm}const uint16\+\_\+t H\+T\+T\+P\+D\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+RT = 8100}\hypertarget{httpd_8cpp_a0319c7c1ed8f3ced80e04fabe28036fe}{}\label{httpd_8cpp_a0319c7c1ed8f3ced80e04fabe28036fe}
+
+
+Definition at line 26 of file httpd.\+cpp.
+
+\index{httpd.\+cpp@{httpd.\+cpp}!H\+T\+T\+P\+D\+\_\+\+IP@{H\+T\+T\+P\+D\+\_\+\+IP}}
+\index{H\+T\+T\+P\+D\+\_\+\+IP@{H\+T\+T\+P\+D\+\_\+\+IP}!httpd.\+cpp@{httpd.\+cpp}}
+\subsubsection[{\texorpdfstring{H\+T\+T\+P\+D\+\_\+\+IP}{HTTPD_IP}}]{\setlength{\rightskip}{0pt plus 5cm}const char H\+T\+T\+P\+D\+\_\+\+IP\mbox{[}$\,$\mbox{]} = \char`\"{}0.\+0.\+0.\+0\char`\"{}}\hypertarget{httpd_8cpp_abf01e6833acdb78d0d8d5f41c2d21637}{}\label{httpd_8cpp_abf01e6833acdb78d0d8d5f41c2d21637}
+
+
+Definition at line 25 of file httpd.\+cpp.
+
+\index{httpd.\+cpp@{httpd.\+cpp}!M\+A\+X\+\_\+\+B\+Y\+T\+E\+\_\+\+P\+E\+R\+\_\+\+L\+I\+NE@{M\+A\+X\+\_\+\+B\+Y\+T\+E\+\_\+\+P\+E\+R\+\_\+\+L\+I\+NE}}
+\index{M\+A\+X\+\_\+\+B\+Y\+T\+E\+\_\+\+P\+E\+R\+\_\+\+L\+I\+NE@{M\+A\+X\+\_\+\+B\+Y\+T\+E\+\_\+\+P\+E\+R\+\_\+\+L\+I\+NE}!httpd.\+cpp@{httpd.\+cpp}}
+\subsubsection[{\texorpdfstring{M\+A\+X\+\_\+\+B\+Y\+T\+E\+\_\+\+P\+E\+R\+\_\+\+L\+I\+NE}{MAX_BYTE_PER_LINE}}]{\setlength{\rightskip}{0pt plus 5cm}const int M\+A\+X\+\_\+\+B\+Y\+T\+E\+\_\+\+P\+E\+R\+\_\+\+L\+I\+NE = 65536}\hypertarget{httpd_8cpp_a660f8f4a00e9181bb676a8daa78ce4f9}{}\label{httpd_8cpp_a660f8f4a00e9181bb676a8daa78ce4f9}
+
+
+Definition at line 232 of file httpd.\+cpp.
+
+\index{httpd.\+cpp@{httpd.\+cpp}!N\+E\+W\+L\+I\+NE@{N\+E\+W\+L\+I\+NE}}
+\index{N\+E\+W\+L\+I\+NE@{N\+E\+W\+L\+I\+NE}!httpd.\+cpp@{httpd.\+cpp}}
+\subsubsection[{\texorpdfstring{N\+E\+W\+L\+I\+NE}{NEWLINE}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string N\+E\+W\+L\+I\+NE = \char`\"{}\textbackslash{}r\textbackslash{}n\char`\"{}}\hypertarget{httpd_8cpp_a850397ecba018cd1ddf4a9ef95eb1119}{}\label{httpd_8cpp_a850397ecba018cd1ddf4a9ef95eb1119}
+
+
+Definition at line 230 of file httpd.\+cpp.
+

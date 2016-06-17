@@ -1,0 +1,166 @@
+\hypertarget{socket_8cpp}{}\section{src/socket.cpp File Reference}
+\label{socket_8cpp}\index{src/socket.\+cpp@{src/socket.\+cpp}}
+
+
+some wrappers of P\+O\+S\+IX socket api.  
+
+
+{\ttfamily \#include $<$cstring$>$}\\*
+{\ttfamily \#include $<$cstdint$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$netinet/in.\+h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}socket.\+h\char`\"{}}\\*
+Include dependency graph for socket.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{socket_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{socket_8cpp_a64814aef02edaeb12398d7d165aae177}{socket\+\_\+bind} (\hyperlink{socket_8h_a90fd9161765f253a1459ebfe715adee1}{socketfd\+\_\+t} socketfd, \hyperlink{structSocketAddr}{Socket\+Addr} \&bind\+\_\+addr)
+\item 
+int \hyperlink{socket_8cpp_a0bf6e5d001e1422c673594e110880cf4}{socket\+\_\+connect} (\hyperlink{socket_8h_a90fd9161765f253a1459ebfe715adee1}{socketfd\+\_\+t} socketfd, \hyperlink{structSocketAddr}{Socket\+Addr} \&connect\+\_\+addr)
+\item 
+\hyperlink{socket_8h_a90fd9161765f253a1459ebfe715adee1}{socketfd\+\_\+t} \hyperlink{socket_8cpp_a8ba059312a3660fff44d2186fbccb189}{socket\+\_\+accept} (\hyperlink{socket_8h_a90fd9161765f253a1459ebfe715adee1}{socketfd\+\_\+t} socketfd, \hyperlink{structSocketAddr}{Socket\+Addr} \&accept\+\_\+addr)
+\item 
+std\+::string \hyperlink{socket_8cpp_a6b26f1fcb69a15427c361d86f2af8155}{ip\+\_\+nbyte\+\_\+to\+\_\+str} (uint32\+\_\+t ip\+\_\+nbyte)
+\item 
+uint32\+\_\+t \hyperlink{socket_8cpp_acda02743d5ab013e7bde78a049dffdfe}{ip\+\_\+string\+\_\+to\+\_\+nbyte} (std\+::string ip\+\_\+str)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+some wrappers of P\+O\+S\+IX socket api. 
+
+
+
+\subsection{Function Documentation}
+\index{socket.\+cpp@{socket.\+cpp}!ip\+\_\+nbyte\+\_\+to\+\_\+str@{ip\+\_\+nbyte\+\_\+to\+\_\+str}}
+\index{ip\+\_\+nbyte\+\_\+to\+\_\+str@{ip\+\_\+nbyte\+\_\+to\+\_\+str}!socket.\+cpp@{socket.\+cpp}}
+\subsubsection[{\texorpdfstring{ip\+\_\+nbyte\+\_\+to\+\_\+str(uint32\+\_\+t ip\+\_\+nbyte)}{ip_nbyte_to_str(uint32_t ip_nbyte)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string ip\+\_\+nbyte\+\_\+to\+\_\+str (
+\begin{DoxyParamCaption}
+\item[{uint32\+\_\+t}]{ip\+\_\+nbyte}
+\end{DoxyParamCaption}
+)}\hypertarget{socket_8cpp_a6b26f1fcb69a15427c361d86f2af8155}{}\label{socket_8cpp_a6b26f1fcb69a15427c361d86f2af8155}
+
+
+Definition at line 138 of file socket.\+cpp.
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{socket_8cpp_a6b26f1fcb69a15427c361d86f2af8155_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{socket.\+cpp@{socket.\+cpp}!ip\+\_\+string\+\_\+to\+\_\+nbyte@{ip\+\_\+string\+\_\+to\+\_\+nbyte}}
+\index{ip\+\_\+string\+\_\+to\+\_\+nbyte@{ip\+\_\+string\+\_\+to\+\_\+nbyte}!socket.\+cpp@{socket.\+cpp}}
+\subsubsection[{\texorpdfstring{ip\+\_\+string\+\_\+to\+\_\+nbyte(std\+::string ip\+\_\+str)}{ip_string_to_nbyte(std::string ip_str)}}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t ip\+\_\+string\+\_\+to\+\_\+nbyte (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{ip\+\_\+str}
+\end{DoxyParamCaption}
+)}\hypertarget{socket_8cpp_acda02743d5ab013e7bde78a049dffdfe}{}\label{socket_8cpp_acda02743d5ab013e7bde78a049dffdfe}
+
+
+Definition at line 145 of file socket.\+cpp.
+
+\index{socket.\+cpp@{socket.\+cpp}!socket\+\_\+accept@{socket\+\_\+accept}}
+\index{socket\+\_\+accept@{socket\+\_\+accept}!socket.\+cpp@{socket.\+cpp}}
+\subsubsection[{\texorpdfstring{socket\+\_\+accept(socketfd\+\_\+t socketfd, Socket\+Addr \&accept\+\_\+addr)}{socket_accept(socketfd_t socketfd, SocketAddr &accept_addr)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf socketfd\+\_\+t} socket\+\_\+accept (
+\begin{DoxyParamCaption}
+\item[{{\bf socketfd\+\_\+t}}]{socketfd, }
+\item[{{\bf Socket\+Addr} \&}]{accept\+\_\+addr}
+\end{DoxyParamCaption}
+)}\hypertarget{socket_8cpp_a8ba059312a3660fff44d2186fbccb189}{}\label{socket_8cpp_a8ba059312a3660fff44d2186fbccb189}
+
+
+Definition at line 82 of file socket.\+cpp.
+
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=347pt]{socket_8cpp_a8ba059312a3660fff44d2186fbccb189_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{socket_8cpp_a8ba059312a3660fff44d2186fbccb189_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{socket.\+cpp@{socket.\+cpp}!socket\+\_\+bind@{socket\+\_\+bind}}
+\index{socket\+\_\+bind@{socket\+\_\+bind}!socket.\+cpp@{socket.\+cpp}}
+\subsubsection[{\texorpdfstring{socket\+\_\+bind(socketfd\+\_\+t socketfd, Socket\+Addr \&bind\+\_\+addr)}{socket_bind(socketfd_t socketfd, SocketAddr &bind_addr)}}]{\setlength{\rightskip}{0pt plus 5cm}int socket\+\_\+bind (
+\begin{DoxyParamCaption}
+\item[{{\bf socketfd\+\_\+t}}]{socketfd, }
+\item[{{\bf Socket\+Addr} \&}]{bind\+\_\+addr}
+\end{DoxyParamCaption}
+)}\hypertarget{socket_8cpp_a64814aef02edaeb12398d7d165aae177}{}\label{socket_8cpp_a64814aef02edaeb12398d7d165aae177}
+
+
+Definition at line 68 of file socket.\+cpp.
+
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=325pt]{socket_8cpp_a64814aef02edaeb12398d7d165aae177_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{socket_8cpp_a64814aef02edaeb12398d7d165aae177_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{socket.\+cpp@{socket.\+cpp}!socket\+\_\+connect@{socket\+\_\+connect}}
+\index{socket\+\_\+connect@{socket\+\_\+connect}!socket.\+cpp@{socket.\+cpp}}
+\subsubsection[{\texorpdfstring{socket\+\_\+connect(socketfd\+\_\+t socketfd, Socket\+Addr \&connect\+\_\+addr)}{socket_connect(socketfd_t socketfd, SocketAddr &connect_addr)}}]{\setlength{\rightskip}{0pt plus 5cm}int socket\+\_\+connect (
+\begin{DoxyParamCaption}
+\item[{{\bf socketfd\+\_\+t}}]{socketfd, }
+\item[{{\bf Socket\+Addr} \&}]{connect\+\_\+addr}
+\end{DoxyParamCaption}
+)}\hypertarget{socket_8cpp_a0bf6e5d001e1422c673594e110880cf4}{}\label{socket_8cpp_a0bf6e5d001e1422c673594e110880cf4}
+
+
+Definition at line 75 of file socket.\+cpp.
+
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{socket_8cpp_a0bf6e5d001e1422c673594e110880cf4_cgraph}
+\end{center}
+\end{figure}
+
+

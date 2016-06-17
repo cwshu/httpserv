@@ -1,0 +1,5 @@
+<map id="write_all" name="write_all">
+<area shape="rect" id="node2" href="$namespacestr.html#a857ddd7aa296fcf860401e713155cece" title="wrapper of POSIX syscall read, return C++ std::string instead of memory buffer " alt="" coords="144,5,215,32"/>
+<area shape="rect" id="node4" href="$utils_8cpp.html#a916f6075b5077986a510eda181ebe045" title="perror_and_exit" alt="" coords="124,56,235,83"/>
+<area shape="rect" id="node3" href="$utils_8a_8cpp.html#a916f6075b5077986a510eda181ebe045" title="perror_and_exit" alt="" coords="283,5,393,32"/>
+</map>

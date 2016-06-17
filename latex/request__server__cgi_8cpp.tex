@@ -1,0 +1,167 @@
+\hypertarget{request__server__cgi_8cpp}{}\section{src/request\+\_\+server\+\_\+cgi.cpp File Reference}
+\label{request__server__cgi_8cpp}\index{src/request\+\_\+server\+\_\+cgi.\+cpp@{src/request\+\_\+server\+\_\+cgi.\+cpp}}
+{\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$cstring$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$netinet/in.\+h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$sys/select.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}socket.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}io\+\_\+wrapper.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}httplib.\+h\char`\"{}}\\*
+Include dependency graph for request\+\_\+server\+\_\+cgi.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{request__server__cgi_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classRequest}{Request}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacecgi}{cgi}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::map$<$ std\+::string, std\+::string $>$ \hyperlink{namespacecgi_aa9f3aafc012ce61057c61098609c9a81}{cgi\+::http\+\_\+get\+\_\+parameters} ()
+\item 
+void \hyperlink{request__server__cgi_8cpp_a29af0e33897ceea86d031bd837358acd}{print\+\_\+http\+\_\+header} ()
+\item 
+void \hyperlink{request__server__cgi_8cpp_aa4b0acb4a1ec728916bdbeb46bdbbb89}{print\+\_\+html\+\_\+before\+\_\+content} (const std\+::vector$<$ \hyperlink{classRequest}{Request} $>$ \&all\+\_\+requests)
+\item 
+void \hyperlink{request__server__cgi_8cpp_a3f4ff399d257e5accd116364be8c38a7}{print\+\_\+html\+\_\+content} (int id, std\+::string msg)
+\item 
+void \hyperlink{request__server__cgi_8cpp_a39112ad26fa626e5ff6f39a46f77c540}{print\+\_\+html\+\_\+after\+\_\+content} ()
+\item 
+int \hyperlink{request__server__cgi_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{request\+\_\+server\+\_\+cgi.\+cpp@{request\+\_\+server\+\_\+cgi.\+cpp}!main@{main}}
+\index{main@{main}!request\+\_\+server\+\_\+cgi.\+cpp@{request\+\_\+server\+\_\+cgi.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{request__server__cgi_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{}\label{request__server__cgi_8cpp_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Definition at line 50 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{request__server__cgi_8cpp_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{request\+\_\+server\+\_\+cgi.\+cpp@{request\+\_\+server\+\_\+cgi.\+cpp}!print\+\_\+html\+\_\+after\+\_\+content@{print\+\_\+html\+\_\+after\+\_\+content}}
+\index{print\+\_\+html\+\_\+after\+\_\+content@{print\+\_\+html\+\_\+after\+\_\+content}!request\+\_\+server\+\_\+cgi.\+cpp@{request\+\_\+server\+\_\+cgi.\+cpp}}
+\subsubsection[{\texorpdfstring{print\+\_\+html\+\_\+after\+\_\+content()}{print_html_after_content()}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+html\+\_\+after\+\_\+content (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{request__server__cgi_8cpp_a39112ad26fa626e5ff6f39a46f77c540}{}\label{request__server__cgi_8cpp_a39112ad26fa626e5ff6f39a46f77c540}
+
+
+Definition at line 344 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{request__server__cgi_8cpp_a39112ad26fa626e5ff6f39a46f77c540_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{request\+\_\+server\+\_\+cgi.\+cpp@{request\+\_\+server\+\_\+cgi.\+cpp}!print\+\_\+html\+\_\+before\+\_\+content@{print\+\_\+html\+\_\+before\+\_\+content}}
+\index{print\+\_\+html\+\_\+before\+\_\+content@{print\+\_\+html\+\_\+before\+\_\+content}!request\+\_\+server\+\_\+cgi.\+cpp@{request\+\_\+server\+\_\+cgi.\+cpp}}
+\subsubsection[{\texorpdfstring{print\+\_\+html\+\_\+before\+\_\+content(const std\+::vector$<$ Request $>$ \&all\+\_\+requests)}{print_html_before_content(const std::vector< Request > &all_requests)}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+html\+\_\+before\+\_\+content (
+\begin{DoxyParamCaption}
+\item[{const std\+::vector$<$ {\bf Request} $>$ \&}]{all\+\_\+requests}
+\end{DoxyParamCaption}
+)}\hypertarget{request__server__cgi_8cpp_aa4b0acb4a1ec728916bdbeb46bdbbb89}{}\label{request__server__cgi_8cpp_aa4b0acb4a1ec728916bdbeb46bdbbb89}
+
+
+Definition at line 308 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=283pt]{request__server__cgi_8cpp_aa4b0acb4a1ec728916bdbeb46bdbbb89_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{request\+\_\+server\+\_\+cgi.\+cpp@{request\+\_\+server\+\_\+cgi.\+cpp}!print\+\_\+html\+\_\+content@{print\+\_\+html\+\_\+content}}
+\index{print\+\_\+html\+\_\+content@{print\+\_\+html\+\_\+content}!request\+\_\+server\+\_\+cgi.\+cpp@{request\+\_\+server\+\_\+cgi.\+cpp}}
+\subsubsection[{\texorpdfstring{print\+\_\+html\+\_\+content(int id, std\+::string msg)}{print_html_content(int id, std::string msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+html\+\_\+content (
+\begin{DoxyParamCaption}
+\item[{int}]{id, }
+\item[{std\+::string}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{request__server__cgi_8cpp_a3f4ff399d257e5accd116364be8c38a7}{}\label{request__server__cgi_8cpp_a3f4ff399d257e5accd116364be8c38a7}
+
+
+Definition at line 340 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{request__server__cgi_8cpp_a3f4ff399d257e5accd116364be8c38a7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{request\+\_\+server\+\_\+cgi.\+cpp@{request\+\_\+server\+\_\+cgi.\+cpp}!print\+\_\+http\+\_\+header@{print\+\_\+http\+\_\+header}}
+\index{print\+\_\+http\+\_\+header@{print\+\_\+http\+\_\+header}!request\+\_\+server\+\_\+cgi.\+cpp@{request\+\_\+server\+\_\+cgi.\+cpp}}
+\subsubsection[{\texorpdfstring{print\+\_\+http\+\_\+header()}{print_http_header()}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+http\+\_\+header (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{request__server__cgi_8cpp_a29af0e33897ceea86d031bd837358acd}{}\label{request__server__cgi_8cpp_a29af0e33897ceea86d031bd837358acd}
+
+
+Definition at line 303 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{request__server__cgi_8cpp_a29af0e33897ceea86d031bd837358acd_icgraph}
+\end{center}
+\end{figure}
+
+

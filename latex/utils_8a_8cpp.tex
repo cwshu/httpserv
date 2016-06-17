@@ -1,0 +1,197 @@
+\hypertarget{utils_8a_8cpp}{}\section{src/utils.a.\+cpp File Reference}
+\label{utils_8a_8cpp}\index{src/utils.\+a.\+cpp@{src/utils.\+a.\+cpp}}
+{\ttfamily \#include $<$cstdio$>$}\\*
+{\ttfamily \#include $<$cstdarg$>$}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}utils.\+h\char`\"{}}\\*
+Include dependency graph for utils.\+a.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{utils_8a_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacestr}{str}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{utils_8a_8cpp_a02fc750c1bdf4404f2dc65c8027402b3}{fetch\+\_\+word} (std\+::string \&parsed\+\_\+str, const char $\ast$split\+\_\+chars)
+\item 
+std\+::string \hyperlink{utils_8a_8cpp_a3744fa1f80a33c82d7b0271ad760b17c}{lstrip} (const std\+::string \&str)
+\begin{DoxyCompactList}\small\item\em remove leading whitespaces of string \end{DoxyCompactList}\item 
+std\+::string \hyperlink{utils_8a_8cpp_ad360723f55acac1680c3d315f0b81376}{rstrip} (const std\+::string \&str)
+\begin{DoxyCompactList}\small\item\em remove trailing whitespaces of string \end{DoxyCompactList}\item 
+std\+::string \hyperlink{utils_8a_8cpp_a12dd965675944e1c14f13945fa45b135}{strip} (const std\+::string \&str)
+\begin{DoxyCompactList}\small\item\em remove leading and trailing whitespaces of string \end{DoxyCompactList}\item 
+void \hyperlink{utils_8a_8cpp_a916f6075b5077986a510eda181ebe045}{perror\+\_\+and\+\_\+exit} (const char $\ast$str)
+\item 
+void \hyperlink{utils_8a_8cpp_a454273786caf8413454dc73b38ae4c84}{error\+\_\+print} (const char $\ast$format...)
+\item 
+void \hyperlink{utils_8a_8cpp_a00e699cf179ead11ffd1fb267f4118c4}{error\+\_\+print\+\_\+and\+\_\+exit} (const char $\ast$format...)
+\item 
+int \hyperlink{utils_8a_8cpp_a5c0690733638b027403d563c31f6cf1c}{write\+\_\+all} (int fd, const void $\ast$buf, size\+\_\+t count)
+\item 
+std\+::string \hyperlink{namespacestr_a857ddd7aa296fcf860401e713155cece}{str\+::read} (int fd, int count, bool is\+\_\+nonblocking)
+\begin{DoxyCompactList}\small\item\em wrapper of P\+O\+S\+IX syscall read, return C++ std\+::string instead of memory buffer \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{utils.\+a.\+cpp@{utils.\+a.\+cpp}!error\+\_\+print@{error\+\_\+print}}
+\index{error\+\_\+print@{error\+\_\+print}!utils.\+a.\+cpp@{utils.\+a.\+cpp}}
+\subsubsection[{\texorpdfstring{error\+\_\+print(const char $\ast$format...)}{error_print(const char *format...)}}]{\setlength{\rightskip}{0pt plus 5cm}void error\+\_\+print (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{format...}
+\end{DoxyParamCaption}
+)}\hypertarget{utils_8a_8cpp_a454273786caf8413454dc73b38ae4c84}{}\label{utils_8a_8cpp_a454273786caf8413454dc73b38ae4c84}
+
+
+Definition at line 82 of file utils.\+a.\+cpp.
+
+\index{utils.\+a.\+cpp@{utils.\+a.\+cpp}!error\+\_\+print\+\_\+and\+\_\+exit@{error\+\_\+print\+\_\+and\+\_\+exit}}
+\index{error\+\_\+print\+\_\+and\+\_\+exit@{error\+\_\+print\+\_\+and\+\_\+exit}!utils.\+a.\+cpp@{utils.\+a.\+cpp}}
+\subsubsection[{\texorpdfstring{error\+\_\+print\+\_\+and\+\_\+exit(const char $\ast$format...)}{error_print_and_exit(const char *format...)}}]{\setlength{\rightskip}{0pt plus 5cm}void error\+\_\+print\+\_\+and\+\_\+exit (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{format...}
+\end{DoxyParamCaption}
+)}\hypertarget{utils_8a_8cpp_a00e699cf179ead11ffd1fb267f4118c4}{}\label{utils_8a_8cpp_a00e699cf179ead11ffd1fb267f4118c4}
+
+
+Definition at line 90 of file utils.\+a.\+cpp.
+
+\index{utils.\+a.\+cpp@{utils.\+a.\+cpp}!fetch\+\_\+word@{fetch\+\_\+word}}
+\index{fetch\+\_\+word@{fetch\+\_\+word}!utils.\+a.\+cpp@{utils.\+a.\+cpp}}
+\subsubsection[{\texorpdfstring{fetch\+\_\+word(std\+::string \&parsed\+\_\+str, const char $\ast$split\+\_\+chars)}{fetch_word(std::string &parsed_str, const char *split_chars)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string fetch\+\_\+word (
+\begin{DoxyParamCaption}
+\item[{std\+::string \&}]{parsed\+\_\+str, }
+\item[{const char $\ast$}]{split\+\_\+chars}
+\end{DoxyParamCaption}
+)}\hypertarget{utils_8a_8cpp_a02fc750c1bdf4404f2dc65c8027402b3}{}\label{utils_8a_8cpp_a02fc750c1bdf4404f2dc65c8027402b3}
+
+
+Definition at line 13 of file utils.\+a.\+cpp.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{utils_8a_8cpp_a02fc750c1bdf4404f2dc65c8027402b3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{utils.\+a.\+cpp@{utils.\+a.\+cpp}!lstrip@{lstrip}}
+\index{lstrip@{lstrip}!utils.\+a.\+cpp@{utils.\+a.\+cpp}}
+\subsubsection[{\texorpdfstring{lstrip(const std\+::string \&str)}{lstrip(const std::string &str)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string lstrip (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{utils_8a_8cpp_a3744fa1f80a33c82d7b0271ad760b17c}{}\label{utils_8a_8cpp_a3744fa1f80a33c82d7b0271ad760b17c}
+
+
+remove leading whitespaces of string 
+
+
+
+Definition at line 46 of file utils.\+a.\+cpp.
+
+\index{utils.\+a.\+cpp@{utils.\+a.\+cpp}!perror\+\_\+and\+\_\+exit@{perror\+\_\+and\+\_\+exit}}
+\index{perror\+\_\+and\+\_\+exit@{perror\+\_\+and\+\_\+exit}!utils.\+a.\+cpp@{utils.\+a.\+cpp}}
+\subsubsection[{\texorpdfstring{perror\+\_\+and\+\_\+exit(const char $\ast$str)}{perror_and_exit(const char *str)}}]{\setlength{\rightskip}{0pt plus 5cm}void perror\+\_\+and\+\_\+exit (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{utils_8a_8cpp_a916f6075b5077986a510eda181ebe045}{}\label{utils_8a_8cpp_a916f6075b5077986a510eda181ebe045}
+
+
+Definition at line 77 of file utils.\+a.\+cpp.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{utils_8a_8cpp_a916f6075b5077986a510eda181ebe045_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{utils.\+a.\+cpp@{utils.\+a.\+cpp}!rstrip@{rstrip}}
+\index{rstrip@{rstrip}!utils.\+a.\+cpp@{utils.\+a.\+cpp}}
+\subsubsection[{\texorpdfstring{rstrip(const std\+::string \&str)}{rstrip(const std::string &str)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string rstrip (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{utils_8a_8cpp_ad360723f55acac1680c3d315f0b81376}{}\label{utils_8a_8cpp_ad360723f55acac1680c3d315f0b81376}
+
+
+remove trailing whitespaces of string 
+
+
+
+Definition at line 55 of file utils.\+a.\+cpp.
+
+\index{utils.\+a.\+cpp@{utils.\+a.\+cpp}!strip@{strip}}
+\index{strip@{strip}!utils.\+a.\+cpp@{utils.\+a.\+cpp}}
+\subsubsection[{\texorpdfstring{strip(const std\+::string \&str)}{strip(const std::string &str)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string strip (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{utils_8a_8cpp_a12dd965675944e1c14f13945fa45b135}{}\label{utils_8a_8cpp_a12dd965675944e1c14f13945fa45b135}
+
+
+remove leading and trailing whitespaces of string 
+
+
+
+Definition at line 64 of file utils.\+a.\+cpp.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{utils_8a_8cpp_a12dd965675944e1c14f13945fa45b135_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{utils.\+a.\+cpp@{utils.\+a.\+cpp}!write\+\_\+all@{write\+\_\+all}}
+\index{write\+\_\+all@{write\+\_\+all}!utils.\+a.\+cpp@{utils.\+a.\+cpp}}
+\subsubsection[{\texorpdfstring{write\+\_\+all(int fd, const void $\ast$buf, size\+\_\+t count)}{write_all(int fd, const void *buf, size_t count)}}]{\setlength{\rightskip}{0pt plus 5cm}int write\+\_\+all (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{const void $\ast$}]{buf, }
+\item[{size\+\_\+t}]{count}
+\end{DoxyParamCaption}
+)}\hypertarget{utils_8a_8cpp_a5c0690733638b027403d563c31f6cf1c}{}\label{utils_8a_8cpp_a5c0690733638b027403d563c31f6cf1c}
+
+
+Definition at line 101 of file utils.\+a.\+cpp.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{utils_8a_8cpp_a5c0690733638b027403d563c31f6cf1c_icgraph}
+\end{center}
+\end{figure}
+
+

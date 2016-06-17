@@ -1,0 +1,194 @@
+\hypertarget{structSocketAddr}{}\section{Socket\+Addr Struct Reference}
+\label{structSocketAddr}\index{Socket\+Addr@{Socket\+Addr}}
+
+
+{\ttfamily \#include $<$socket.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structSocketAddr_ac9fe40eadabc57b45f5ceb3aca715e22}{Socket\+Addr} ()
+\item 
+\hyperlink{structSocketAddr_a6d4f15342cb86647916a0741836e1c5f}{Socket\+Addr} (const char $\ast$\hyperlink{structSocketAddr_a973e725fb7a3fb1e92d97da9e89a1fe1}{ipv4\+\_\+addr\+\_\+str}, uint16\+\_\+t \hyperlink{structSocketAddr_aabf22ab371acc5bc2de3d32b135a8911}{port\+\_\+hbytes})
+\item 
+\hyperlink{structSocketAddr_aeba8b0a03790689aad646b67a0cb4c60}{Socket\+Addr} (std\+::string \hyperlink{structSocketAddr_a973e725fb7a3fb1e92d97da9e89a1fe1}{ipv4\+\_\+addr\+\_\+str}, uint16\+\_\+t \hyperlink{structSocketAddr_aabf22ab371acc5bc2de3d32b135a8911}{port\+\_\+hbytes})
+\item 
+void \hyperlink{structSocketAddr_a0237a249a1248ae4e9cf23d64a4d79be}{set\+\_\+sockaddr} (uint32\+\_\+t ipv4\+\_\+nbytes, uint16\+\_\+t port\+\_\+nbytes)
+\item 
+void \hyperlink{structSocketAddr_aa30057516c12c8e7f0292e15027dd7ae}{get\+\_\+sockaddr} (uint32\+\_\+t $\ast$ipv4\+\_\+nbytes, uint16\+\_\+t $\ast$port\+\_\+nbytes)
+\item 
+std\+::string \hyperlink{structSocketAddr_ad3130ceab48fa13e6891b4ee757f80a3}{to\+\_\+str} ()
+\item 
+void \hyperlink{structSocketAddr_a3f9dfb07ec251c054b63d8f006400b09}{to\+\_\+sockaddr\+\_\+in} (struct sockaddr\+\_\+in \&ret\+\_\+addr)
+\item 
+void \hyperlink{structSocketAddr_a8ebe782431afe45d88532c153d13192f}{from\+\_\+sockaddr\+\_\+in} (struct sockaddr\+\_\+in \&input\+\_\+addr)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{structSocketAddr_a973e725fb7a3fb1e92d97da9e89a1fe1}{ipv4\+\_\+addr\+\_\+str}
+\item 
+uint16\+\_\+t \hyperlink{structSocketAddr_aabf22ab371acc5bc2de3d32b135a8911}{port\+\_\+hbytes}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 22 of file socket.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Socket\+Addr@{Socket\+Addr}!Socket\+Addr@{Socket\+Addr}}
+\index{Socket\+Addr@{Socket\+Addr}!Socket\+Addr@{Socket\+Addr}}
+\subsubsection[{\texorpdfstring{Socket\+Addr()}{SocketAddr()}}]{\setlength{\rightskip}{0pt plus 5cm}Socket\+Addr\+::\+Socket\+Addr (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{structSocketAddr_ac9fe40eadabc57b45f5ceb3aca715e22}{}\label{structSocketAddr_ac9fe40eadabc57b45f5ceb3aca715e22}
+
+
+Definition at line 20 of file socket.\+cpp.
+
+\index{Socket\+Addr@{Socket\+Addr}!Socket\+Addr@{Socket\+Addr}}
+\index{Socket\+Addr@{Socket\+Addr}!Socket\+Addr@{Socket\+Addr}}
+\subsubsection[{\texorpdfstring{Socket\+Addr(const char $\ast$ipv4\+\_\+addr\+\_\+str, uint16\+\_\+t port\+\_\+hbytes)}{SocketAddr(const char *ipv4_addr_str, uint16_t port_hbytes)}}]{\setlength{\rightskip}{0pt plus 5cm}Socket\+Addr\+::\+Socket\+Addr (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ipv4\+\_\+addr\+\_\+str, }
+\item[{uint16\+\_\+t}]{port\+\_\+hbytes}
+\end{DoxyParamCaption}
+)}\hypertarget{structSocketAddr_a6d4f15342cb86647916a0741836e1c5f}{}\label{structSocketAddr_a6d4f15342cb86647916a0741836e1c5f}
+
+
+Definition at line 24 of file socket.\+cpp.
+
+\index{Socket\+Addr@{Socket\+Addr}!Socket\+Addr@{Socket\+Addr}}
+\index{Socket\+Addr@{Socket\+Addr}!Socket\+Addr@{Socket\+Addr}}
+\subsubsection[{\texorpdfstring{Socket\+Addr(std\+::string ipv4\+\_\+addr\+\_\+str, uint16\+\_\+t port\+\_\+hbytes)}{SocketAddr(std::string ipv4_addr_str, uint16_t port_hbytes)}}]{\setlength{\rightskip}{0pt plus 5cm}Socket\+Addr\+::\+Socket\+Addr (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{ipv4\+\_\+addr\+\_\+str, }
+\item[{uint16\+\_\+t}]{port\+\_\+hbytes}
+\end{DoxyParamCaption}
+)}\hypertarget{structSocketAddr_aeba8b0a03790689aad646b67a0cb4c60}{}\label{structSocketAddr_aeba8b0a03790689aad646b67a0cb4c60}
+
+
+Definition at line 29 of file socket.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\index{Socket\+Addr@{Socket\+Addr}!from\+\_\+sockaddr\+\_\+in@{from\+\_\+sockaddr\+\_\+in}}
+\index{from\+\_\+sockaddr\+\_\+in@{from\+\_\+sockaddr\+\_\+in}!Socket\+Addr@{Socket\+Addr}}
+\subsubsection[{\texorpdfstring{from\+\_\+sockaddr\+\_\+in(struct sockaddr\+\_\+in \&input\+\_\+addr)}{from_sockaddr_in(struct sockaddr_in &input_addr)}}]{\setlength{\rightskip}{0pt plus 5cm}void Socket\+Addr\+::from\+\_\+sockaddr\+\_\+in (
+\begin{DoxyParamCaption}
+\item[{struct sockaddr\+\_\+in \&}]{input\+\_\+addr}
+\end{DoxyParamCaption}
+)}\hypertarget{structSocketAddr_a8ebe782431afe45d88532c153d13192f}{}\label{structSocketAddr_a8ebe782431afe45d88532c153d13192f}
+
+
+Definition at line 63 of file socket.\+cpp.
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structSocketAddr_a8ebe782431afe45d88532c153d13192f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Socket\+Addr@{Socket\+Addr}!get\+\_\+sockaddr@{get\+\_\+sockaddr}}
+\index{get\+\_\+sockaddr@{get\+\_\+sockaddr}!Socket\+Addr@{Socket\+Addr}}
+\subsubsection[{\texorpdfstring{get\+\_\+sockaddr(uint32\+\_\+t $\ast$ipv4\+\_\+nbytes, uint16\+\_\+t $\ast$port\+\_\+nbytes)}{get_sockaddr(uint32_t *ipv4_nbytes, uint16_t *port_nbytes)}}]{\setlength{\rightskip}{0pt plus 5cm}void Socket\+Addr\+::get\+\_\+sockaddr (
+\begin{DoxyParamCaption}
+\item[{uint32\+\_\+t $\ast$}]{ipv4\+\_\+nbytes, }
+\item[{uint16\+\_\+t $\ast$}]{port\+\_\+nbytes}
+\end{DoxyParamCaption}
+)}\hypertarget{structSocketAddr_aa30057516c12c8e7f0292e15027dd7ae}{}\label{structSocketAddr_aa30057516c12c8e7f0292e15027dd7ae}
+
+
+Definition at line 44 of file socket.\+cpp.
+
+\index{Socket\+Addr@{Socket\+Addr}!set\+\_\+sockaddr@{set\+\_\+sockaddr}}
+\index{set\+\_\+sockaddr@{set\+\_\+sockaddr}!Socket\+Addr@{Socket\+Addr}}
+\subsubsection[{\texorpdfstring{set\+\_\+sockaddr(uint32\+\_\+t ipv4\+\_\+nbytes, uint16\+\_\+t port\+\_\+nbytes)}{set_sockaddr(uint32_t ipv4_nbytes, uint16_t port_nbytes)}}]{\setlength{\rightskip}{0pt plus 5cm}void Socket\+Addr\+::set\+\_\+sockaddr (
+\begin{DoxyParamCaption}
+\item[{uint32\+\_\+t}]{ipv4\+\_\+nbytes, }
+\item[{uint16\+\_\+t}]{port\+\_\+nbytes}
+\end{DoxyParamCaption}
+)}\hypertarget{structSocketAddr_a0237a249a1248ae4e9cf23d64a4d79be}{}\label{structSocketAddr_a0237a249a1248ae4e9cf23d64a4d79be}
+
+
+Definition at line 34 of file socket.\+cpp.
+
+\index{Socket\+Addr@{Socket\+Addr}!to\+\_\+sockaddr\+\_\+in@{to\+\_\+sockaddr\+\_\+in}}
+\index{to\+\_\+sockaddr\+\_\+in@{to\+\_\+sockaddr\+\_\+in}!Socket\+Addr@{Socket\+Addr}}
+\subsubsection[{\texorpdfstring{to\+\_\+sockaddr\+\_\+in(struct sockaddr\+\_\+in \&ret\+\_\+addr)}{to_sockaddr_in(struct sockaddr_in &ret_addr)}}]{\setlength{\rightskip}{0pt plus 5cm}void Socket\+Addr\+::to\+\_\+sockaddr\+\_\+in (
+\begin{DoxyParamCaption}
+\item[{struct sockaddr\+\_\+in \&}]{ret\+\_\+addr}
+\end{DoxyParamCaption}
+)}\hypertarget{structSocketAddr_a3f9dfb07ec251c054b63d8f006400b09}{}\label{structSocketAddr_a3f9dfb07ec251c054b63d8f006400b09}
+
+
+Definition at line 56 of file socket.\+cpp.
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structSocketAddr_a3f9dfb07ec251c054b63d8f006400b09_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Socket\+Addr@{Socket\+Addr}!to\+\_\+str@{to\+\_\+str}}
+\index{to\+\_\+str@{to\+\_\+str}!Socket\+Addr@{Socket\+Addr}}
+\subsubsection[{\texorpdfstring{to\+\_\+str()}{to_str()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Socket\+Addr\+::to\+\_\+str (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{structSocketAddr_ad3130ceab48fa13e6891b4ee757f80a3}{}\label{structSocketAddr_ad3130ceab48fa13e6891b4ee757f80a3}
+
+
+Definition at line 52 of file socket.\+cpp.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structSocketAddr_ad3130ceab48fa13e6891b4ee757f80a3_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Member Data Documentation}
+\index{Socket\+Addr@{Socket\+Addr}!ipv4\+\_\+addr\+\_\+str@{ipv4\+\_\+addr\+\_\+str}}
+\index{ipv4\+\_\+addr\+\_\+str@{ipv4\+\_\+addr\+\_\+str}!Socket\+Addr@{Socket\+Addr}}
+\subsubsection[{\texorpdfstring{ipv4\+\_\+addr\+\_\+str}{ipv4_addr_str}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Socket\+Addr\+::ipv4\+\_\+addr\+\_\+str}\hypertarget{structSocketAddr_a973e725fb7a3fb1e92d97da9e89a1fe1}{}\label{structSocketAddr_a973e725fb7a3fb1e92d97da9e89a1fe1}
+
+
+Definition at line 24 of file socket.\+h.
+
+\index{Socket\+Addr@{Socket\+Addr}!port\+\_\+hbytes@{port\+\_\+hbytes}}
+\index{port\+\_\+hbytes@{port\+\_\+hbytes}!Socket\+Addr@{Socket\+Addr}}
+\subsubsection[{\texorpdfstring{port\+\_\+hbytes}{port_hbytes}}]{\setlength{\rightskip}{0pt plus 5cm}uint16\+\_\+t Socket\+Addr\+::port\+\_\+hbytes}\hypertarget{structSocketAddr_aabf22ab371acc5bc2de3d32b135a8911}{}\label{structSocketAddr_aabf22ab371acc5bc2de3d32b135a8911}
+
+
+Definition at line 25 of file socket.\+h.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{socket_8h}{socket.\+h}\item 
+src/\hyperlink{socket_8cpp}{socket.\+cpp}\end{DoxyCompactItemize}

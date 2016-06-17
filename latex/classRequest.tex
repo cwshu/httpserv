@@ -1,0 +1,271 @@
+\hypertarget{classRequest}{}\section{Request Class Reference}
+\label{classRequest}\index{Request@{Request}}
+
+
+Collaboration diagram for Request\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=148pt]{classRequest__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classRequest_a3486ae358bb5f313cf671c1e77699d09}{Request} (const std\+::string \&host, int port, const std\+::string \&\hyperlink{classRequest_aa5246e928a295ef769e474312d558b85}{batch\+\_\+file}, int \hyperlink{classRequest_a026538b5d27774177b27d0552d25fa13}{id})
+\item 
+\hyperlink{classRequest_aab943afe9bcc179e2ed7b80157e8ca88}{Request} (const \hyperlink{classRequest}{Request} \&copy)
+\item 
+void \hyperlink{classRequest_a5c25c20e0d7e7fc3d76a14fec39fd0e9}{connect\+\_\+server} (bool is\+\_\+nonblocking)
+\item 
+void \hyperlink{classRequest_adb783bcf7a5ecda4db300257c4ccf660}{open\+\_\+batch\+\_\+file} ()
+\item 
+bool \hyperlink{classRequest_af06e40284c6ef025e1ef464629ae951f}{send\+\_\+batch\+\_\+file\+\_\+data\+\_\+to\+\_\+server\+\_\+once} ()
+\item 
+std\+::string \hyperlink{classRequest_a5d45baa51e213afa669971f7b9cb5723}{read\+\_\+server\+\_\+response} (int count, bool is\+\_\+nonblocking)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structSocketAddr}{Socket\+Addr} \hyperlink{classRequest_a1d6fd040a0dd5c3d0da514cf234d33cd}{addr}
+\item 
+std\+::string \hyperlink{classRequest_aa5246e928a295ef769e474312d558b85}{batch\+\_\+file}
+\item 
+int \hyperlink{classRequest_a026538b5d27774177b27d0552d25fa13}{id}
+\item 
+bool \hyperlink{classRequest_a30024722f13af3adb689b49ef2a3e3b7}{is\+\_\+server\+\_\+connect}
+\item 
+\hyperlink{socket_8h_a90fd9161765f253a1459ebfe715adee1}{socketfd\+\_\+t} \hyperlink{classRequest_a223435a4804fdb654d6dc1a235225dad}{server\+\_\+fd}
+\item 
+bool \hyperlink{classRequest_a11bea4e83a069abfa16141669b41c717}{is\+\_\+batch\+\_\+file\+\_\+open}
+\item 
+std\+::fstream \hyperlink{classRequest_a7ebbfa97cb7b1c6605e9d799f3287354}{batch\+\_\+file\+\_\+stream}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 22 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Request@{Request}!Request@{Request}}
+\index{Request@{Request}!Request@{Request}}
+\subsubsection[{\texorpdfstring{Request(const std\+::string \&host, int port, const std\+::string \&batch\+\_\+file, int id)}{Request(const std::string &host, int port, const std::string &batch_file, int id)}}]{\setlength{\rightskip}{0pt plus 5cm}Request\+::\+Request (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{host, }
+\item[{int}]{port, }
+\item[{const std\+::string \&}]{batch\+\_\+file, }
+\item[{int}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{classRequest_a3486ae358bb5f313cf671c1e77699d09}{}\label{classRequest_a3486ae358bb5f313cf671c1e77699d09}
+
+
+Definition at line 194 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+\index{Request@{Request}!Request@{Request}}
+\index{Request@{Request}!Request@{Request}}
+\subsubsection[{\texorpdfstring{Request(const Request \&copy)}{Request(const Request &copy)}}]{\setlength{\rightskip}{0pt plus 5cm}Request\+::\+Request (
+\begin{DoxyParamCaption}
+\item[{const {\bf Request} \&}]{copy}
+\end{DoxyParamCaption}
+)}\hypertarget{classRequest_aab943afe9bcc179e2ed7b80157e8ca88}{}\label{classRequest_aab943afe9bcc179e2ed7b80157e8ca88}
+
+
+Definition at line 202 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\index{Request@{Request}!connect\+\_\+server@{connect\+\_\+server}}
+\index{connect\+\_\+server@{connect\+\_\+server}!Request@{Request}}
+\subsubsection[{\texorpdfstring{connect\+\_\+server(bool is\+\_\+nonblocking)}{connect_server(bool is_nonblocking)}}]{\setlength{\rightskip}{0pt plus 5cm}void Request\+::connect\+\_\+server (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\+\_\+nonblocking}
+\end{DoxyParamCaption}
+)}\hypertarget{classRequest_a5c25c20e0d7e7fc3d76a14fec39fd0e9}{}\label{classRequest_a5c25c20e0d7e7fc3d76a14fec39fd0e9}
+
+
+Definition at line 210 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classRequest_a5c25c20e0d7e7fc3d76a14fec39fd0e9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{classRequest_a5c25c20e0d7e7fc3d76a14fec39fd0e9_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Request@{Request}!open\+\_\+batch\+\_\+file@{open\+\_\+batch\+\_\+file}}
+\index{open\+\_\+batch\+\_\+file@{open\+\_\+batch\+\_\+file}!Request@{Request}}
+\subsubsection[{\texorpdfstring{open\+\_\+batch\+\_\+file()}{open_batch_file()}}]{\setlength{\rightskip}{0pt plus 5cm}void Request\+::open\+\_\+batch\+\_\+file (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classRequest_adb783bcf7a5ecda4db300257c4ccf660}{}\label{classRequest_adb783bcf7a5ecda4db300257c4ccf660}
+
+
+Definition at line 225 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{classRequest_adb783bcf7a5ecda4db300257c4ccf660_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{classRequest_adb783bcf7a5ecda4db300257c4ccf660_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Request@{Request}!read\+\_\+server\+\_\+response@{read\+\_\+server\+\_\+response}}
+\index{read\+\_\+server\+\_\+response@{read\+\_\+server\+\_\+response}!Request@{Request}}
+\subsubsection[{\texorpdfstring{read\+\_\+server\+\_\+response(int count, bool is\+\_\+nonblocking)}{read_server_response(int count, bool is_nonblocking)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Request\+::read\+\_\+server\+\_\+response (
+\begin{DoxyParamCaption}
+\item[{int}]{count, }
+\item[{bool}]{is\+\_\+nonblocking}
+\end{DoxyParamCaption}
+)}\hypertarget{classRequest_a5d45baa51e213afa669971f7b9cb5723}{}\label{classRequest_a5d45baa51e213afa669971f7b9cb5723}
+
+
+Definition at line 257 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classRequest_a5d45baa51e213afa669971f7b9cb5723_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{classRequest_a5d45baa51e213afa669971f7b9cb5723_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Request@{Request}!send\+\_\+batch\+\_\+file\+\_\+data\+\_\+to\+\_\+server\+\_\+once@{send\+\_\+batch\+\_\+file\+\_\+data\+\_\+to\+\_\+server\+\_\+once}}
+\index{send\+\_\+batch\+\_\+file\+\_\+data\+\_\+to\+\_\+server\+\_\+once@{send\+\_\+batch\+\_\+file\+\_\+data\+\_\+to\+\_\+server\+\_\+once}!Request@{Request}}
+\subsubsection[{\texorpdfstring{send\+\_\+batch\+\_\+file\+\_\+data\+\_\+to\+\_\+server\+\_\+once()}{send_batch_file_data_to_server_once()}}]{\setlength{\rightskip}{0pt plus 5cm}bool Request\+::send\+\_\+batch\+\_\+file\+\_\+data\+\_\+to\+\_\+server\+\_\+once (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classRequest_af06e40284c6ef025e1ef464629ae951f}{}\label{classRequest_af06e40284c6ef025e1ef464629ae951f}
+
+
+Definition at line 235 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{classRequest_af06e40284c6ef025e1ef464629ae951f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=285pt]{classRequest_af06e40284c6ef025e1ef464629ae951f_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Member Data Documentation}
+\index{Request@{Request}!addr@{addr}}
+\index{addr@{addr}!Request@{Request}}
+\subsubsection[{\texorpdfstring{addr}{addr}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Socket\+Addr} Request\+::addr}\hypertarget{classRequest_a1d6fd040a0dd5c3d0da514cf234d33cd}{}\label{classRequest_a1d6fd040a0dd5c3d0da514cf234d33cd}
+
+
+Definition at line 24 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+\index{Request@{Request}!batch\+\_\+file@{batch\+\_\+file}}
+\index{batch\+\_\+file@{batch\+\_\+file}!Request@{Request}}
+\subsubsection[{\texorpdfstring{batch\+\_\+file}{batch_file}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Request\+::batch\+\_\+file}\hypertarget{classRequest_aa5246e928a295ef769e474312d558b85}{}\label{classRequest_aa5246e928a295ef769e474312d558b85}
+
+
+Definition at line 25 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+\index{Request@{Request}!batch\+\_\+file\+\_\+stream@{batch\+\_\+file\+\_\+stream}}
+\index{batch\+\_\+file\+\_\+stream@{batch\+\_\+file\+\_\+stream}!Request@{Request}}
+\subsubsection[{\texorpdfstring{batch\+\_\+file\+\_\+stream}{batch_file_stream}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::fstream Request\+::batch\+\_\+file\+\_\+stream}\hypertarget{classRequest_a7ebbfa97cb7b1c6605e9d799f3287354}{}\label{classRequest_a7ebbfa97cb7b1c6605e9d799f3287354}
+
+
+Definition at line 31 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+\index{Request@{Request}!id@{id}}
+\index{id@{id}!Request@{Request}}
+\subsubsection[{\texorpdfstring{id}{id}}]{\setlength{\rightskip}{0pt plus 5cm}int Request\+::id}\hypertarget{classRequest_a026538b5d27774177b27d0552d25fa13}{}\label{classRequest_a026538b5d27774177b27d0552d25fa13}
+
+
+Definition at line 26 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+\index{Request@{Request}!is\+\_\+batch\+\_\+file\+\_\+open@{is\+\_\+batch\+\_\+file\+\_\+open}}
+\index{is\+\_\+batch\+\_\+file\+\_\+open@{is\+\_\+batch\+\_\+file\+\_\+open}!Request@{Request}}
+\subsubsection[{\texorpdfstring{is\+\_\+batch\+\_\+file\+\_\+open}{is_batch_file_open}}]{\setlength{\rightskip}{0pt plus 5cm}bool Request\+::is\+\_\+batch\+\_\+file\+\_\+open}\hypertarget{classRequest_a11bea4e83a069abfa16141669b41c717}{}\label{classRequest_a11bea4e83a069abfa16141669b41c717}
+
+
+Definition at line 30 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+\index{Request@{Request}!is\+\_\+server\+\_\+connect@{is\+\_\+server\+\_\+connect}}
+\index{is\+\_\+server\+\_\+connect@{is\+\_\+server\+\_\+connect}!Request@{Request}}
+\subsubsection[{\texorpdfstring{is\+\_\+server\+\_\+connect}{is_server_connect}}]{\setlength{\rightskip}{0pt plus 5cm}bool Request\+::is\+\_\+server\+\_\+connect}\hypertarget{classRequest_a30024722f13af3adb689b49ef2a3e3b7}{}\label{classRequest_a30024722f13af3adb689b49ef2a3e3b7}
+
+
+Definition at line 28 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+\index{Request@{Request}!server\+\_\+fd@{server\+\_\+fd}}
+\index{server\+\_\+fd@{server\+\_\+fd}!Request@{Request}}
+\subsubsection[{\texorpdfstring{server\+\_\+fd}{server_fd}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf socketfd\+\_\+t} Request\+::server\+\_\+fd}\hypertarget{classRequest_a223435a4804fdb654d6dc1a235225dad}{}\label{classRequest_a223435a4804fdb654d6dc1a235225dad}
+
+
+Definition at line 29 of file request\+\_\+server\+\_\+cgi.\+cpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{request__server__cgi_8cpp}{request\+\_\+server\+\_\+cgi.\+cpp}\end{DoxyCompactItemize}

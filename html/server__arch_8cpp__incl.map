@@ -1,0 +1,5 @@
+<map id="src/server_arch.cpp" name="src/server_arch.cpp">
+<area shape="rect" id="node8" href="$server__arch_8h.html" title="very basic server architecture framework, like fork&#45;based multiprocess server. " alt="" coords="575,80,677,107"/>
+<area shape="rect" id="node9" href="$socket_8h.html" title="some wrappers of POSIX socket api. " alt="" coords="489,155,561,181"/>
+<area shape="rect" id="node16" href="$utils_8h.html" title="helpers and wrappers of standard library and POSIX api. " alt="" coords="699,155,756,181"/>
+</map>

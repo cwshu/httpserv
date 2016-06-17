@@ -1,0 +1,21 @@
+<map id="httpd_service" name="httpd_service">
+<area shape="rect" id="node2" href="$httpd_8cpp.html#acd47800581c1e847cfe2e8ac4162b2dd" title="initial_document_root" alt="" coords="157,64,303,91"/>
+<area shape="rect" id="node4" href="$structSocketAddr.html#ad3130ceab48fa13e6891b4ee757f80a3" title="SocketAddr::to_str" alt="" coords="388,371,519,397"/>
+<area shape="rect" id="node5" href="$httpd_8cpp.html#a4900784e728df4d8b02a2a9236dab777" title="read_and_parse_http\l_request" alt="" coords="159,166,301,207"/>
+<area shape="rect" id="node13" href="$structhttp_1_1HTTPResponse.html#a16bac881dfef67c0b687c1d8f87aa03c" title="http::HTTPResponse\l::render_error_response_quick" alt="" coords="355,422,552,463"/>
+<area shape="rect" id="node14" href="$utils_8cpp.html#a5c0690733638b027403d563c31f6cf1c" title="write system call wrapper, it must write all data in buf to fd " alt="" coords="418,488,489,515"/>
+<area shape="rect" id="node15" href="$namespaceos.html#ad901bc4b74a0d254ab2c3c6aa5653909" title="return true if path is a directory " alt="" coords="193,624,267,651"/>
+<area shape="rect" id="node16" href="$structhttp_1_1HTTPResponse.html#a23c39df4ae7668b776d562107684f0a6" title="http::HTTPResponse\l::render_response_metadata" alt="" coords="360,539,547,581"/>
+<area shape="rect" id="node17" href="$httpd_8cpp.html#a4bc0987661f3430ddc8ce292aba1dde2" title="static_content_handler" alt="" coords="153,371,307,397"/>
+<area shape="rect" id="node19" href="$namespaceos.html#a8068330a6b2b153eaa31ac058a8c053d" title="return the list of name of files in directory. sorted. error if return empty vector ..." alt="" coords="189,675,271,701"/>
+<area shape="rect" id="node20" href="$httpd_8cpp.html#a06d3502045d43a9ca9e3bafacc148fdb" title="cgi_handler" alt="" coords="186,523,274,549"/>
+<area shape="rect" id="node3" href="$utils_8cpp.html#a916f6075b5077986a510eda181ebe045" title="perror_and_exit" alt="" coords="617,93,727,120"/>
+<area shape="rect" id="node6" href="$namespacestr.html#a857ddd7aa296fcf860401e713155cece" title="wrapper of POSIX syscall read, return C++ std::string instead of memory buffer " alt="" coords="418,203,489,229"/>
+<area shape="rect" id="node7" href="$utils_8cpp.html#a12dd965675944e1c14f13945fa45b135" title="remove leading and trailing whitespaces of string " alt="" coords="430,35,477,61"/>
+<area shape="rect" id="node8" href="$utils_8cpp.html#a02fc750c1bdf4404f2dc65c8027402b3" title="fetch_word" alt="" coords="410,85,497,112"/>
+<area shape="rect" id="node9" href="$namespacehttp.html#a5ba1900a0d4aac4aef53ca5a7bcdd025" title="http::str_to_http_request\l_method" alt="" coords="371,137,535,178"/>
+<area shape="rect" id="node10" href="$structhttp_1_1HTTPRequest.html#a09bee930c6da9c7ee1197c2de18ee1cc" title="http::HTTPRequest::\lprint" alt="" coords="381,254,525,295"/>
+<area shape="rect" id="node11" href="$namespacehttp.html#a17b47b6de921aecb55eb122231c314a3" title="http::http_request\l_method_to_str" alt="" coords="610,458,734,499"/>
+<area shape="rect" id="node12" href="$structhttp_1_1HTTPRequest.html#a4d18577ce9b622e694af75ca311b4a6e" title="http::HTTPRequest::\lprint_header" alt="" coords="600,254,744,295"/>
+<area shape="rect" id="node18" href="$httpd_8cpp.html#addccb263e6d96f23dec09ee2ccbe51bb" title="mine_type" alt="" coords="412,320,495,347"/>
+</map>

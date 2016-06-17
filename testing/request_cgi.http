@@ -1,5 +1,0 @@
-GET /request_server.cgi?h1=localhost&p1=52000&f1=t1.txt#frag HTTP/1.1
-Host: localhost
-User-Agent: netcat/0.7.1 (The GNU Netcat)
-
-

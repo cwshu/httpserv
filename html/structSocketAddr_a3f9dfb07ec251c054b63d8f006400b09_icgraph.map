@@ -1,0 +1,6 @@
+<map id="SocketAddr::to_sockaddr_in" name="SocketAddr::to_sockaddr_in">
+<area shape="rect" id="node2" href="$socket_8h.html#a64814aef02edaeb12398d7d165aae177" title="socket_bind" alt="" coords="251,13,343,39"/>
+<area shape="rect" id="node5" href="$socket_8h.html#a0bf6e5d001e1422c673594e110880cf4" title="socket_connect" alt="" coords="240,63,355,90"/>
+<area shape="rect" id="node3" href="$server__arch_8h.html#af8f8c84dbc3d661af40d62d4365ac322" title="bind_and_listen_tcp\l_socket" alt="" coords="403,5,540,47"/>
+<area shape="rect" id="node4" href="$httpd_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main" alt="" coords="588,13,639,39"/>
+</map>

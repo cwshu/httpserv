@@ -1,0 +1,10 @@
+<map id="read_and_parse_http_request" name="read_and_parse_http_request">
+<area shape="rect" id="node2" href="$namespacestr.html#a857ddd7aa296fcf860401e713155cece" title="wrapper of POSIX syscall read, return C++ std::string instead of memory buffer " alt="" coords="243,5,313,32"/>
+<area shape="rect" id="node4" href="$utils_8cpp.html#a12dd965675944e1c14f13945fa45b135" title="remove leading and trailing whitespaces of string " alt="" coords="255,56,301,83"/>
+<area shape="rect" id="node5" href="$utils_8cpp.html#a02fc750c1bdf4404f2dc65c8027402b3" title="fetch_word" alt="" coords="235,107,321,133"/>
+<area shape="rect" id="node6" href="$namespacehttp.html#a5ba1900a0d4aac4aef53ca5a7bcdd025" title="http::str_to_http_request\l_method" alt="" coords="196,158,360,199"/>
+<area shape="rect" id="node7" href="$structhttp_1_1HTTPRequest.html#a09bee930c6da9c7ee1197c2de18ee1cc" title="http::HTTPRequest::\lprint" alt="" coords="206,223,350,265"/>
+<area shape="rect" id="node3" href="$utils_8cpp.html#a916f6075b5077986a510eda181ebe045" title="perror_and_exit" alt="" coords="425,5,535,32"/>
+<area shape="rect" id="node8" href="$namespacehttp.html#a17b47b6de921aecb55eb122231c314a3" title="http::http_request\l_method_to_str" alt="" coords="418,190,542,231"/>
+<area shape="rect" id="node9" href="$structhttp_1_1HTTPRequest.html#a4d18577ce9b622e694af75ca311b4a6e" title="http::HTTPRequest::\lprint_header" alt="" coords="408,255,552,297"/>
+</map>
