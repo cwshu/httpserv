@@ -1,48 +1,53 @@
-## Parameters
+### Parameters
+
+ifeq ($(DEBUG),1)
+    DBG_CFLAG = -O0 -g3
+else
+    DBG_CFLAG =
+endif
 
 # compiler related
-CC = gcc -g
-CFLAGS = -std=c99 -g
+CC  = gcc
 CXX = clang++
-CXXFLAGS = -std=c++11 -g
 
+CFLAGS   = -std=c99 $(DBG_CFLAG)
+CXXFLAGS = -std=c++11 $(DBG_CFLAG)
+
+# other tools
+MAKE    = make
 DOXYGEN = doxygen
 
-# prefix, src Directory
-PREFIX = ./build
-SRC_DIR = ./src
-
-# exe, objs without path
-EXE = httpd
-OBJS = httpd.o httplib.o server_arch.o socket.o utils.o
-
-# exe, objs with path
-EXE_PATH = $(addprefix $(PREFIX)/, $(EXE))
-OBJS_PATH = $(addprefix $(PREFIX)/, $(OBJS))
-
-# srcs
-SRCS = $(patsubst %.o,%.cpp,$(OBJS))
-SRCS_PATH = $(addprefix $(SRC_DIR)/, $(SRCS))
-
-# make
-MAKE = make
-# platform issue
 UNAME = $(shell uname)
 ifeq ($(UNAME), FreeBSD)
     MAKE = gmake
 endif
 
-## Rules
+# prefix, src Directory
+PREFIX = ./build
+SRC_DIR = ./src
 
-all: $(EXE_PATH)
+### Define source files
+
+SRCS = httpd.cpp httplib.cpp server_arch.cpp socket.cpp utils.cpp
+SRCS_PATH = $(addprefix $(SRC_DIR)/, $(SRCS))
+
+OBJS = $(patsubst %.cpp,%.o,$(SRCS))
+BUILD_OBJS = $(addprefix $(PREFIX)/, $(OBJS))
+
+PROGRAM = httpd
+BUILD_PROGRAM = $(addprefix $(PREFIX)/, $(PROGRAM))
+
+### Rules
+
+all: $(BUILD_PROGRAM)
 
 clean: 
-	rm -f $(EXE_PATH) $(OBJS_PATH)
+	rm -rf $(PREFIX)
 
-$(EXE_PATH): $(OBJS_PATH)
+$(BUILD_PROGRAM): $(BUILD_OBJS)
 	$(CXX) -o $@ $(CXXFLAGS) $^
 
-$(OBJS_PATH): $(PREFIX)/%.o: $(SRC_DIR)/%.cpp | $(PREFIX)
+$(BUILD_OBJS): $(PREFIX)/%.o: $(SRC_DIR)/%.cpp | $(PREFIX)
 	$(CXX) -o $@ $(CXXFLAGS) -c $<
 
 # make directory
