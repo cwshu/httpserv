@@ -26,6 +26,20 @@ endif
 PREFIX = ./build
 SRC_DIR = ./src
 
+### Verbosity control. Use 'make V=1' to get verbose builds.
+
+ifeq ($(V),1)
+TRACE_CC  = 
+TRACE_CXX =
+TRACE_LD  =
+Q=
+else
+TRACE_CC  = @echo "  CC       " $<
+TRACE_CXX = @echo "  CXX      " $<
+TRACE_LD  = @echo "  LD       " $@
+Q=@
+endif
+
 ### Define source files
 
 SRCS = httpd.cpp httplib.cpp server_arch.cpp socket.cpp utils.cpp
@@ -45,10 +59,12 @@ clean:
 	rm -rf $(PREFIX)
 
 $(BUILD_PROGRAM): $(BUILD_OBJS)
-	$(CXX) -o $@ $(CXXFLAGS) $^
+	$(TRACE_LD)
+	$(Q)$(CXX) -o $@ $(CXXFLAGS) $^
 
 $(BUILD_OBJS): $(PREFIX)/%.o: $(SRC_DIR)/%.cpp | $(PREFIX)
-	$(CXX) -o $@ $(CXXFLAGS) -c $<
+	$(TRACE_CXX)
+	$(Q)$(CXX) -o $@ $(CXXFLAGS) -c $<
 
 # make directory
 $(PREFIX):
